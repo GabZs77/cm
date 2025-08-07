@@ -68,7 +68,25 @@
     <div id="chatMessages"></div>
     <textarea id="chatInput" placeholder="Digite sua mensagem..."></textarea>
     <button onclick="sendMessage()">Enviar</button>
-    <button onclick="logout()">Sair</button>
+
+    <hr style="margin: 1rem 0;" />
+
+    <button onclick="getDailyBonus()">Coletar Bônus Diário</button>
+    <button onclick="showQuiz()">Responder Quiz Diário</button>
+    <button onclick="showRanking()">Ver Ranking</button>
+
+    <div id="quizSection" style="display:none; margin-top: 1rem;">
+      <p id="quizQuestion"></p>
+      <input type="text" id="quizAnswer" placeholder="Sua resposta" />
+      <button onclick="submitQuiz()">Enviar Resposta</button>
+    </div>
+
+    <div id="rankingSection" style="display:none; margin-top: 1rem;">
+      <h3>Ranking de Pontos</h3>
+      <ol id="rankingList"></ol>
+    </div>
+
+    <button onclick="logout()" style="margin-top: 1rem;">Sair</button>
   </div>
 
   <script>
@@ -108,7 +126,9 @@
         } else {
           db.ref("users/" + username).set({
             password: password,
-            points: 0
+            points: 0,
+            lastBonus: 0,
+            lastQuiz: 0
           });
           alert("Cadastro realizado com sucesso!");
         }
@@ -166,6 +186,87 @@
         msgDiv.innerHTML = `<span class='sender'>${data.sender}:</span> ${data.text}`;
         chatBox.appendChild(msgDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
+      });
+    }
+
+    function getDailyBonus() {
+      const userRef = db.ref("users/" + currentUser);
+      userRef.once("value", snapshot => {
+        const userData = snapshot.val();
+        const lastBonus = userData.lastBonus || 0;
+        const now = Date.now();
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        if (now - lastBonus < oneDay) {
+          alert("Você já coletou o bônus diário hoje!");
+        } else {
+          const newPoints = (userData.points || 0) + 10;
+          userRef.update({ points: newPoints, lastBonus: now });
+          alert("Bônus diário coletado! +10 pontos");
+        }
+      });
+    }
+
+    const quizData = {
+      question: "Qual é a capital do Brasil?",
+      answer: "Brasília"
+    };
+
+    function showQuiz() {
+      document.getElementById("quizQuestion").innerText = quizData.question;
+      document.getElementById("quizSection").style.display = "block";
+    }
+
+    function submitQuiz() {
+      const userAnswer = document.getElementById("quizAnswer").value.trim().toLowerCase();
+      const userRef = db.ref("users/" + currentUser);
+
+      userRef.once("value", snapshot => {
+        const userData = snapshot.val();
+        const lastQuiz = userData.lastQuiz || 0;
+        const now = Date.now();
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        if (now - lastQuiz < oneDay) {
+          alert("Você já respondeu o quiz hoje!");
+        } else if (userAnswer === quizData.answer.toLowerCase()) {
+          const newPoints = (userData.points || 0) + 15;
+          userRef.update({ points: newPoints, lastQuiz: now });
+          alert("Resposta correta! +15 pontos");
+        } else {
+          userRef.update({ lastQuiz: now });
+          alert("Resposta incorreta! Tente novamente amanhã.");
+        }
+
+        document.getElementById("quizSection").style.display = "none";
+        document.getElementById("quizAnswer").value = "";
+      });
+    }
+
+    function showRanking() {
+      const rankingSection = document.getElementById("rankingSection");
+      const rankingList = document.getElementById("rankingList");
+      rankingList.innerHTML = "";
+      rankingSection.style.display = "block";
+
+      db.ref("users").once("value", snapshot => {
+        const users = snapshot.val();
+        const rankingArray = [];
+
+        for (const key in users) {
+          rankingArray.push({
+            name: key,
+            points: users[key].points || 0
+          });
+        }
+
+        rankingArray.sort((a, b) => b.points - a.points);
+
+        rankingArray.forEach(user => {
+          const item = document.createElement("li");
+          item.textContent = `${user.name} - ${user.points} pts`;
+          rankingList.appendChild(item);
+        });
       });
     }
   </script>
