@@ -1,82 +1,136 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel Escolar Galáxia</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Escolar</title>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+    * {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #2c003e, #4b0082);
-      color: white;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #4b0082, #000000);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       overflow: hidden;
     }
-    .login-container, .main-container {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #9c27b0;
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif');
+      background-size: cover;
+      z-index: 0;
+      opacity: 0.2;
+    }
+
+    #loginPage, #mainPanel {
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      background: rgba(75, 0, 130, 0.7);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 25px rgba(186, 85, 211, 0.8);
       width: 90%;
-      max-width: 400px;
+      max-width: 500px;
+      gap: 1.2rem;
+      backdrop-filter: blur(8px);
+      color: white;
     }
-    h1, h2 {
+
+    h2, h3 {
       text-align: center;
-      margin-bottom: 20px;
+      color: #e0b3ff;
+      text-shadow: 0 0 10px #ba55d3;
     }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
+
+    input, textarea {
+      padding: 0.9rem;
       border: none;
-      border-radius: 8px;
-      background-color: #1f1f2e;
-      color: white;
+      border-radius: 0.5rem;
+      outline: none;
+      font-size: 1rem;
+      background-color: #1c0033;
+      color: #fff;
+      box-shadow: inset 0 0 5px #7a00cc;
     }
+
     button {
-      width: 100%;
-      padding: 10px;
-      background: #9c27b0;
+      padding: 0.9rem;
+      background: linear-gradient(45deg, #8e2de2, #4a00e0);
       border: none;
-      border-radius: 8px;
+      border-radius: 0.5rem;
       color: white;
-      font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    #chatBox {
-      height: 200px;
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #c964ff;
+    }
+
+    #chatMessages {
+      max-height: 200px;
       overflow-y: auto;
-      background: #1f1f2e;
-      padding: 10px;
-      border-radius: 8px;
-      margin-bottom: 10px;
+      background: #1c0033;
+      padding: 1rem;
+      border-radius: 0.5rem;
     }
+
     .message {
-      margin: 5px 0;
-      padding: 5px;
-      border-radius: 5px;
-      background: #3a0057;
+      margin-bottom: 0.5rem;
+      word-break: break-word;
+    }
+
+    .sender {
+      color: #c964ff;
+    }
+
+    @media (max-width: 500px) {
+      #loginPage, #mainPanel {
+        padding: 1.5rem;
+        gap: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="login-container" id="loginScreen">
-    <h1>Bem-vindo à Galáxia Escolar</h1>
-    <input type="text" id="nome" placeholder="Nome completo">
-    <input type="text" id="serie" placeholder="Série (ex: 1⁰D)">
-    <input type="password" id="senha" placeholder="Senha">
+  <div class="stars"></div>
+
+  <div id="loginPage">
+    <h2>Entrar no Portal Escolar</h2>
+    <input type="text" id="fullName" placeholder="Nome completo (Ex: Gabriel Henrique de Oliveira)" />
+    <input type="text" id="serie" placeholder="Série (Ex: 1ºD)" />
+    <input type="password" id="password" placeholder="Senha (Ex: 785779Gh)" />
     <button onclick="login()">Entrar</button>
-  </div>  <div class="main-container" id="mainScreen" style="display: none;">
-    <h2>Chat da Galáxia</h2>
-    <div id="chatBox"></div>
-    <input type="text" id="mensagem" placeholder="Digite sua mensagem">
-    <button onclick="enviarMensagem()">Enviar</button>
-  </div>  <script>
+  </div>
+
+  <div id="mainPanel" style="display:none">
+    <h2>Bem-vindo ao Painel Escolar</h2>
+    <button>🎁 Bônus Diários</button>
+    <button>🏆 Ranking</button>
+    <button>🧠 Quiz</button>
+    <h3>💬 Chat entre Alunos</h3>
+    <div id="chatMessages"></div>
+    <textarea id="chatInput" placeholder="Digite sua mensagem..."></textarea>
+    <button onclick="sendMessage()">Enviar</button>
+    <button onclick="logout()">Sair</button>
+  </div>
+
+  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyA4p1jeIMrQT4pI1p3fLO8OBRdveK0eQCg",
       authDomain: "quizzgame-9c5ee.firebaseapp.com",
@@ -89,45 +143,65 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    let usuarioAtual = "";
+    let currentUser = null;
 
     function login() {
-      const nome = document.getElementById("nome").value.trim();
+      const name = document.getElementById("fullName").value.trim();
       const serie = document.getElementById("serie").value.trim();
-      const senha = document.getElementById("senha").value.trim();
+      const pass = document.getElementById("password").value.trim();
 
-      if (nome && serie && senha) {
-        usuarioAtual = nome + " (" + serie + ")";
-        document.getElementById("loginScreen").style.display = "none";
-        document.getElementById("mainScreen").style.display = "block";
-        escutarMensagens();
-      } else {
-        alert("Preencha todos os campos.");
+      if (!name || !serie || !pass) {
+        alert("Preencha todos os campos!");
+        return;
       }
+
+      const username = `${name} (${serie})`;
+      let users = JSON.parse(localStorage.getItem("users") || "{}");
+
+      if (!users[username]) {
+        users[username] = { password: pass, points: 0 };
+        localStorage.setItem("users", JSON.stringify(users));
+      } else if (users[username].password !== pass) {
+        alert("Senha incorreta!");
+        return;
+      }
+
+      currentUser = username;
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("mainPanel").style.display = "flex";
+      listenForMessages();
     }
 
-    function enviarMensagem() {
-      const texto = document.getElementById("mensagem").value.trim();
-      if (texto) {
-        db.ref("chat").push({
-          sender: usuarioAtual,
-          text: texto,
-          timestamp: Date.now()
-        });
-        document.getElementById("mensagem").value = "";
-      }
+    function logout() {
+      currentUser = null;
+      document.getElementById("mainPanel").style.display = "none";
+      document.getElementById("loginPage").style.display = "flex";
     }
 
-    function escutarMensagens() {
-      const chatBox = document.getElementById("chatBox");
-      db.ref("chat").limitToLast(100).on("child_added", function(snapshot) {
-        const msg = snapshot.val();
-        const div = document.createElement("div");
-        div.classList.add("message");
-        div.innerText = `${msg.sender}: ${msg.text}`;
-        chatBox.appendChild(div);
+    function sendMessage() {
+      const message = document.getElementById("chatInput").value.trim();
+      if (!message) return;
+
+      db.ref("chat").push({
+        sender: currentUser,
+        text: message,
+        timestamp: Date.now()
+      });
+
+      document.getElementById("chatInput").value = "";
+    }
+
+    function listenForMessages() {
+      db.ref("chat").limitToLast(50).on("child_added", (snapshot) => {
+        const data = snapshot.val();
+        const chatBox = document.getElementById("chatMessages");
+        const msgDiv = document.createElement("div");
+        msgDiv.classList.add("message");
+        msgDiv.innerHTML = `<span class='sender'>${data.sender}:</span> ${data.text}`;
+        chatBox.appendChild(msgDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
       });
     }
-  </script></body>
+  </script>
+</body>
 </html>
