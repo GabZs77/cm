@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel do QuizzGame</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .painel-container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .user-info {
+      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .logout-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <div class="painel-container">
+    <h2>Bem-vindo ao Painel do QuizzGame</h2>
+    <div class="user-info" id="userInfo">Carregando informações...</div>
+    <button class="logout-btn" onclick="logout()">Sair</button>
+
+    <!-- Aqui você pode adicionar quizzes, estatísticas, etc -->
+    <div id="quizzes">
+      <h3>Seus Quizzes</h3>
+      <p>Ainda não há quizzes disponíveis.</p>
+    </div>
+  </div>
+
+  <script>
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Você precisa estar logado para acessar o painel.');
+      window.location.href = 'index.html';
+    } else {
+      fetch('http://localhost:3000/api/auth/verify', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.valid) {
+          alert('Sessão expirada. Faça login novamente.');
+          window.location.href = 'index.html';
+        } else {
+          // Aqui você pode buscar dados do usuário com o ID
+          fetch(`http://localhost:3000/api/users/${data.userId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+          .then(res => res.json())
+          .then(user => {
+            document.getElementById('userInfo').innerText =
+              `Usuário: ${user.nome} | Série: ${user.serie}`;
+          });
+        }
+      })
+      .catch(() => {
+        alert('Erro de autenticação.');
+        window.location.href = 'index.html';
+      });
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
