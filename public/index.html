@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QuizzGame</title>
   <style>
+    /* 🌌 Estilo Futurista Roxo Galáxia */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      color: white;
+      background: radial-gradient(circle at top left, #2e004f, #0d001a);
+      color: #e0d6ff;
+      overflow-x: hidden;
     }
 
     .login-container {
@@ -17,36 +19,53 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      background: url('https://images.unsplash.com/photo-1604079628045-3c3c3c3c3c3c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+      background-size: cover;
     }
 
     form {
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(30, 0, 60, 0.85);
       padding: 30px;
-      border-radius: 10px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #7f00ff;
       animation: fadeIn 1s ease-in;
       width: 90%;
       max-width: 400px;
+      backdrop-filter: blur(6px);
     }
 
     form h2 {
       margin-bottom: 20px;
       text-align: center;
+      color: #caa9ff;
+      text-shadow: 0 0 5px #9f00ff;
     }
 
     input, button {
       display: block;
       width: 100%;
       margin: 10px 0;
-      padding: 10px;
+      padding: 12px;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 16px;
+      background-color: #3a0066;
+      color: #fff;
+    }
+
+    input::placeholder {
+      color: #caa9ff;
     }
 
     button {
-      background-color: #00c6ff;
-      color: white;
+      background: linear-gradient(to right, #9f00ff, #6a00f4);
+      font-weight: bold;
       cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
     }
 
     .main-content {
@@ -58,12 +77,14 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(30, 0, 60, 0.6);
+      box-shadow: 0 0 10px #7f00ff;
     }
 
     .menu-icon {
       font-size: 24px;
       cursor: pointer;
+      color: #caa9ff;
     }
 
     .top-right {
@@ -73,16 +94,19 @@
     }
 
     .top-right a {
-      color: white;
+      color: #caa9ff;
       text-decoration: none;
       font-weight: bold;
       cursor: pointer;
     }
 
     .top-right button {
-      background-color: #ff4b2b;
+      background: linear-gradient(to right, #ff00cc, #3333ff);
       padding: 8px 12px;
       border-radius: 5px;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
 
     .welcome-message {
@@ -90,39 +114,39 @@
       font-size: 24px;
       margin-top: 30px;
       animation: fadeIn 1s ease-in;
+      color: #e0d6ff;
+      text-shadow: 0 0 10px #9f00ff;
     }
 
     .sidebar {
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(30, 0, 60, 0.9);
       padding: 15px;
       position: fixed;
       top: 60px;
       left: 0;
-      width: 200px;
+      width: 220px;
       z-index: 1000;
+      box-shadow: 0 0 10px #7f00ff;
     }
 
     .sidebar button {
       margin: 5px 0;
-      background-color: #00c6ff;
+      background: linear-gradient(to right, #6a00f4, #9f00ff);
       width: 100%;
       padding: 10px;
       border-radius: 5px;
       font-weight: bold;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
 
-    .pv-content {
+    .pv-content, .sobre {
       margin-top: 20px;
-      padding: 10px;
-      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
-    }
-
-    .sobre {
-      margin-top: 20px;
-      padding: 10px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
+      box-shadow: 0 0 10px #7f00ff;
     }
 
     .hidden {
