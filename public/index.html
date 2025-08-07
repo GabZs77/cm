@@ -4,10 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal Escolar</title>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
     * {
       margin: 0;
       padding: 0;
@@ -22,7 +21,6 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      color: white;
     }
 
     .stars {
@@ -35,7 +33,7 @@
       opacity: 0.2;
     }
 
-    #loginPage, #mainPanel {
+    #loginPage {
       z-index: 1;
       display: flex;
       flex-direction: column;
@@ -49,14 +47,14 @@
       backdrop-filter: blur(8px);
     }
 
-    #loginPage h2, #mainPanel h2 {
+    #loginPage h2 {
       text-align: center;
       color: #e0b3ff;
       font-size: 1.8rem;
       text-shadow: 0 0 10px #ba55d3;
     }
 
-    input, textarea {
+    input {
       padding: 0.9rem;
       border: none;
       border-radius: 0.5rem;
@@ -65,10 +63,9 @@
       background-color: #1c0033;
       color: #fff;
       box-shadow: inset 0 0 5px #7a00cc;
-      width: 100%;
     }
 
-    input::placeholder, textarea::placeholder {
+    input::placeholder {
       color: #999;
     }
 
@@ -88,23 +85,6 @@
       box-shadow: 0 0 10px #c964ff;
     }
 
-    #chatMessages {
-      max-height: 200px;
-      overflow-y: auto;
-      background: #1c0033;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .message {
-      margin-bottom: 0.5rem;
-    }
-
-    .sender {
-      color: #c964ff;
-    }
-
     @media (max-width: 500px) {
       #loginPage {
         padding: 1.5rem;
@@ -121,214 +101,41 @@
     <input type="text" id="fullName" placeholder="Nome completo (Ex: Gabriel Henrique de Oliveira)" />
     <input type="text" id="serie" placeholder="Série (Ex: 1ºD)" />
     <input type="password" id="password" placeholder="Senha (Ex: 785779Gh)" />
-    <button onclick="register()">Cadastrar</button>
     <button onclick="login()">Entrar</button>
   </div>
 
-  <div id="mainPanel" style="display:none">
-    <h2>Bem-vindo ao Painel Escolar</h2>
-    <div id="chatMessages"></div>
-    <textarea id="chatInput" placeholder="Digite sua mensagem..."></textarea>
-    <button onclick="sendMessage()">Enviar</button>
-
-    <hr style="margin: 1rem 0;" />
-    <button onclick="getDailyBonus()">Coletar Bônus Diário</button>
-    <button onclick="showQuiz()">Responder Quiz Diário</button>
-    <button onclick="showRanking()">Ver Ranking</button>
-
-    <div id="quizSection" style="display:none; margin-top: 1rem;">
-      <p id="quizQuestion"></p>
-      <input type="text" id="quizAnswer" placeholder="Sua resposta" />
-      <button onclick="submitQuiz()">Enviar Resposta</button>
-    </div>
-
-    <div id="rankingSection" style="display:none; margin-top: 1rem;">
-      <h3>Ranking de Pontos</h3>
-      <ol id="rankingList"></ol>
-    </div>
-
-    <button onclick="logout()" style="margin-top: 1rem;">Sair</button>
-  </div>
-
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyA4p1jeIMrQT4pI1p3fLO8OBRdveK0eQCg",
-      authDomain: "quizzgame-9c5ee.firebaseapp.com",
-      databaseURL: "https://quizzgame-9c5ee-default-rtdb.firebaseio.com",
-      projectId: "quizzgame-9c5ee",
-      storageBucket: "quizzgame-9c5ee.appspot.com",
-      messagingSenderId: "328947922360",
-      appId: "1:328947922360:web:45adf0edf995813bce4b4d"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
     let currentUser = null;
 
-    function getUsername() {
+    function login() {
       const name = document.getElementById("fullName").value.trim();
       const serie = document.getElementById("serie").value.trim();
-      return `${name} (${serie})`;
-    }
+      const pass = document.getElementById("password").value.trim();
 
-    function register() {
-      const username = getUsername();
-      const password = document.getElementById("password").value.trim();
-
-      if (!username || !password) {
+      if (!name || !serie || !pass) {
         alert("Preencha todos os campos!");
         return;
       }
 
-      db.ref("users/" + username).once("value", snapshot => {
-        if (snapshot.exists()) {
-          alert("Usuário já existe!");
-        } else {
-          db.ref("users/" + username).set({
-            password: password,
-            points: 0,
-            lastBonus: 0,
-            lastQuiz: 0
-          });
-          alert("Cadastro realizado com sucesso!");
-        }
-      });
-    }
+      const username = `${name} ${serie}`;
+      let users = JSON.parse(localStorage.getItem("users") || "{}");
 
-    function login() {
-      const username = getUsername();
-      const password = document.getElementById("password").value.trim();
-
-      if (!username || !password) {
-        alert("Preencha todos os campos!");
+      if (!users[username]) {
+        // Se o usuário não existe, cria e salva
+        users[username] = { password: pass, points: 0, messages: [] };
+        localStorage.setItem("users", JSON.stringify(users));
+        alert(`Conta criada! Bem-vindo, ${username}!`);
+      } else if (users[username].password !== pass) {
+        // Senha incorreta
+        alert("Senha incorreta!");
         return;
+      } else {
+        alert(`Bem-vindo de volta, ${username}!`);
       }
 
-      db.ref("users/" + username).once("value", snapshot => {
-        if (!snapshot.exists()) {
-          alert("Usuário não encontrado!");
-        } else if (snapshot.val().password !== password) {
-          alert("Senha incorreta!");
-        } else {
-          currentUser = username;
-          document.getElementById("loginPage").style.display = "none";
-          document.getElementById("mainPanel").style.display = "flex";
-          listenForMessages();
-        }
-      });
-    }
-
-    function logout() {
-      currentUser = null;
-      document.getElementById("mainPanel").style.display = "none";
-      document.getElementById("loginPage").style.display = "flex";
-    }
-
-    function sendMessage() {
-      const message = document.getElementById("chatInput").value.trim();
-      if (!message || !currentUser) return;
-
-      db.ref("chat").push({
-        sender: currentUser,
-        text: message,
-        timestamp: Date.now()
-      });
-
-      document.getElementById("chatInput").value = "";
-    }
-
-    function listenForMessages() {
-      db.ref("chat").limitToLast(50).on("child_added", snapshot => {
-        const data = snapshot.val();
-        const chatBox = document.getElementById("chatMessages");
-        const msgDiv = document.createElement("div");
-        msgDiv.classList.add("message");
-        msgDiv.innerHTML = `<span class='sender'>${data.sender}:</span> ${data.text}`;
-        chatBox.appendChild(msgDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-      });
-    }
-
-    function getDailyBonus() {
-      const userRef = db.ref("users/" + currentUser);
-      userRef.once("value", snapshot => {
-        const userData = snapshot.val();
-        const lastBonus = userData.lastBonus || 0;
-        const now = Date.now();
-        const oneDay = 24 * 60 * 60 * 1000;
-
-        if (now - lastBonus < oneDay) {
-          alert("Você já coletou o bônus diário hoje!");
-        } else {
-          const newPoints = (userData.points || 0) + 10;
-          userRef.update({ points: newPoints, lastBonus: now });
-          alert("Bônus diário coletado! +10 pontos");
-        }
-      });
-    }
-
-    const quizData = {
-      question: "Qual é a capital do Brasil?",
-      answer: "Brasília"
-    };
-
-    function showQuiz() {
-      document.getElementById("quizQuestion").innerText = quizData.question;
-      document.getElementById("quizSection").style.display = "block";
-    }
-
-    function submitQuiz() {
-      const userAnswer = document.getElementById("quizAnswer").value.trim().toLowerCase();
-      const userRef = db.ref("users/" + currentUser);
-
-      userRef.once("value", snapshot => {
-        const userData = snapshot.val();
-        const lastQuiz = userData.lastQuiz || 0;
-        const now = Date.now();
-        const oneDay = 24 * 60 * 60 * 1000;
-
-        if (now - lastQuiz < oneDay) {
-          alert("Você já respondeu o quiz hoje!");
-        } else if (userAnswer === quizData.answer.toLowerCase()) {
-          const newPoints = (userData.points || 0) + 15;
-          userRef.update({ points: newPoints, lastQuiz: now });
-          alert("Resposta correta! +15 pontos");
-        } else {
-          userRef.update({ lastQuiz: now });
-          alert("Resposta incorreta! Tente novamente amanhã.");
-        }
-
-        document.getElementById("quizSection").style.display = "none";
-        document.getElementById("quizAnswer").value = "";
-      });
-    }
-
-    function showRanking() {
-      const rankingSection = document.getElementById("rankingSection");
-      const rankingList = document.getElementById("rankingList");
-      rankingList.innerHTML = "";
-      rankingSection.style.display = "block";
-
-      db.ref("users").once("value", snapshot => {
-        const users = snapshot.val();
-        const rankingArray = [];
-
-        for (const key in users) {
-          rankingArray.push({
-            name: key,
-            points: users[key].points || 0
-          });
-        }
-
-        rankingArray.sort((a, b) => b.points - a.points);
-
-        rankingArray.forEach(user => {
-          const item = document.createElement("li");
-          item.textContent = `${user.name} - ${user.points} pts`;
-          rankingList.appendChild(item);
-        });
-      });
+      currentUser = username;
+      // Aqui você pode redirecionar para outra página, ex:
+      // window.location.href = "painel.html";
     }
   </script>
 </body>
