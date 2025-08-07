@@ -2,134 +2,134 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal Escolar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal Escolar - Login</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Orbitron', sans-serif; }
     body {
-      background: radial-gradient(circle at top left, #4b0082, #000000);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
+      background: radial-gradient(circle at top left, #4b0082, #000);
+      display: flex; justify-content:center; align-items:center;
+      height:100vh; color:#fff;
     }
-
-    .stars {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif');
-      background-size: cover;
-      z-index: 0;
-      opacity: 0.2;
-    }
-
     #loginPage {
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      background: rgba(75, 0, 130, 0.7);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 25px rgba(186, 85, 211, 0.8);
-      width: 90%;
-      max-width: 420px;
-      gap: 1.2rem;
-      backdrop-filter: blur(8px);
+      background: rgba(75,0,130,0.8);
+      padding: 2rem; border-radius: 1rem;
+      box-shadow: 0 0 25px #ba55d3;
+      width: 90%; max-width: 400px;
+      display: flex; flex-direction: column; gap: 1rem;
+      backdrop-filter: blur(6px);
     }
-
     #loginPage h2 {
-      text-align: center;
-      color: #e0b3ff;
-      font-size: 1.8rem;
+      text-align:center;
+      color:#e0b3ff;
       text-shadow: 0 0 10px #ba55d3;
+      font-weight: 700;
     }
-
     input {
       padding: 0.9rem;
-      border: none;
-      border-radius: 0.5rem;
-      outline: none;
+      border:none;
+      border-radius:0.5rem;
+      outline:none;
       font-size: 1rem;
       background-color: #1c0033;
-      color: #fff;
+      color:#fff;
       box-shadow: inset 0 0 5px #7a00cc;
     }
-
     input::placeholder {
-      color: #999;
+      color:#999;
     }
-
     button {
       padding: 0.9rem;
       background: linear-gradient(45deg, #8e2de2, #4a00e0);
-      border: none;
+      border:none;
       border-radius: 0.5rem;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
+      color:#fff;
+      font-size: 1.1rem;
+      cursor:pointer;
+      box-shadow: 0 0 10px #c964ff;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-
     button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 10px #c964ff;
+      box-shadow: 0 0 15px #d87aff;
     }
-
-    @media (max-width: 500px) {
-      #loginPage {
-        padding: 1.5rem;
-        gap: 1rem;
-      }
+    #toggleSwitch {
+      display:flex; align-items:center; gap:0.5rem;
+      color:#cbb0ff;
+      cursor:pointer;
+      user-select:none;
+      font-size: 0.9rem;
+      margin-top: -0.5rem;
+    }
+    #toggleSwitch input {
+      cursor:pointer;
     }
   </style>
 </head>
 <body>
-  <div class="stars"></div>
   <div id="loginPage">
-    <h2>Entrar no Portal Escolar</h2>
-    <input type="text" id="fullName" placeholder="Nome completo (Ex: Gabriel Henrique de Oliveira)" />
+    <h2>Portal Escolar</h2>
+    <input type="text" id="fullName" placeholder="Nome completo" />
     <input type="text" id="serie" placeholder="Série (Ex: 1ºD)" />
-    <input type="password" id="password" placeholder="Senha (Ex: 785779Gh)" />
-    <button onclick="login()">Entrar</button>
+    <input type="password" id="password" placeholder="Senha" />
+    <div id="toggleSwitch">
+      <input type="checkbox" id="modeToggle" />
+      <label for="modeToggle">Cadastrar novo usuário</label>
+    </div>
+    <button id="actionBtn" onclick="handleAction()">Entrar</button>
   </div>
 
   <script>
-    function login() {
+    function getUsername() {
       const name = document.getElementById("fullName").value.trim();
       const serie = document.getElementById("serie").value.trim();
-      const pass = document.getElementById("password").value.trim();
+      return `${name} (${serie})`;
+    }
 
-      if (!name || !serie || !pass) {
+    function handleAction() {
+      const isRegister = document.getElementById("modeToggle").checked;
+      const username = getUsername();
+      const password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
         alert("Preencha todos os campos!");
         return;
       }
 
-      const username = `${name} ${serie}`;
       let users = JSON.parse(localStorage.getItem("users") || "{}");
 
-      if (!users[username]) {
-        // Cria nova conta
-        users[username] = { password: pass, pontos: 0, mensagens: [] };
+      if (isRegister) {
+        // Cadastrar
+        if (users[username]) {
+          alert("Usuário já existe!");
+          return;
+        }
+        users[username] = { password: password, points: 0 };
         localStorage.setItem("users", JSON.stringify(users));
-        alert("Conta criada com sucesso!");
-      } else if (users[username].password !== pass) {
-        alert("Senha incorreta!");
-        return;
+        alert("Cadastro realizado com sucesso! Agora faça login.");
+        document.getElementById("modeToggle").checked = false;
+        document.getElementById("actionBtn").innerText = "Entrar";
+      } else {
+        // Login
+        if (!users[username]) {
+          alert("Usuário não encontrado!");
+          return;
+        }
+        if (users[username].password !== password) {
+          alert("Senha incorreta!");
+          return;
+        }
+        localStorage.setItem("currentUser", username);
+        alert(`Bem-vindo, ${username}!`);
+        window.location.href = "painel.html";
       }
-
-      // Login bem-sucedido
-      localStorage.setItem("currentUser", username);
-      window.location.href = "painel.html";
     }
+
+    // Atualiza botão conforme toggle
+    document.getElementById("modeToggle").addEventListener("change", function(){
+      document.getElementById("actionBtn").innerText = this.checked ? "Cadastrar" : "Entrar";
+    });
   </script>
 </body>
 </html>
