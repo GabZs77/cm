@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal Escolar</title>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   <style>
     body {
@@ -56,11 +55,12 @@
 </head>
 <body>
   <div id="loginPage">
-    <h2>Entrar no Portal Escolar</h2>
-    <input type="email" id="email" placeholder="Email escolar" />
+    <h2>Portal Escolar</h2>
+    <input type="text" id="fullName" placeholder="Nome completo" />
+    <input type="text" id="serie" placeholder="Série (Ex: 1ºD)" />
     <input type="password" id="password" placeholder="Senha" />
-    <button onclick="login()">Entrar</button>
     <button onclick="register()">Cadastrar</button>
+    <button onclick="login()">Entrar</button>
   </div>
 
   <div id="mainPanel" style="display:none">
@@ -83,46 +83,73 @@
     };
 
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
     const db = firebase.database();
 
-    function login() {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
+    let currentUser = null;
 
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          document.getElementById("loginPage").style.display = "none";
-          document.getElementById("mainPanel").style.display = "block";
-          listenForMessages();
-        })
-        .catch(error => alert("Erro ao entrar: " + error.message));
+    function getUsername() {
+      const name = document.getElementById("fullName").value.trim();
+      const serie = document.getElementById("serie").value.trim();
+      return `${name} (${serie})`;
     }
 
     function register() {
-      const email = document.getElementById("email").value.trim();
+      const username = getUsername();
       const password = document.getElementById("password").value.trim();
 
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(() => alert("Cadastro realizado com sucesso!"))
-        .catch(error => alert("Erro ao cadastrar: " + error.message));
+      if (!username || !password) {
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+      db.ref("users/" + username).once("value", snapshot => {
+        if (snapshot.exists()) {
+          alert("Usuário já existe!");
+        } else {
+          db.ref("users/" + username).set({
+            password: password,
+            points: 0
+          });
+          alert("Cadastro realizado com sucesso!");
+        }
+      });
+    }
+
+    function login() {
+      const username = getUsername();
+      const password = document.getElementById("password").value.trim();
+
+      if (!username || !password) {
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+      db.ref("users/" + username).once("value", snapshot => {
+        if (!snapshot.exists()) {
+          alert("Usuário não encontrado!");
+        } else if (snapshot.val().password !== password) {
+          alert("Senha incorreta!");
+        } else {
+          currentUser = username;
+          document.getElementById("loginPage").style.display = "none";
+          document.getElementById("mainPanel").style.display = "block";
+          listenForMessages();
+        }
+      });
     }
 
     function logout() {
-      auth.signOut().then(() => {
-        document.getElementById("mainPanel").style.display = "none";
-        document.getElementById("loginPage").style.display = "block";
-      });
+      currentUser = null;
+      document.getElementById("mainPanel").style.display = "none";
+      document.getElementById("loginPage").style.display = "block";
     }
 
     function sendMessage() {
       const message = document.getElementById("chatInput").value.trim();
-      const user = auth.currentUser;
-
-      if (!message || !user) return;
+      if (!message || !currentUser) return;
 
       db.ref("chat").push({
-        sender: user.email,
+        sender: currentUser,
         text: message,
         timestamp: Date.now()
       });
