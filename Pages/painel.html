@@ -1,43 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Painel</title>
+  <meta charset="UTF-8">
+  <title>Painel</title>
 </head>
 <body>
-<h1>Bem-vindo!</h1>
-<p id="userEmail"></p>
-<button onclick="logout()">Sair</button>
+  <h2>Bem-vindo ao Painel!</h2>
+  <p id="userEmail"></p>
+  <button onclick="logout()">Sair</button>
 
-<!-- Firebase + Config -->
-<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyD8cKJ5YglJzQTSiFX463s3G0LAm6wXQqA",
-  authDomain: "email-2df3a.firebaseapp.com",
-  projectId: "email-2df3a",
-  storageBucket: "email-2df3a.firebasestorage.app",
-  messagingSenderId: "862814533131",
-  appId: "1:862814533131:web:0cf9894d8a1b8813f2790e"
-};
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD8cKJ5YglJzQTSiFX463s3G0LAm6wXQqA",
+      authDomain: "email-2df3a.firebaseapp.com",
+      projectId: "email-2df3a",
+      storageBucket: "email-2df3a.firebasestorage.app",
+      messagingSenderId: "862814533131",
+      appId: "1:862814533131:web:0cf9894d8a1b8813f2790e"
+    };
 
-// 🔒 Protege a página
-auth.onAuthStateChanged(user => {
-  if (user) {
-    document.getElementById("userEmail").innerText = "Logado como: " + user.email;
-  } else {
-    window.location.href = "index.html";
-  }
-});
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-// 🚪 Logout
-function logout(){
-  auth.signOut();
-}
-</script>
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('userEmail').textContent = "Logado como: " + user.email;
+      }
+    });
+
+    function logout() {
+      auth.signOut().then(() => window.location.href = 'index.html');
+    }
+  </script>
 </body>
 </html>
