@@ -1,109 +1,111 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Painel Escolar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel do Aluno</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
       font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(135deg, #1a0033, #000000);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 2rem;
-    }
+    }body {
+  background: radial-gradient(circle at top left, #4b0082, #000000);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  flex-direction: column;
+  color: white;
+}
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #e0b3ff;
-      text-shadow: 0 0 10px #ba55d3;
-    }
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif');
+  background-size: cover;
+  z-index: 0;
+  opacity: 0.2;
+}
 
-    .info {
-      background-color: rgba(255, 255, 255, 0.05);
-      padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 15px rgba(186, 85, 211, 0.4);
-      max-width: 500px;
-      width: 100%;
-      margin-top: 1rem;
-    }
+.panel {
+  position: relative;
+  z-index: 1;
+  background: rgba(75, 0, 130, 0.8);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 25px rgba(186, 85, 211, 0.8);
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
 
-    .info p {
-      margin: 0.5rem 0;
-      font-size: 1rem;
-    }
+.panel h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
 
-    button {
-      margin-top: 2rem;
-      padding: 0.8rem 1.5rem;
-      background: linear-gradient(45deg, #8e2de2, #4a00e0);
-      border: none;
-      border-radius: 0.5rem;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+.points {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
 
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #c964ff;
-    }
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+button {
+  padding: 0.8rem;
+  background: linear-gradient(45deg, #8e2de2, #4a00e0);
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #c964ff;
+}
+
   </style>
 </head>
 <body>
-  <h1>Bem-vindo ao Painel Escolar</h1>
-  <div class="info" id="userInfo">
-    <p><strong>Nome:</strong> <span id="userName">Carregando...</span></p>
-    <p><strong>Pontuação:</strong> <span id="userPoints">0</span> pontos</p>
-    <p><strong>Mensagens:</strong></p>
-    <ul id="userMessages">
-      <li>Nenhuma mensagem encontrada.</li>
-    </ul>
-  </div>
-  <button onclick="logout()">Sair</button>
+  <div class="stars"></div>
+  <div class="panel">
+    <h1 id="welcome">Olá, aluno!</h1>
+    <div class="points" id="points">⭐ Pontos: 0</div>
+    <div class="buttons">
+      <button onclick="alert('Estudar em breve!')">🎓 Estudar</button>
+      <button onclick="alert('Jogos chegando!')">🎮 Jogar</button>
+      <button onclick="alert('Loja em breve!')">🛒 Loja</button>
+      <button onclick="alert('Avatar personalizado em breve!')">🧑‍🎨 Avatar</button>
+      <button onclick="alert('Progresso disponível em breve!')">📊 Progresso</button>
+      <button onclick="logout()">🔒 Sair</button>
+    </div>
+  </div>  <script>
+    const currentUser = localStorage.getItem('currentUser');
+    const users = JSON.parse(localStorage.getItem('users') || '{}');
 
-  <script>
-    const user = localStorage.getItem("currentUser");
-    const users = JSON.parse(localStorage.getItem("users") || "{}");
-
-    if (!user || !users[user]) {
-      // Se não estiver logado, volta para a página de login
-      alert("Você precisa estar logado!");
+    if (!currentUser || !users[currentUser]) {
+      alert("Você precisa estar logado.");
       window.location.href = "index.html";
     } else {
-      document.getElementById("userName").innerText = user;
-      document.getElementById("userPoints").innerText = users[user].points || 0;
-
-      const messages = users[user].messages || [];
-      const list = document.getElementById("userMessages");
-      list.innerHTML = "";
-
-      if (messages.length === 0) {
-        list.innerHTML = "<li>Nenhuma mensagem encontrada.</li>";
-      } else {
-        messages.forEach(msg => {
-          const li = document.createElement("li");
-          li.innerText = msg;
-          list.appendChild(li);
-        });
-      }
+      document.getElementById("welcome").textContent = `Olá, ${currentUser}!`;
+      document.getElementById("points").textContent = `⭐ Pontos: ${users[currentUser].points}`;
     }
 
     function logout() {
       localStorage.removeItem("currentUser");
       window.location.href = "index.html";
     }
-  </script>
-</body>
+  </script></body>
 </html>
