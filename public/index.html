@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QuizzGame</title>
   <style>
-    /* 🌌 Estilo Futurista Roxo Galáxia */
+    /* 🎨 Estilo Futurista Roxo Galáxia */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -14,6 +14,7 @@
       overflow-x: hidden;
     }
 
+    /* 🟣 Tela de Login */
     .login-container {
       display: flex;
       justify-content: center;
@@ -41,7 +42,8 @@
       text-shadow: 0 0 5px #9f00ff;
     }
 
-    input, button {
+    input,
+    button {
       display: block;
       width: 100%;
       margin: 10px 0;
@@ -68,6 +70,7 @@
       transform: scale(1.05);
     }
 
+    /* 🌌 Conteúdo Principal */
     .main-content {
       padding: 20px;
     }
@@ -118,6 +121,7 @@
       text-shadow: 0 0 10px #9f00ff;
     }
 
+    /* 📚 Sidebar */
     .sidebar {
       background-color: rgba(30, 0, 60, 0.9);
       padding: 15px;
@@ -127,6 +131,11 @@
       width: 220px;
       z-index: 1000;
       box-shadow: 0 0 10px #7f00ff;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      color: #caa9ff;
     }
 
     .sidebar button {
@@ -141,7 +150,9 @@
       cursor: pointer;
     }
 
-    .pv-content, .sobre {
+    /* 📄 Conteúdo PV & Sobre */
+    .pv-content,
+    .sobre {
       margin-top: 20px;
       padding: 15px;
       background-color: rgba(255, 255, 255, 0.05);
@@ -153,20 +164,30 @@
       display: none;
     }
 
+    /* ✨ Animação */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
+    /* 📱 Responsivo */
     @media (max-width: 600px) {
       .sidebar {
         width: 100%;
         top: 100px;
+        position: absolute;
       }
     }
   </style>
 </head>
 <body>
+  <!-- 🔐 Tela de Login -->
   <div class="login-container" id="loginContainer">
     <form id="loginForm">
       <h2>Login QuizzGame</h2>
@@ -177,6 +198,7 @@
     </form>
   </div>
 
+  <!-- 🌐 Conteúdo Principal -->
   <div class="main-content hidden" id="mainContent">
     <header>
       <div class="menu-icon" onclick="toggleSidebar()">☰</div>
@@ -188,23 +210,24 @@
 
     <div class="welcome-message" id="welcomeMsg"></div>
 
-    <div class="sidebar hidden" id="sidebar">
+    <aside class="sidebar hidden" id="sidebar">
       <h3>Projetos de Vida</h3>
       <button onclick="selectPV('Programador')">Programador</button>
       <button onclick="selectPV('Marketing')">Marketing</button>
       <button onclick="selectPV('Empreendedor')">Empreendedor</button>
       <button onclick="selectPV('Designer')">Designer</button>
-    </div>
+    </aside>
 
-    <div class="pv-content" id="pvContent"></div>
+    <section class="pv-content" id="pvContent"></section>
 
-    <div class="sobre hidden" id="sobre">
+    <section class="sobre hidden" id="sobre">
       <h2>Sobre o QuizzGame</h2>
       <p>QuizzGame é um site interativo criado para ajudar estudantes a explorar seus projetos de vida.</p>
       <p>Desenvolvido por uma equipe apaixonada por educação, criatividade e tecnologia.</p>
-    </div>
+    </section>
   </div>
 
+  <!-- ⚙️ Script -->
   <script>
     const loginForm = document.getElementById('loginForm');
     const loginContainer = document.getElementById('loginContainer');
