@@ -2,18 +2,32 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portal Escolar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal Escolar Responsivo</title>
   <style>
+    /* Reset e base */
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f0f2f5;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-size: 16px;
     }
 
+    /* LOGIN */
     .login, .dashboard {
       display: none;
-      padding: 2rem;
+      padding: 1.5rem;
+      flex: 1;
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
     }
 
     .login.active, .dashboard.active {
@@ -21,55 +35,84 @@
     }
 
     .container {
-      max-width: 400px;
-      margin: auto;
       background: #fff;
       padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
 
     .input-group {
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
 
-    .input-group label {
+    label {
       display: block;
-      margin-bottom: .5rem;
+      margin-bottom: .4rem;
+      font-weight: 600;
     }
 
-    .input-group input {
+    input {
       width: 100%;
-      padding: .5rem;
+      padding: .65rem .75rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    input:focus {
+      border-color: #007bff;
+      outline: none;
     }
 
     button {
       width: 100%;
-      padding: .75rem;
+      padding: .8rem 1rem;
       background: #007bff;
       border: none;
+      border-radius: 8px;
       color: white;
-      font-weight: bold;
-      border-radius: 5px;
+      font-weight: 700;
+      font-size: 1.1rem;
       cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background: #0056b3;
     }
 
+    /* DASHBOARD */
+    .dashboard {
+      max-width: 100vw;
+      max-height: 100vh;
+      display: flex;
+      flex-direction: row;
+      background: #f0f2f5;
+      overflow: hidden;
+    }
+
+    /* MENU LATERAL */
     .menu {
-      width: 200px;
       background: #007bff;
       color: white;
-      height: 100vh;
+      width: 220px;
+      padding: 1.5rem 1rem;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      min-height: 100vh;
       position: fixed;
       top: 0;
       left: 0;
-      padding: 1rem;
+      transition: transform 0.3s ease;
+      z-index: 1000;
     }
 
     .menu h2 {
-      font-size: 20px;
-      margin-bottom: 2rem;
+      margin: 0 0 2rem 0;
+      font-size: 1.5rem;
+      user-select: none;
+      white-space: nowrap;
     }
 
     .menu button {
@@ -77,121 +120,197 @@
       border: none;
       color: white;
       text-align: left;
-      padding: .5rem 0;
+      padding: .75rem 0;
+      width: 100%;
+      font-size: 1.1rem;
       cursor: pointer;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+      user-select: none;
+    }
+    .menu button:hover {
+      background-color: rgba(255 255 255 / 0.15);
     }
 
+    /* CONTEÚDO PRINCIPAL */
     .main {
       margin-left: 220px;
       padding: 2rem;
+      flex: 1;
+      overflow-y: auto;
+      height: 100vh;
+    }
+
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
       gap: 1rem;
     }
 
     .card {
       background: white;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
       cursor: pointer;
-      transition: transform .2s;
+      user-select: none;
+      transition: transform 0.2s ease;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-align: center;
     }
-
     .card:hover {
-      transform: scale(1.02);
-    }
-
-    .hidden {
-      display: none;
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgb(0 0 0 / 0.15);
     }
 
     textarea {
       width: 100%;
       height: 100px;
-      margin-bottom: .5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      padding: .75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
     }
 
     ul {
       list-style: none;
-      padding-left: 0;
-      max-height: 150px;
-      overflow-y: auto;
-    }
-
-    ul li {
-      padding: .25rem;
-      border-bottom: 1px solid #eee;
-    }
-
-    .ranking ul {
       padding: 0;
-      margin-top: 1rem;
+      max-height: 180px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+    }
+    ul li {
+      padding: .5rem .75rem;
+      border-bottom: 1px solid #eee;
+      font-size: 1rem;
+      user-select: none;
+    }
+    ul li:last-child {
+      border-bottom: none;
     }
 
-    .ranking li {
-      padding: 5px 0;
+    /* RESPONSIVIDADE */
+
+    /* Menu mobile toggle */
+    #menuToggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1100;
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      user-select: none;
     }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        flex-direction: column;
+      }
+
+      .menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 220px;
+        transform: translateX(-250px);
+      }
+
+      .menu.active {
+        transform: translateX(0);
+        box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 1rem 1rem 2rem;
+        height: auto;
+      }
+
+      #menuToggle {
+        display: block;
+      }
+    }
+
   </style>
 </head>
 <body>
 
-  <div class="login active" id="loginPage">
+  <button id="menuToggle" aria-label="Abrir menu">☰</button>
+
+  <!-- Login -->
+  <div class="login active" id="loginPage" role="main" aria-label="Área de login">
     <div class="container">
       <h2>Portal Escolar</h2>
       <div class="input-group">
         <label for="username">Nome:</label>
-        <input type="text" id="username" required />
+        <input type="text" id="username" autocomplete="username" />
       </div>
       <div class="input-group">
         <label for="password">Senha:</label>
-        <input type="password" id="password" required />
+        <input type="password" id="password" autocomplete="current-password" />
       </div>
       <button onclick="login()">Entrar</button>
     </div>
   </div>
 
-  <div class="dashboard" id="dashboard">
-    <div class="menu">
-      <h2>Olá, <span id="userNameDisplay"></span> 👋</h2>
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard" role="main" aria-label="Painel do usuário">
+    <nav class="menu" id="menu" aria-label="Menu de navegação">
+      <h2>Olá, <span id="userNameDisplay" aria-live="polite"></span> 👋</h2>
       <button onclick="showPage('home')">🏠 Início</button>
       <button onclick="showPage('quiz')">🧠 Quiz</button>
       <button onclick="showPage('chat')">💬 Chat</button>
       <button onclick="showPage('ranking')">🏆 Ranking</button>
       <button onclick="logout()">🚪 Sair</button>
-    </div>
-    <div class="main">
-      <div id="home" class="section">
+    </nav>
+    <section class="main">
+      <article id="home" class="section active" tabindex="0">
         <h2>Bem-vindo ao Portal Escolar!</h2>
         <div class="cards">
-          <div class="card" onclick="addPoints(10)">✅ Pontos Diários (Clique!)</div>
-          <div class="card" onclick="showPage('quiz')">🧠 Quiz</div>
-          <div class="card" onclick="showPage('chat')">💬 Chat com alunos</div>
-          <div class="card" onclick="showPage('ranking')">🏆 Ver Ranking</div>
+          <div class="card" role="button" tabindex="0" onclick="addPoints(10)" onkeypress="if(event.key==='Enter'){addPoints(10);}">✅ Pontos Diários (Clique!)</div>
+          <div class="card" role="button" tabindex="0" onclick="showPage('quiz')" onkeypress="if(event.key==='Enter'){showPage('quiz');}">🧠 Quiz</div>
+          <div class="card" role="button" tabindex="0" onclick="showPage('chat')" onkeypress="if(event.key==='Enter'){showPage('chat');}">💬 Chat com alunos</div>
+          <div class="card" role="button" tabindex="0" onclick="showPage('ranking')" onkeypress="if(event.key==='Enter'){showPage('ranking');}">🏆 Ver Ranking</div>
         </div>
-      </div>
+      </article>
 
-      <div id="quiz" class="section hidden">
+      <article id="quiz" class="section hidden" tabindex="0">
         <h2>Quiz</h2>
-        <p id="question">Carregando pergunta...</p>
+        <p id="question" aria-live="polite">Carregando pergunta...</p>
         <div id="answers"></div>
-      </div>
+      </article>
 
-      <div id="chat" class="section hidden">
+      <article id="chat" class="section hidden" tabindex="0">
         <h2>Chat entre alunos</h2>
-        <textarea id="messageInput" placeholder="Digite sua mensagem..."></textarea>
+        <textarea id="messageInput" aria-label="Digite sua mensagem" placeholder="Digite sua mensagem..."></textarea>
         <button onclick="sendMessage()">Enviar</button>
-        <ul id="chatBox"></ul>
-      </div>
+        <ul id="chatBox" aria-live="polite" aria-relevant="additions"></ul>
+      </article>
 
-      <div id="ranking" class="section hidden ranking">
+      <article id="ranking" class="section hidden ranking" tabindex="0">
         <h2>Ranking de Pontos</h2>
         <ul id="rankingList"></ul>
-      </div>
-    </div>
+      </article>
+    </section>
   </div>
 
   <script>
@@ -203,13 +322,20 @@
       { q: "Cor primária?", a: ["Verde", "Roxo", "Vermelho"], c: 2 }
     ];
 
+    // Controle menu mobile
+    const menuToggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("menu");
+    menuToggle.addEventListener("click", () => {
+      menu.classList.toggle("active");
+    });
+
     function login() {
       const name = document.getElementById("username").value.trim();
       const pass = document.getElementById("password").value.trim();
 
-      if (!name || !pass) return alert("Preencha todos os campos");
+      if (!name || !pass) return alert("Preencha todos os campos!");
 
-      const users = JSON.parse(localStorage.getItem("users") || "{}");
+      let users = JSON.parse(localStorage.getItem("users") || "{}");
 
       if (!users[name]) {
         users[name] = { password: pass, points: 0, messages: [] };
@@ -226,6 +352,9 @@
       loadRanking();
       loadQuestion();
       loadMessages();
+
+      // Fecha menu no mobile ao entrar
+      if (menu.classList.contains("active")) menu.classList.remove("active");
     }
 
     function logout() {
@@ -237,10 +366,12 @@
     function showPage(page) {
       document.querySelectorAll(".section").forEach(s => s.classList.add("hidden"));
       document.getElementById(page).classList.remove("hidden");
+      // Fecha menu mobile ao navegar
+      if (menu.classList.contains("active")) menu.classList.remove("active");
     }
 
     function addPoints(amount) {
-      const users = JSON.parse(localStorage.getItem("users"));
+      let users = JSON.parse(localStorage.getItem("users"));
       users[currentUser].points += amount;
       localStorage.setItem("users", JSON.stringify(users));
       alert(`Você ganhou +${amount} pontos!`);
@@ -258,8 +389,8 @@
       const q = quizData[Math.floor(Math.random() * quizData.length)];
       document.getElementById("question").innerText = q.q;
       const answers = q.a.map((text, i) => {
-        return `<button onclick="answerQuestion(${i}, ${q.c})">${text}</button>`;
-      }).join("<br>");
+        return `<button onclick="answerQuestion(${i}, ${q.c})" style="margin: .3rem 0; width: 100%; padding: .5rem; font-size:1rem; border-radius:6px; border:1px solid #007bff; background:#fff; cursor:pointer;">${text}</button>`;
+      }).join("");
       document.getElementById("answers").innerHTML = answers;
     }
 
@@ -276,7 +407,7 @@
     function sendMessage() {
       const msg = document.getElementById("messageInput").value.trim();
       if (!msg) return;
-      const users = JSON.parse(localStorage.getItem("users"));
+      let users = JSON.parse(localStorage.getItem("users"));
       users[currentUser].messages.push(msg);
       localStorage.setItem("users", JSON.stringify(users));
       document.getElementById("messageInput").value = "";
@@ -290,6 +421,9 @@
       );
       document.getElementById("chatBox").innerHTML = messages
         .map(msg => `<li>${msg}</li>`).join("");
+      // Scroll automático no final
+      const chatBox = document.getElementById("chatBox");
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
   </script>
 </body>
