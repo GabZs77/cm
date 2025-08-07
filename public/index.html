@@ -189,16 +189,15 @@
 </head>
 <body>
   <!-- 🔐 Tela de Login -->
-  <div class="login-container" id="loginContainer">
-    <form id="loginForm">
-      <h2>Login QuizzGame</h2>
-      <input type="text" id="nome" placeholder="Nome completo" required />
-      <input type="text" id="serie" placeholder="Série" required />
-      <input type="password" id="senha" placeholder="Senha" required />
-      <button type="submit">Entrar</button>
-    </form>
-  </div>
-
+<div class="login-container" id="loginContainer">
+  <form id="loginForm">
+    <h2>Login QuizzGame</h2>
+    <input type="email" id="email" placeholder="Seu email" required />
+    <input type="password" id="senha" placeholder="Senha" required />
+    <button type="submit">Entrar</button>
+  </form>
+</div>
+  
   <!-- 🌐 Conteúdo Principal -->
   <div class="main-content hidden" id="mainContent">
     <header>
@@ -225,41 +224,39 @@
   </div>
 
   <!-- ⚙️ Script -->
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const nome = document.getElementById('nome').value;
-      const senha = document.getElementById('senha').value;
+<script>
+  document.getElementById('loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
 
-      const res = await fetch('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, senha })
-      });
-
-      const data = await res.json();
-      if (res.ok) {
-        localStorage.setItem('usuarioNome', data.nome);
-        localStorage.setItem('token', data.token);
-        window.location.href = 'painel.html';
-      } else {
-        alert(data.error);
-      }
+    const res = await fetch('http://localhost:3000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, senha })
     });
 
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('hidden');
+    const data = await res.json();
+    if (res.ok) {
+      // Armazena apenas em memória (variáveis globais) para não salvar login listado
+      sessionStorage.setItem('usuarioEmail', data.email);
+      sessionStorage.setItem('token', data.token);
+      window.location.href = 'painel.html';
+    } else {
+      alert(data.error || 'Erro ao fazer login');
     }
+  });
 
-    function logout() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('usuarioNome');
-      window.location.href = 'index.html';
-    }
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('hidden');
+  }
 
-    function selectPV(area) {
-      alert(`Você selecionou o projeto de vida: ${area}`);
-    }
-  </script>
-</body>
-</html>
+  function logout() {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+  }
+
+  function selectPV(area) {
+    alert(`Você selecionou o projeto de vida: ${area}`);
+  }
+</script>
