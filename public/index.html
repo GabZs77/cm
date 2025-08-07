@@ -1,601 +1,101 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portal Escolar Galáxia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Escolar</title>
   <style>
-    /* Reset */
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-    body, html {
-      height: 100%;
-      font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #2b0050, #5a0085, #2b0050);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: #eee;
-      overflow: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    @keyframes gradientBG {
-      0%{background-position:0% 50%;}
-      50%{background-position:100% 50%;}
-      100%{background-position:0% 50%;}
-    }
-
-    /* Fundo estrelas */
-    body::before {
-      content: "";
-      position: fixed;
-      top:0; left:0; right:0; bottom:0;
-      background: url('https://i.ibb.co/R6w2Pmv/stars.png') repeat;
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: 0;
-      animation: starMove 200s linear infinite;
-    }
-
-    @keyframes starMove {
-      from {background-position:0 0;}
-      to {background-position:-10000px 5000px;}
-    }
-
-    /* LOGIN */
-
-    .login {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: 10;
-    }
-
-    .login-container {
-      background: rgba(50, 0, 80, 0.85);
-      padding: 3rem 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 40px #a865ffaa;
-      width: 320px;
-      max-width: 90vw;
-      text-align: center;
-      backdrop-filter: blur(15px);
-      border: 1px solid #a865ff66;
-    }
-
-    .login-container h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.4rem;
-      margin-bottom: 1.5rem;
-      color: #d8b3ff;
-      text-shadow: 0 0 10px #a865ff;
-      letter-spacing: 3px;
-    }
-
-    label {
-      display: block;
-      text-align: left;
-      margin-bottom: .5rem;
-      font-weight: 600;
-      color: #ccc;
-      font-size: 0.9rem;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 1.2rem;
-      border-radius: 12px;
-      border: none;
-      background: #3b005f;
-      color: #eee;
-      font-size: 1.1rem;
-      box-shadow: 0 0 15px #8f65ff88 inset;
-      transition: box-shadow 0.3s ease;
-    }
-
-    input::placeholder {
-      color: #b499ffcc;
-    }
-
-    input:focus {
-      outline: none;
-      box-shadow: 0 0 25px #b399ff;
-      background: #4c0078;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(90deg, #9a6fff, #6b00c4);
-      border: none;
-      border-radius: 14px;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #fff;
-      cursor: pointer;
-      box-shadow: 0 0 25px #bb9aff;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      letter-spacing: 1.2px;
-      user-select: none;
-    }
-    button:hover {
-      background: linear-gradient(90deg, #b89fff, #8800ff);
-      box-shadow: 0 0 50px #d4bbff;
-    }
-
-    /* DASHBOARD */
-
-    .dashboard {
-      display: none;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      position: relative;
-      z-index: 10;
-      background: linear-gradient(135deg, #3a006a, #6a00a2);
-      background-size: 200% 200%;
-      animation: gradientBG 20s ease infinite;
-      color: #eee;
+      box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: row;
-    }
+    }body {
+  background: linear-gradient(135deg, #2d0053, #3b006b);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    /* Menu lateral */
-    nav.menu {
-      width: 240px;
-      background: #280055dd;
-      box-shadow: 3px 0 30px #9b79ffaa;
-      padding: 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-    }
+#loginPage {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  width: 90%;
+  max-width: 400px;
+  gap: 1rem;
+}
 
-    nav.menu h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: #d1b2ff;
-      text-shadow: 0 0 10px #bb99ffcc;
-    }
+#loginPage h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #c88cff;
+}
 
-    nav.menu button {
-      background: none;
-      border: none;
-      color: #c8baff;
-      font-size: 1.15rem;
-      padding: 1rem 0;
-      cursor: pointer;
-      text-align: left;
-      border-radius: 8px;
-      transition: background-color 0.25s ease, color 0.25s ease;
-      letter-spacing: 1.1px;
-    }
-    nav.menu button:hover {
-      background: #8b6effcc;
-      color: #fff;
-      box-shadow: 0 0 15px #c2aaffcc;
-    }
+input {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  outline: none;
+  font-size: 1rem;
+}
 
-    /* Conteúdo principal */
-    main.content {
-      flex: 1;
-      padding: 2rem 2.5rem;
-      overflow-y: auto;
-      background: #370085cc;
-      backdrop-filter: blur(20px);
-      border-top-left-radius: 40px;
-      color: #ddd;
-      display: flex;
-      flex-direction: column;
-    }
+button {
+  padding: 0.8rem;
+  background-color: #8e2de2;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-    main.content h2 {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 600;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #c8baff;
-      text-shadow: 0 0 10px #b89eff;
-    }
+button:hover {
+  background-color: #a65cff;
+}
 
-    /* Cards Home */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-      gap: 1.3rem;
-      margin-top: 1rem;
-      margin-bottom: 3rem;
-    }
-
-    .card {
-      background: #5600b0cc;
-      border-radius: 25px;
-      padding: 2rem 1.3rem;
-      box-shadow: 0 0 25px #aa88ffcc;
-      cursor: pointer;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.3rem;
-      transition: box-shadow 0.3s ease, transform 0.3s ease;
-      color: #e7dfff;
-      user-select: none;
-      letter-spacing: 0.8px;
-      text-shadow: 0 0 5px #a19fff;
-      border: 1px solid #a080ff99;
-    }
-
-    .card:hover, .card:focus {
-      box-shadow: 0 0 55px #ccbbffcc;
-      transform: scale(1.07);
-      outline: none;
-    }
-
-    /* Quiz */
-    #answers button {
-      width: 100%;
-      padding: 1rem;
-      margin: 0.5rem 0;
-      background: #6f33ffdd;
-      border: none;
-      border-radius: 15px;
-      font-size: 1.1rem;
-      color: #eee;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 0 10px #a97fffaa;
-      transition: background 0.3s ease;
-      user-select: none;
-    }
-
-    #answers button:hover, #answers button:focus {
-      background: #9966ffdd;
-      outline: none;
-      box-shadow: 0 0 20px #bb99ffcc;
-    }
-
-    /* Chat */
-    textarea {
-      width: 100%;
-      height: 120px;
-      background: #3a007a;
-      border-radius: 16px;
-      border: none;
-      color: #ddd;
-      font-size: 1.1rem;
-      padding: 1rem;
-      resize: vertical;
-      box-shadow: inset 0 0 20px #8855ffbb;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin-bottom: 1rem;
-      transition: box-shadow 0.3s ease;
-    }
-    textarea:focus {
-      outline: none;
-      box-shadow: inset 0 0 30px #bb99ffdd;
-      background: #4a008f;
-    }
-
-    #chatBox {
-      list-style: none;
-      max-height: 280px;
-      overflow-y: auto;
-      background: #4b009f;
-      border-radius: 16px;
-      padding: 1rem;
-      box-shadow: 0 0 25px #aa88ffcc;
-      font-size: 1rem;
-      color: #ddd;
-      user-select: none;
-      margin-bottom: 2rem;
-    }
-    #chatBox li {
-      margin-bottom: 0.6rem;
-      border-bottom: 1px solid #7e6fc9;
-      padding-bottom: 0.4rem;
-    }
-
-    /* Ranking */
-    #rankingList {
-      list-style: none;
-      font-size: 1.1rem;
-      max-width: 380px;
-      margin-top: 1rem;
-      color: #e1d6ff;
-      user-select: none;
-      border: 1px solid #8a6effbb;
-      border-radius: 16px;
-      padding: 1rem 1.3rem;
-      box-shadow: 0 0 20px #ac88ffcc;
-      background: #4a0099cc;
-    }
-    #rankingList li {
-      padding: 0.6rem 0;
-      border-bottom: 1px solid #6f55bbcc;
-    }
-    #rankingList li:last-child {
-      border-bottom: none;
-    }
-
-    /* Responsividade */
-
-    @media (max-width: 900px) {
-      nav.menu {
-        width: 180px;
-        padding: 1.5rem 1rem;
-      }
-
-      main.content {
-        padding: 1.5rem 1.2rem;
-        border-radius: 25px 25px 0 0;
-      }
-
-      .cards {
-        grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
-        gap: 1rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      body, html {
-        font-size: 14px;
-      }
-
-      .dashboard {
-        flex-direction: column;
-      }
-
-      nav.menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 60px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        padding: 0;
-        box-shadow: 0 0 25px #a885ffaa;
-        border-radius: 0 0 25px 25px;
-        z-index: 100;
-        background: #3a007a;
-      }
-
-      nav.menu h2 {
-        display: none;
-      }
-
-      nav.menu button {
-        font-size: 1.6rem;
-        padding: 0;
-        border-radius: 0;
-        flex: 1;
-        text-align: center;
-        color: #d1b2ff;
-      }
-      nav.menu button:hover {
-        background: #6f55bbcc;
-        box-shadow: 0 0 20px #bb99ffcc;
-        color: #fff;
-      }
-
-      main.content {
-        margin-top: 60px;
-        padding: 1rem 1rem 2rem;
-        border-radius: 0;
-        height: calc(100vh - 60px);
-        overflow-y: auto;
-      }
-
-      .cards {
-        grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
-        gap: 0.75rem;
-      }
-
-      .card {
-        font-size: 1rem;
-        padding: 1.2rem .9rem;
-        border-radius: 18px;
-      }
-
-      textarea {
-        height: 90px;
-        font-size: 1rem;
-      }
-
-      #chatBox {
-        max-height: 220px;
-        font-size: 0.95rem;
-      }
-    }
   </style>
-  <!-- Fonte futurista Orbitron do Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
+  <div id="loginPage">
+    <h2>Entrar no Portal Escolar</h2>
+    <input type="text" id="fullName" placeholder="Nome completo (Ex: Gabriel Henrique de Oliveira)" />
+    <input type="text" id="serie" placeholder="Série (Ex: 1ºD)" />
+    <input type="password" id="password" placeholder="Senha (Ex: 785779Gh)" />
+    <button onclick="login()">Entrar</button>
+  </div>  <script>
+    let currentUser = null;
 
-  <!-- Login -->
-  <section class="login" id="loginPage" role="main" aria-label="Área de login">
-    <div class="login-container" tabindex="0">
-      <h1>PORTAL ESCOLAR</h1>
-      <label for="username">Nome de usuário</label>
-      <input type="text" id="username" autocomplete="username" placeholder="Seu nome..." />
-      <label for="password">Senha</label>
-      <input type="password" id="password" autocomplete="current-password" placeholder="Sua senha..." />
-      <button onclick="login()">Entrar</button>
-    </div>
-  </section>
+    function login() {
+      const name = document.getElementById("fullName").value.trim();
+      const serie = document.getElementById("serie").value.trim();
+      const pass = document.getElementById("password").value.trim();
 
-  <!-- Dashboard -->
-  <section class="dashboard" id="dashboard" role="main" aria-label="Painel do usuário">
-    <nav class="menu" aria-label="Menu de navegação">
-      <h2>Olá, <span id="userNameDisplay" aria-live="polite"></span> 👋</h2>
-      <button onclick="showPage('home')" aria-label="Página inicial">🏠 Início</button>
-      <button onclick="showPage('quiz')" aria-label="Quiz">🧠 Quiz</button>
-      <button onclick="showPage('chat')" aria-label="Chat entre alunos">💬 Chat</button>
-      <button onclick="showPage('ranking')" aria-label="Ranking de pontos">🏆 Ranking</button>
-      <button onclick="logout()" aria-label="Sair">🚪 Sair</button>
-    </nav>
-    <main class="content">
-      <article id="home" class="section active" tabindex="0" aria-label="Página inicial">
-        <h2>Bem-vindo ao Portal Escolar!</h2>
-        <div class="cards">
-          <div class="card" role="button" tabindex="0" onclick="addPoints(10)" onkeypress="if(event.key==='Enter'){addPoints(10);}">✅ Pontos Diários (Clique!)</div>
-          <div class="card" role="button" tabindex="0" onclick="showPage('quiz')" onkeypress="if(event.key==='Enter'){showPage('quiz');}">🧠 Quiz</div>
-          <div class="card" role="button" tabindex="0" onclick="showPage('chat')" onkeypress="if(event.key==='Enter'){showPage('chat');}">💬 Chat com alunos</div>
-          <div class="card" role="button" tabindex="0" onclick="showPage('ranking')" onkeypress="if(event.key==='Enter'){showPage('ranking');}">🏆 Ver Ranking</div>
-        </div>
-      </article>
+      if (!name || !serie || !pass) {
+        alert("Preencha todos os campos!");
+        return;
+      }
 
-      <article id="quiz" class="section" tabindex="0" aria-label="Quiz">
-        <h2>Quiz</h2>
-        <p id="question" aria-live="polite">Carregando pergunta...</p>
-        <div id="answers"></div>
-      </article>
+      const username = `${name} ${serie}`;
+      let users = JSON.parse(localStorage.getItem("users") || "{}");
 
-      <article id="chat" class="section" tabindex="0" aria-label="Chat entre alunos">
-        <h2>Chat entre alunos</h2>
-        <textarea id="messageInput" aria-label="Digite sua mensagem" placeholder="Digite sua mensagem..."></textarea>
-        <button onclick="sendMessage()">Enviar</button>
-        <ul id="chatBox" aria-live="polite" aria-relevant="additions"></ul>
-      </article>
+      if (!users[username]) {
+        // Novo usuário
+        users[username] = { password: pass, points: 0, messages: [] };
+        localStorage.setItem("users", JSON.stringify(users));
+      } else if (users[username].password !== pass) {
+        alert("Senha incorreta!");
+        return;
+      }
 
-      <article id="ranking" class="section" tabindex="0" aria-label="Ranking de pontos">
-        <h2>Ranking de Pontos</h2>
-        <ul id="rankingList"></ul>
-      </article>
-    </main>
-  </section>
-
-<script>
-  let currentUser = null;
-
-  const quizData = [
-    { q: "Quanto é 2 + 2?", a: ["3", "4", "5"], c: 1 },
-    { q: "Capital do Brasil?", a: ["Rio", "Brasília", "SP"], c: 1 },
-    { q: "Cor primária?", a: ["Verde", "Roxo", "Vermelho"], c: 2 },
-    { q: "Qual planeta é conhecido como Planeta Vermelho?", a: ["Vênus", "Marte", "Júpiter"], c: 1 },
-{ q: "Qual é a velocidade da luz?", a: ["300.000 km/s", "150.000 km/s", "1.000 km/s"], c: 0 }
-  ];
-
-  function login() {
-    const name = document.getElementById("username").value.trim();
-    const pass = document.getElementById("password").value.trim();
-
-    if (!name || !pass) {
-      alert("Preencha todos os campos!");
-      return;
+      currentUser = username;
+      alert(`Bem-vindo, ${currentUser}!`);
+      // Aqui você pode chamar uma função como loadDashboard() para mostrar o painel principal
     }
-
-    let users = JSON.parse(localStorage.getItem("users") || "{}");
-
-    if (!users[name]) {
-      // Novo usuário: cria conta
-      users[name] = { password: pass, points: 0, messages: [] };
-      localStorage.setItem("users", JSON.stringify(users));
-    } else if (users[name].password !== pass) {
-      alert("Senha incorreta!");
-      return;
-    }
-
-    currentUser = name;
-    document.getElementById("userNameDisplay").innerText = name;
-
-    // Mostrar dashboard, esconder login
-    document.getElementById("loginPage").style.display = "none";
-    document.getElementById("dashboard").style.display = "flex";
-
-    showPage("home");
-    loadRanking();
-    loadQuestion();
-    loadMessages();
-  }
-
-  function logout() {
-    currentUser = null;
-    document.getElementById("dashboard").style.display = "none";
-    document.getElementById("loginPage").style.display = "flex";
-  }
-
-  function showPage(page) {
-    document.querySelectorAll(".section").forEach(s => {
-      s.classList.remove("active");
-      s.style.display = "none";
-    });
-    const el = document.getElementById(page);
-    el.classList.add("active");
-    el.style.display = "block";
-  }
-
-  function addPoints(amount) {
-    let users = JSON.parse(localStorage.getItem("users"));
-    users[currentUser].points += amount;
-    localStorage.setItem("users", JSON.stringify(users));
-    alert(`Você ganhou +${amount} pontos!`);
-    loadRanking();
-  }
-
-  function loadRanking() {
-    const users = JSON.parse(localStorage.getItem("users"));
-    const sorted = Object.entries(users).sort(([, a], [, b]) => b.points - a.points);
-    document.getElementById("rankingList").innerHTML =
-      sorted.map(([name, data], i) => `<li>${i + 1}. ${name} — ${data.points} pts</li>`).join("");
-  }
-
-  function loadQuestion() {
-    const q = quizData[Math.floor(Math.random() * quizData.length)];
-    document.getElementById("question").innerText = q.q;
-    const answers = q.a.map((text, i) => {
-      return `<button onclick="answerQuestion(${i}, ${q.c})" tabindex="0">${text}</button>`;
-    }).join("");
-    document.getElementById("answers").innerHTML = answers;
-  }
-
-  function answerQuestion(selected, correct) {
-    if (selected === correct) {
-      addPoints(5);
-      alert("Acertou!");
-    } else {
-      alert("Errou!");
-    }
-    loadQuestion();
-  }
-
-  function sendMessage() {
-    const msg = document.getElementById("messageInput").value.trim();
-    if (!msg) return;
-    let users = JSON.parse(localStorage.getItem("users"));
-    users[currentUser].messages.push(msg);
-    localStorage.setItem("users", JSON.stringify(users));
-    document.getElementById("messageInput").value = "";
-    loadMessages();
-  }
-
-  function loadMessages() {
-    const users = JSON.parse(localStorage.getItem("users"));
-    const messages = Object.entries(users).flatMap(([name, data]) =>
-      data.messages.map(msg => `<strong>${name}:</strong> ${msg}`)
-    );
-    document.getElementById("chatBox").innerHTML = messages.join("");
-    const chatBox = document.getElementById("chatBox");
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-
-  // Ao carregar a página, mostrar só a tela de login
-  window.onload = () => {
-    document.getElementById("loginPage").style.display = "flex";
-    document.getElementById("dashboard").style.display = "none";
-  }
-</script>
-</body>
+  </script></body>
 </html>
