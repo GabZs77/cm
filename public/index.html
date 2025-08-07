@@ -14,7 +14,6 @@
       overflow-x: hidden;
     }
 
-    /* 🟣 Tela de Login */
     .login-container {
       display: flex;
       justify-content: center;
@@ -70,7 +69,6 @@
       transform: scale(1.05);
     }
 
-    /* 🌌 Conteúdo Principal */
     .main-content {
       padding: 20px;
     }
@@ -121,7 +119,6 @@
       text-shadow: 0 0 10px #9f00ff;
     }
 
-    /* 📚 Sidebar */
     .sidebar {
       background-color: rgba(30, 0, 60, 0.9);
       padding: 15px;
@@ -150,21 +147,26 @@
       cursor: pointer;
     }
 
-    /* 📄 Conteúdo PV & Sobre */
-    .pv-content,
-    .sobre {
-      margin-top: 20px;
-      padding: 15px;
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      box-shadow: 0 0 10px #7f00ff;
-    }
-
     .hidden {
       display: none;
     }
 
-    /* ✨ Animação */
+    .sobre-link {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .sobre-link a {
+      color: #caa9ff;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .sobre-link a:hover {
+      text-decoration: underline;
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -176,7 +178,6 @@
       }
     }
 
-    /* 📱 Responsivo */
     @media (max-width: 600px) {
       .sidebar {
         width: 100%;
@@ -203,7 +204,7 @@
     <header>
       <div class="menu-icon" onclick="toggleSidebar()">☰</div>
       <div class="top-right">
-        <a onclick="showSobre()">Sobre</a>
+        <a href="sobre.html">Sobre</a>
         <button onclick="logout()">Sair do Login</button>
       </div>
     </header>
@@ -217,34 +218,48 @@
       <button onclick="selectPV('Empreendedor')">Empreendedor</button>
       <button onclick="selectPV('Designer')">Designer</button>
     </aside>
-    
-    <a href="sobre.html">Sobre</a>
-    
+
+    <div class="sobre-link">
+      <a href="sobre.html">Saiba mais sobre o QuizzGame</a>
+    </div>
   </div>
 
   <!-- ⚙️ Script -->
- <script>
-  document.getElementById('loginForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const nome = document.getElementById('nome').value;
-    const senha = document.getElementById('senha').value;
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const senha = document.getElementById('senha').value;
 
-    const res = await fetch('http://localhost:3000/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, senha })
+      const res = await fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, senha })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('usuarioNome', data.nome);
+        localStorage.setItem('token', data.token);
+        window.location.href = 'painel.html';
+      } else {
+        alert(data.error);
+      }
     });
 
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem('usuarioNome', data.nome);
-      localStorage.setItem('token', data.token);
-      window.location.href = 'painel.html';
-    } else {
-      alert(data.error);
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('hidden');
     }
-  });
-</script>
 
+    function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('usuarioNome');
+      window.location.href = 'index.html';
+    }
+
+    function selectPV(area) {
+      alert(`Você selecionou o projeto de vida: ${area}`);
+    }
+  </script>
 </body>
 </html>
