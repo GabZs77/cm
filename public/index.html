@@ -228,41 +228,28 @@
   </div>
 
   <!-- ⚙️ Script -->
-  <script>
-    const loginForm = document.getElementById('loginForm');
-    const loginContainer = document.getElementById('loginContainer');
-    const mainContent = document.getElementById('mainContent');
-    const welcomeMsg = document.getElementById('welcomeMsg');
-    const sidebar = document.getElementById('sidebar');
-    const sobre = document.getElementById('sobre');
-    const pvContent = document.getElementById('pvContent');
+ <script>
+  document.getElementById('loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const nome = document.getElementById('nome').value;
+    const senha = document.getElementById('senha').value;
 
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const nome = document.getElementById('nome').value;
-      welcomeMsg.textContent = `Seja muito bem-vindo(a), ${nome}, ao QuizzGame!`;
-      loginContainer.classList.add('hidden');
-      mainContent.classList.remove('hidden');
+    const res = await fetch('http://localhost:3000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, senha })
     });
 
-    function logout() {
-      location.reload();
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('usuarioNome', data.nome);
+      localStorage.setItem('token', data.token);
+      window.location.href = 'painel.html';
+    } else {
+      alert(data.error);
     }
+  });
+</script>
 
-    function toggleSidebar() {
-      sidebar.classList.toggle('hidden');
-    }
-
-    function showSobre() {
-      sobre.classList.toggle('hidden');
-    }
-
-    function selectPV(area) {
-      pvContent.innerHTML = `
-        <h3>Conteúdo para ${area}</h3>
-        <p>Aqui você verá materiais, atividades e desafios relacionados à área de <strong>${area}</strong>.</p>
-      `;
-    }
-  </script>
 </body>
 </html>
