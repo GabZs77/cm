@@ -1,102 +1,135 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matific Clone - Login</title>
+  <title>Portal Escolar</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }body {
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
+      font-family: 'Orbitron', sans-serif;
+    }
 
-.login-container {
-  background-color: white;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 100%;
-  max-width: 400px;
-}
+    body {
+      background: radial-gradient(circle at top left, #4b0082, #000000);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
 
-.login-container h1 {
-  margin-bottom: 20px;
-  color: #333;
-}
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif');
+      background-size: cover;
+      z-index: 0;
+      opacity: 0.2;
+    }
 
-input[type="text"],
-input[type="password"] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 10px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
+    #loginPage {
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      background: rgba(75, 0, 130, 0.7);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 25px rgba(186, 85, 211, 0.8);
+      width: 90%;
+      max-width: 420px;
+      gap: 1.2rem;
+      backdrop-filter: blur(8px);
+    }
 
-button {
-  width: 100%;
-  background-color: #2575fc;
-  color: white;
-  padding: 12px 20px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
+    #loginPage h2 {
+      text-align: center;
+      color: #e0b3ff;
+      font-size: 1.8rem;
+      text-shadow: 0 0 10px #ba55d3;
+    }
 
-button:hover {
-  background-color: #1a5cd8;
-}
+    input {
+      padding: 0.9rem;
+      border: none;
+      border-radius: 0.5rem;
+      outline: none;
+      font-size: 1rem;
+      background-color: #1c0033;
+      color: #fff;
+      box-shadow: inset 0 0 5px #7a00cc;
+    }
 
+    input::placeholder {
+      color: #999;
+    }
+
+    button {
+      padding: 0.9rem;
+      background: linear-gradient(45deg, #8e2de2, #4a00e0);
+      border: none;
+      border-radius: 0.5rem;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #c964ff;
+    }
+
+    @media (max-width: 500px) {
+      #loginPage {
+        padding: 1.5rem;
+        gap: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h1>Bem-vindo ao EduPlay</h1>
-    <input type="text" id="username" placeholder="Nome de usuário" />
-    <input type="password" id="password" placeholder="Senha" />
+  <div class="stars"></div>
+  <div id="loginPage">
+    <h2>Entrar no Portal Escolar</h2>
+    <input type="text" id="fullName" placeholder="Nome completo (Ex: Gabriel Henrique de Oliveira)" />
+    <input type="text" id="serie" placeholder="Série (Ex: 1ºD)" />
+    <input type="password" id="password" placeholder="Senha (Ex: 785779Gh)" />
     <button onclick="login()">Entrar</button>
-  </div>  <script>
-    // Criar usuário padrão se não existir
-    if (!localStorage.getItem("users")) {
-      localStorage.setItem("users", JSON.stringify({
-        "aluno123": {
-          password: "1234",
-          points: 0,
-          messages: []
-        }
-      }));
-    }
+  </div>
 
+  <script>
     function login() {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
+      const name = document.getElementById("fullName").value.trim();
+      const serie = document.getElementById("serie").value.trim();
+      const pass = document.getElementById("password").value.trim();
 
-      const users = JSON.parse(localStorage.getItem("users") || "{}");
+      if (!name || !serie || !pass) {
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+      const username = `${name} ${serie}`;
+      let users = JSON.parse(localStorage.getItem("users") || "{}");
 
       if (!users[username]) {
-        alert("Usuário não encontrado.");
+        // Cria nova conta
+        users[username] = { password: pass, pontos: 0, mensagens: [] };
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Conta criada com sucesso!");
+      } else if (users[username].password !== pass) {
+        alert("Senha incorreta!");
         return;
       }
 
-      if (users[username].password !== password) {
-        alert("Senha incorreta.");
-        return;
-      }
-
+      // Login bem-sucedido
       localStorage.setItem("currentUser", username);
       window.location.href = "painel.html";
     }
-  </script></body>
+  </script>
+</body>
 </html>
