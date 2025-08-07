@@ -1,1980 +1,230 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="CMSP Plataformas Hacks é o melhor lugar para encontrar métodos, scripts e hacks para facilitar suas tarefas escolares e melhorar seu desempenho nas plataformas de educação de São Paulo."/>
-    <meta name="keywords" content="CMSP Plataformas Hacks, Sala do Futuro Plataformas Hacks, CMSP Hacks, Sala do Futuro Hacks, CMSP Plataformas Scripts, Sala do Futuro Scripts, CMSP Scripts, Sala do Futuro Scripts, LeiaMe Hacks, LeiaMe Scripts, Arvore Hacks, Arvore Scripts, Khan Academy Hacks, Khan Academy Scripts, Tarefas SP Hacks, Tarefas SP Scripts, Alura Hacks, Alura Scripts, SPeak Hacks, SPeak Scripts, Expansão Noturno Hacks, Expansão Noturno Scripts, Matific Hacks, Matific Scripts, Redação Paulista Hacks, Redação Paulista Scripts, Prova Hacks, Prova Paulista Scripts, ferramentas de estudo online, hack para tarefas escolares, hacks para Khan Academy, hacks para Matific, automação de tarefas escolares, hacks para prova paulista, hacks para Alura, hack para SPeak, hack para Redação Paulista, gamificação para educação, scripts para melhorar notas, scripts para Khan Academy, hacks para educação SP, plataformas educacionais hacks, ferramentas para estudantes, scripts de ensino remoto, hacks para sala do futuro, otimização de estudos online, scripts de provas online, hacks educacionais, hacks de estudo em casa"/>
-    <link rel="icon" href="icon.png" type="image/png"/>
-    <meta name="author" content="DarkMode"/>
-    <title>CMSP Hacks</title>
-    <meta property="og:title" content="CMSP Plataformas Hacks"/>
-    <meta property="og:description" content="Encontre os melhores métodos, scripts e hacks para facilitar suas tarefas na escola. Aproveite!"/>
-    <meta property="og:image" content="https://i.imgur.com/PBnK2Pb.png"/>
-    <meta property="og:url" content="https://darkmodde.xyz/CMSP-Hacks/"/>
-    <meta property="og:type" content="website"/>
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="CMSP Plataformas Hacks"/>
-    <meta name="twitter:description" content="Encontre os melhores métodos, scripts e hacks para facilitar suas tarefas na escola. Aproveite!"/>
-    <meta name="twitter:image" content="https://i.imgur.com/PBnK2Pb.png"/>
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f04a2200ffb246399e814a8147fa94a8"}'></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            text-align: center;
-            padding: 0;
-            margin: 0;
-            position: relative;
-            overflow-x: hidden;
-        }
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image:
-                linear-gradient(rgba(30, 30, 30, 0.5) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(30, 30, 30, 0.5) 1px, transparent 1px);
-            background-size: 20px 20px;
-            z-index: -1;
-        }
-        img {
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-            pointer-events: none;
-        }
-        .container {
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            margin-top: 40px;
-            animation: fadeIn 1s ease-out;
-            padding: 0 20px;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .typing-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            min-height: 60px;
-            position: relative;
-            display: inline-block;
-            line-height: 1.2;
-            vertical-align: middle;
-        }
-        .typing-cursor {
-            display: inline-block;
-            width: 3px;
-            height: 42px;
-            background-color: #fff;
-            animation: blink 1s infinite;
-            position: relative;
-            top: 5px;
-        }
-        @keyframes blink {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-        }
-        .description {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            color: #cccccc;
-            animation: slideUp 0.8s ease-out;
-        }
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .category-container {
-            margin-bottom: 30px;
-            width: 100%;
-        }
-        .category-title {
-            font-size: 1.5rem;
-            margin: 25px 0 15px;
-            color: #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .category-title i {
-            color: #4169e1;
-        }
-        .buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            padding-bottom: 30px;
-        }
-        .button {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #303030, #1a1a1a);
-            color: #ffffff;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex: 1 1 200px;
-            min-width: 200px;
-            max-width: 300px;
-            height: 60px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-        .button:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: 0.5s;
-        }
-        .button:hover:before {
-            left: 100%;
-        }
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            background: linear-gradient(135deg, #404040, #252525);
-        }
-        .button:active {
-            transform: translateY(1px);
-        }
-        .special-buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
-            padding-bottom: 60px;
-        }
-        .special-button {
-            padding: 12px 24px;
-            color: #ffffff;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
-            min-width: 300px;
-            max-width: 300px;
-            height: 60px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .special-button.website {
-            background: linear-gradient(135deg, #4a69bd, #1e3799);
-        }
-        .special-button.tutorials {
-            background: linear-gradient(135deg, #8a2be2, #4b0082);
-        }
-        .special-button.tutorials:hover {
-            background: linear-gradient(135deg, #9932cc, #5d1a91);
-        }
-        .special-button.donation {
-            background: linear-gradient(135deg, #6ab04c, #4cd137);
-        }
-        .special-button.discord {
-            background: linear-gradient(135deg, #7289da, #5865f2);
-        }
-        .special-button:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-        .special-button:hover:before {
-            left: 100%;
-        }
-        .special-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        .special-button:active {
-            transform: translateY(1px);
-        }
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: -350px;
-            width: 320px;
-            background: linear-gradient(135deg, #252525, #101010);
-            border-left: 4px solid #4caf50;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 1000;
-            opacity: 0;
-            display: flex;
-            flex-direction: column;
-        }
-        .notification.show {
-            right: 20px;
-            opacity: 1;
-            animation: wiggle 0.8s ease-in-out;
-        }
-        .notification.hide {
-            opacity: 0;
-            transform: translateX(100px) scale(0.8);
-        }
-        @keyframes wiggle {
-            0%, 100% {
-                transform: translateX(0);
-            }
-            15% {
-                transform: translateX(-5px) rotate(-2deg);
-            }
-            30% {
-                transform: translateX(5px) rotate(2deg);
-            }
-            45% {
-                transform: translateX(-3px) rotate(-1deg);
-            }
-            60% {
-                transform: translateX(3px) rotate(1deg);
-            }
-            75% {
-                transform: translateX(-1px) rotate(-0.5deg);
-            }
-            90% {
-                transform: translateX(1px) rotate(0.5deg);
-            }
-        }
-        .notification-icon {
-            font-size: 1.8rem;
-            color: #4caf50;
-            margin-bottom: 10px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        .notification-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #4caf50;
-            font-size: 1.2rem;
-        }
-        .notification-message {
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            line-height: 1.6;
-            color: #cccccc;
-        }
-        .notification-button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 5px;
-        }
-        .notification-button {
-            background: #4caf50;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .notification-button:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        }
-        .notification-button i {
-            margin-right: 5px;
-        }
-        .dismiss-button {
-            background: transparent;
-            color: #cccccc;
-            border: 1px solid #333;
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-        .dismiss-button:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        .footer {
-            width: 100%;
-            margin-top: auto;
-            background: linear-gradient(to bottom, transparent, #080808);
-            padding: 40px 20px 20px;
-        }
-        .credits-section {
-            width: 100%;
-            margin-bottom: 40px;
-        }
-        .about-section {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            padding: 20px;
-            background: rgba(30, 30, 30, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #e0e0e0;
-        }
-        .about-content {
-            text-align: left;
-            color: #cccccc;
-            line-height: 1.6;
-        }
-        .credits-title {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            color: #e0e0e0;
-        }
-        .credit-category-title {
-            font-size: 1.4rem;
-            margin: 20px 0;
-            color: #e0e0e0;
-            text-align: center;
-        }
-        .credits-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        .credits-row {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-        .credits-column {
-            flex: 1;
-            min-width: 300px;
-            max-width: 500px;
-        }
-        .managers-title {
-            margin-top: 40px;
-        }
-        .credit-card {
-            width: 150px;
-            background: #1e1e1e;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-        .credit-card:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        }
-        .credit-img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            background: #333;
-            transition: all 0.3s ease;
-        }
-        .credit-card:hover .credit-img {
-            filter: brightness(1.1);
-        }
-        .credit-name {
-            padding: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .modal.show {
-            opacity: 1;
-        }
-        .modal-content {
-            position: relative;
-            background: linear-gradient(135deg, #1e1e1e, #121212);
-            margin: 10% auto;
-            padding: 25px;
-            width: 80%;
-            max-width: 600px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: all 0.4s ease-out;
-        }
-        .modal.show .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .close-modal {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        .close-modal:hover,
-        .close-modal:focus {
-            color: #fff;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .modal-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 15px;
-        }
-        .modal-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-right: 20px;
-            border: 3px solid #333;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        .modal-title {
-            font-size: 1.8rem;
-            color: #fff;
-            margin: 0;
-        }
-        .modal-story {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #ccc;
-            text-align: left;
-        }
-        .copy-notification {
-            background: linear-gradient(135deg, #252525, #101010);
-            border-left: 4px solid #03a9f4;
-        }
-        .copy-notification .notification-icon {
-            color: #03a9f4;
-        }
-        .copy-notification .notification-title {
-            color: #03a9f4;
-        }
-        .donations-container {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 300px;
-            background: linear-gradient(135deg, #1e1e1e, #121212);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            z-index: 100;
-            overflow: hidden;
-            border-left: 4px solid #6ab04c;
-            opacity: 0;
-            transform: translateX(-20px);
-            animation: slideInDonations 0.5s forwards 0.5s;
-        }
-        @keyframes slideInDonations {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        .donations-header {
-            background: linear-gradient(135deg, #6ab04c, #4cd137);
-            color: #fff;
-            padding: 12px 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .donations-tabs {
-            display: flex;
-            gap: 5px;
-        }
-        .donations-tab {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: rgba(87, 86, 86, 0.5);
-            color: #ccc;
-        }
-        .donations-tab.active {
-            background: #333;
-            font-weight: bold;
-            color: white;
-        }
-        .donations-tab:hover {
-            background: #444;
-        }
-        .donations-list {
-            max-height: 320px;
-            overflow-y: auto;
-            padding: 0;
-        }
-        .donations-list::-webkit-scrollbar {
-            width: 6px;
-        }
-        .donations-list::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-        .donations-list::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 3px;
-        }
-        .donations-list::-webkit-scrollbar-thumb:hover {
-            background: #444;
-        }
-        .donation-item {
-            padding: 15px;
-            border-bottom: 1px solid #333;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.5s;
-        }
-        .donation-item:last-child {
-            border-bottom: none;
-        }
-        .donation-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .donation-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        .donation-name {
-            font-weight: bold;
-            color: #6ab04c;
-            font-size: 1rem;
-        }
-        .donation-amount {
-            background: rgba(106, 176, 76, 0.2);
-            color: #6ab04c;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-        .donation-message {
-            color: #ccc;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            word-break: break-word;
-            text-align: left;
-            max-height: none;
-            overflow-y: visible;
-        }
-        .donation-date {
-            color: #888;
-            font-size: 0.8rem;
-            margin-top: 8px;
-            text-align: right;
-        }
-        .donation-loading {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            color: #ccc;
-        }
-        .donations-empty {
-            padding: 20px;
-            text-align: center;
-            color: #aaa;
-            font-style: italic;
-        }
-        .doador-mes-tag {
-            margin-top: 8px;
-            font-size: 0.85rem;
-            background: #f1c40f;
-            color: #000;
-            padding: 3px 10px;
-            border-radius: 12px;
-            display: inline-block;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-        .donation-rank {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 5px;
-        }
-        .rank-number {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #6ab04c;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.8rem;
-        }
-        .rank-1 .rank-number {
-            background: #f1c40f;
-            color: #000;
-        }
-        .rank-2 .rank-number {
-            background: #95a5a6;
-        }
-        .rank-3 .rank-number {
-            background: #cd7f32;
-        }
-        .double-category-boxes {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .category-box {
-            background: rgba(30, 30, 30, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            flex: 1 1 360px;
-            max-width: 420px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .category-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* Estilos para o OAuth2 */
-        :root {
-            --primary-red: #E30613;
-            --dark-red: #C00511;
-            --light-red: #FF4D5A;
-            --white: #FFFFFF;
-            --light-gray: #F5F5F5;
-            --medium-gray: #E0E0E0;
-            --dark-gray: #333333;
-            --text-gray: #666666;
-        }
-
-        .authorization-box, .login-box {
-            background-color: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            animation: fadeIn 0.5s ease-out;
-            transform-origin: center;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .logo-container {
-            background: linear-gradient(135deg, var(--primary-red), var(--light-red));
-            padding: 30px 20px;
-            text-align: center;
-            color: var(--white);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo-container h1 {
-            font-weight: 700;
-            font-size: 24px;
-            letter-spacing: 1px;
-            margin-top: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo-animation {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto;
-            border-radius: 50%;
-            position: relative;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: transparent;
-        }
-
-        .logo-img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo-animation::before, .logo-animation::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid var(--white);
-            animation: pulse 2s linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(0.8);
-                opacity: 0.7;
-            }
-            70% {
-                transform: scale(1.3);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1.3);
-                opacity: 0;
-            }
-        }
-
-        .app-info {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid var(--medium-gray);
-        }
-
-        .app-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary-red), var(--light-red));
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--white);
-            font-weight: bold;
-            font-size: 20px;
-            margin-right: 15px;
-            box-shadow: 0 4px 8px rgba(227, 6, 19, 0.2);
-        }
-
-        .app-details h2 {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .app-details p {
-            font-size: 14px;
-            color: var(--text-gray);
-        }
-
-        .permissions-list {
-            padding: 20px;
-            list-style: none;
-        }
-
-        .permissions-list li {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
-            font-size: 14px;
-        }
-
-        .permissions-list svg {
-            margin-right: 10px;
-            color: var(--primary-red);
-        }
-
-        .buttons {
-            display: flex;
-            padding: 0 20px 20px;
-            justify-content: space-between;
-        }
-
-        button {
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 14px;
-        }
-
-        .cancel-btn {
-            background-color: var(--light-gray);
-            color: var(--dark-gray);
-        }
-
-        .cancel-btn:hover {
-            background-color: var(--medium-gray);
-        }
-
-        .authorize-btn, .login-btn {
-            background: linear-gradient(135deg, var(--primary-red), var(--light-red));
-            color: var(--white);
-            box-shadow: 0 4px 12px rgba(227, 6, 19, 0.3);
-        }
-
-        .authorize-btn:hover, .login-btn:hover {
-            background: linear-gradient(135deg, var(--dark-red), var(--primary-red));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(227, 6, 19, 0.4);
-        }
-
-        .authorize-btn:active, .login-btn:active {
-            transform: translateY(0);
-        }
-
-        .footer {
-            padding: 15px 20px;
-            background-color: var(--light-gray);
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-gray);
-        }
-
-        .footer a {
-            color: var(--primary-red);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .login-box h2 {
-            text-align: center;
-            margin: 20px 0;
-            font-weight: 500;
-            color: var(--dark-gray);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 10px;
-            padding: 0 20px;
-            margin-bottom: 15px;
-        }
-
-        .form-group {
-            flex: 1;
-            margin-bottom: 0;
-            padding: 0;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: var(--dark-gray);
-            font-weight: 500;
-            text-align: left;
-        }
-
-        .form-group.ra {
-            flex: 2;
-        }
-
-        .form-group.digit {
-            flex: 0.5;
-        }
-
-        .form-group.uf {
-            flex: 1;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--medium-gray);
-            border-radius: 4px;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .error-message {
-            color: var(--primary-red);
-            font-size: 13px;
-            text-align: center;
-            margin: 10px 20px;
-            min-height: 20px;
-        }
-
-        .login-btn {
-            display: block;
-            width: calc(100% - 40px);
-            margin: 20px auto 0;
-            margin-bottom: 20px;
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary-red), var(--light-red));
-            padding: 30px 20px;
-            text-align: center;
-            color: var(--white);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .header img {
-            max-width: 260px;
-            height: auto;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .greeting-box {
-            background-color: var(--white);
-            border-radius: 8px;
-            padding: 40px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            max-width: 500px;
-            width: 100%;
-            margin-bottom: 30px;
-        }
-
-        .greeting-box h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--dark-gray);
-        }
-
-        .greeting-box p {
-            font-size: 18px;
-            color: var(--text-gray);
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-size: 16px;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-red), var(--light-red));
-            color: var(--white);
-            box-shadow: 0 4px 12px rgba(227, 6, 19, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--dark-red), var(--primary-red));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(227, 6, 19, 0.4);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .oauth2-container {
-            display: none;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .typing-title {
-                font-size: 1.8rem;
-                min-height: 45px;
-            }
-            .typing-cursor {
-                height: 32px;
-            }
-            .description {
-                font-size: 1rem;
-                padding: 0 10px;
-            }
-            .button,
-            .special-button {
-                padding: 10px 20px;
-                min-width: 120px;
-                font-size: 0.9rem;
-            }
-            .notification {
-                width: 250px;
-            }
-            .credit-card {
-                width: 120px;
-            }
-            .credit-img {
-                height: 120px;
-            }
-            .about-content {
-                font-size: 0.9rem;
-            }
-            .credits-row {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .credits-column {
-                min-width: 100%;
-            }
-            .modal-content {
-                width: 90%;
-                margin: 20% auto;
-            }
-            .modal-avatar {
-                width: 60px;
-                height: 60px;
-            }
-            .modal-title {
-                font-size: 1.5rem;
-            }
-            .modal-story {
-                font-size: 1rem;
-            }
-            .donations-container {
-                position: relative;
-                top: 0;
-                left: 0;
-                width: calc(100% - 40px);
-                margin: 20px auto;
-                animation: fadeIn 0.5s forwards;
-                transform: none;
-                opacity: 1;
-            }
-        }
-        @media (max-width: 480px) {
-            .typing-title {
-                font-size: 1.5rem;
-                min-height: 38px;
-            }
-            .typing-cursor {
-                height: 28px;
-                top: 3px;
-            }
-            .button,
-            .special-button {
-                min-width: 140px;
-            }
-            .credits-container {
-                gap: 15px;
-            }
-            .credit-card {
-                width: 100px;
-            }
-            .credit-img {
-                height: 100px;
-            }
-            .modal-content {
-                width: 95%;
-                padding: 15px;
-            }
-            .modal-avatar {
-                width: 50px;
-                height: 50px;
-            }
-            .modal-header {
-                margin-bottom: 15px;
-                padding-bottom: 10px;
-            }
-            .modal-title {
-                font-size: 1.3rem;
-            }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizzGame</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="donations-container">
-        <div class="donations-header">
-            <div><i class="fas fa-heart"></i> Doações</div>
-            <div class="donations-tabs">
-                <div class="donations-tab active" data-tab="recent">Recentes</div>
-                <div class="donations-tab" data-tab="ranking">Ranking</div>
-            </div>
-        </div>
-        <div class="donations-list" id="donations-list">
-            <div class="donation-loading">
-                <div class="spinner"></div>
-                <span>Carregando doações...</span>
-            </div>
-        </div>
-    </div>
     <div class="container">
-        <h1 class="typing-title" id="title"></h1>
-        <span class="typing-cursor"></span>
-        <div class="description">
-            <p>Olá bem-vindo ao site do CMSP Plataformas Hacks, onde você encontra os melhores métodos, scripts e hacks para facilitar suas tarefas escolares.</p>
-        </div>
-        
-        <div class="double-category-boxes">
-            <div class="category-box">
-                <h2 class="category-title"><i class="fas fa-globe"></i> Websites</h2>
-                <div class="buttons-container">
-                    <a href="https://taskitos.cupiditys.lol/" class="button" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-clipboard-list"></i> Tarefa SP - 1</a>
-                    <a href="https://gabaritus.moonscripts.cloud/" class="button" data-aos="fade-up" data-aos-delay="150"><i class="fas fa-clipboard-list"></i> Tarefa SP - 2</a>
-                    <a href="https://redacao.cupiditys.lol/" class="button" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-pen-fancy"></i> RedaçãoSP - 1</a>
-                    <a href="https://redacao.moonscripts.cloud/" class="button" data-aos="fade-up" data-aos-delay="250"><i class="fas fa-pen-fancy"></i> RedaçãoSP - 2</a>
-                    <a href="https://crimsonstrauss.xyz/expansao.html" class="button" data-aos="fade-up" data-aos-delay="300"><i class="fas fa-moon"></i> Expansão</a>
-                    <a href="https://matific.cupiditys.lol/dashboard" class="button" data-aos="fade-up" data-aos-delay="400"><i class="fas fa-square-root-alt"></i> Matific</a>
-                    <a href="https://speakify.cupiditys.lol/install" class="button" data-aos="fade-up" data-aos-delay="500"><i class="fas fa-comment-dots"></i> SPeak</a>
-                    <a href="https://leiasp.cupiditys.lol/" class="button" data-aos="fade-up" data-aos-delay="600"><i class="fas fa-book-open"></i> LeiaSP</a>
+        <div class="authorization-box" id="authorizationBox">
+            <div class="logo-container">
+                <div class="logo-animation">
+                    <img src="https://i.imgur.com/KtYrhkP.png" alt="QuizzGame Logo" class="logo-img">
+                </div>
+                <h1>QuizzGame</h1>
+            </div>
+            
+            <div class="app-info">
+                <div id="client-abbreviation" class="app-icon">QG</div>
+                <div class="app-details">
+                    <h2 id="client-name">QuizzGame</h2>
+                    <p>solicita permissão para:</p>
                 </div>
             </div>
-            <div class="category-box">
-                <h2 class="category-title"><i class="fas fa-code"></i> Scripts</h2>
-                <div class="buttons-container">
-                    <button class="button" data-aos="fade-up" data-aos-delay="300" onclick="navigator.clipboard.writeText('javascript:fetch(&quot;https://raw.githubusercontent.com/Niximkk/Khanware/refs/heads/main/Khanware.js&quot;).then(t=>t.text()).then(eval);')">
-                        <i class="fas fa-graduation-cap"></i> Khan Academy - 1
-                    </button>
-                    <button class="button" data-aos="fade-up" data-aos-delay="350" onclick="navigator.clipboard.writeText('javascript:fetch(&quot;https://raw.githubusercontent.com/SamuelSteles/Khanzitos/refs/heads/main/khanzitos.js&quot;).then(t=>t.text()).then(eval);')">
-                        <i class="fas fa-graduation-cap"></i> Khan Academy - 2
-                    </button>
-                </div>
+            
+            <ul class="permissions-list">
+                <li>
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                    <span>Acessar suas informações</span>
+                </li>
+            </ul>
+            
+            <div class="buttons">
+                <button class="cancel-btn" id="cancelBtn">Cancelar</button>
+                <button class="authorize-btn" id="authorizeBtn">Autorizar</button>
             </div>
-        </div>
-        
-        <div class="double-category-boxes">
-            <div class="category-box">
-                <h2 class="category-title"><i class="fas fa-check-circle"></i> Prova Paulista</h2>
-                <div class="buttons-container">
-                    <button class="button" onclick="navigator.clipboard.writeText('javascript:fetch(&quot;https://res.cloudinary.com/dctxcezsd/raw/upload/v1745012111/saladofuturo.js&quot;).then(t=>t.text()).then(eval);')">
-                        <i class="fas fa-robot"></i> IA Flutuante
-                    </button>
-                </div>
+            
+            <div class="footer">
+                <p>Não reconhece este aplicativo? <a id="client-site" href="https://quizzgame.vercel.app/">Saiba mais</a></p>
             </div>
         </div>
         
-        <div class="category-box">
-            <h2 class="category-title"><i class="fas fa-brain"></i> IA</h2>
-            <div class="buttons-container">
-                <a href="https://Chat.vercel.ai" class="button"><i class="fas fa-comments"></i> ChatBot (Em Teste)</a>
-                <a href="https://deepai.org/chat" class="button"><i class="fas fa-microchip"></i> DeepAI<br/><small>Não funciona com internet da escola</small></a>
-                <a href="https://chat.z.ai/" class="button"><i class="fas fa-robot"></i> Chat Z<br/><small>Não funciona com internet da escola</small></a>
-                <a href="https://gamma.app/pt-br/products/presentations" class="button"><i class="fas fa-comments"></i> Gamma AI (SLIDES)<br/><small>Precisa Internet do Celular e conta Google</small></a>
+        <div class="login-box hidden" id="loginBox">
+            <div class="logo-container">
+                <div class="logo-animation">
+                    <img src="https://i.imgur.com/KtYrhkP.png" alt="QuizzGame Logo" class="logo-img">
+                </div>
+                <h1>QuizzGame</h1>
             </div>
-        </div>
-        
-        <div class="category-container">
-            <div class="special-buttons-container">
-                <button class="special-button tutorials" data-aos="fade-up" data-aos-delay="100" onclick="showOAuth2Page()"><i class="fas fa-sign-in-alt"></i> Login com Sala do Futuro</button>
-                <a href="https://darkmodde.github.io/CMSP-Hacks/videos" class="special-button tutorials" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-book"></i> Tutoriais</a>
-                <a href="https://pixgg.com/DarkMode" class="special-button donation" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-hand-holding-heart"></i> Doação</a>
-                <a href="https://discord.gg/platformdestroyer" class="special-button discord" data-aos="fade-up" data-aos-delay="300"><i class="fab fa-discord"></i> Discord</a>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Container OAuth2 -->
-    <div id="oauth2-container" class="oauth2-container">
-        <!-- Página de Autorização -->
-        <div id="authorization-page">
-            <div class="authorization-box" id="authorizationBox">
-                <div class="logo-container">
-                    <img src="https://i.imgur.com/KtYrhkP.png" style="width: 260px;">
-                </div>
-                
-                <div class="app-info">
-                    <div id="client-abbreviation" class="app-icon">EX</div>
-                    <div class="app-details">
-                        <h2 id="client-name">Exemplo</h2>
-                        <p>solicita permissão para:</p>
-                    </div>
-                </div>
-                
-                <ul class="permissions-list">
-                    <li>
-                        <svg viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                        </svg>
-                        <span>Acessar suas informações</span>
-                    </li>
-                </ul>
-                
-                <div class="buttons">
-                    <button class="cancel-btn" id="cancelBtn">Cancelar</button>
-                    <button class="authorize-btn" id="authorizeBtn">Autorizar</button>
-                </div>
-                
-                <div class="footer">
-                    <p>Não reconhece este aplicativo? <a id="client-site" href="https://saladofuturo.vercel.app/">Saiba mais</a></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Página de Login -->
-        <div id="login-page" style="display: none;">
-            <div class="login-box" id="loginBox">
-                <div class="logo-container">
-                    <img src="https://i.imgur.com/KtYrhkP.png" style="width: 260px;">
-                </div>
-                
-                <h2>Faça login para continuar</h2>
-                
-                <form id="loginForm">
-                    <div class="form-row">
-                        <div class="form-group ra">
-                            <label for="ra">RA</label>
-                            <input type="text" id="ra" name="ra" maxlength="9" placeholder="123456789" required>
-                        </div>
-                        
-                        <div class="form-group digit">
-                            <label for="digit">Dígito</label>
-                            <input type="text" id="digit" name="digit" maxlength="1" placeholder="x" required>
-                        </div>
-                        
-                        <div class="form-group uf">
-                            <label for="uf">UF</label>
-                            <select id="uf" name="uf" required>
-                                <option value="AC">AC</option>
-                                <option value="AL">AL</option>
-                                <option value="AP">AP</option>
-                                <option value="AM">AM</option>
-                                <option value="BA">BA</option>
-                                <option value="CE">CE</option>
-                                <option value="DF">DF</option>
-                                <option value="ES">ES</option>
-                                <option value="GO">GO</option>
-                                <option value="MA">MA</option>
-                                <option value="MT">MT</option>
-                                <option value="MS">MS</option>
-                                <option value="MG">MG</option>
-                                <option value="PA">PA</option>
-                                <option value="PB">PB</option>
-                                <option value="PR">PR</option>
-                                <option value="PE">PE</option>
-                                <option value="PI">PI</option>
-                                <option value="RJ">RJ</option>
-                                <option value="RN">RN</option>
-                                <option value="RS">RS</option>
-                                <option value="RO">RO</option>
-                                <option value="RR">RR</option>
-                                <option value="SC">SC</option>
-                                <option value="SP" selected>SP</option>
-                                <option value="SE">SE</option>
-                                <option value="TO">TO</option>
-                            </select>
-                        </div>
+            
+            <h2>Faça login para continuar</h2>
+            
+            <form id="loginForm">
+                <div class="form-row">
+                    <div class="form-group ra">
+                        <label for="ra">RA</label>
+                        <input type="text" id="ra" name="ra" maxlength="9" placeholder="123456789" required>
                     </div>
                     
-                    <div class="form-group" style="padding: 0 20px;">
-                        <label for="password">Senha</label>
-                        <input type="password" id="password" name="password" placeholder="Senha" required>
+                    <div class="form-group digit">
+                        <label for="digit">Dígito</label>
+                        <input type="text" id="digit" name="digit" maxlength="1" placeholder="x" required>
                     </div>
-
-                    <div class="error-message" id="errorMessage"></div>
                     
-                    <button type="submit" class="login-btn">Entrar</button>
-                </form>
+                    <div class="form-group uf">
+                        <label for="uf">UF</label>
+                        <select id="uf" name="uf" required>
+                            <option value="AC">AC</option>
+                            <option value="AL">AL</option>
+                            <option value="AP">AP</option>
+                            <option value="AM">AM</option>
+                            <option value="BA">BA</option>
+                            <option value="CE">CE</option>
+                            <option value="DF">DF</option>
+                            <option value="ES">ES</option>
+                            <option value="GO">GO</option>
+                            <option value="MA">MA</option>
+                            <option value="MT">MT</option>
+                            <option value="MS">MS</option>
+                            <option value="MG">MG</option>
+                            <option value="PA">PA</option>
+                            <option value="PB">PB</option>
+                            <option value="PR">PR</option>
+                            <option value="PE">PE</option>
+                            <option value="PI">PI</option>
+                            <option value="RJ">RJ</option>
+                            <option value="RN">RN</option>
+                            <option value="RS">RS</option>
+                            <option value="RO">RO</option>
+                            <option value="RR">RR</option>
+                            <option value="SC">SC</option>
+                            <option value="SP" selected>SP</option>
+                            <option value="SE">SE</option>
+                            <option value="TO">TO</option>
+                        </select>
+                    </div>
+                </div>
                 
-                <div class="footer">
-                    <p>Problemas para acessar? <a id="client-support" href="https://github.com/JuniorSchueller/SDF_OAuth2">Entre em contato</a></p>
+                <div class="form-group" style="padding: 0 20px;">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" placeholder="Senha" required>
                 </div>
-            </div>
-        </div>
 
-        <!-- Página de Saudação -->
-        <div id="hello-page" style="display: none;">
-            <div class="header">
-                <img src="https://i.imgur.com/KtYrhkP.png" alt="Sala do Futuro">
-            </div>
-
-            <div class="main-content">
-                <div class="greeting-box">
-                    <h2>Olá, <strong id="user-name"></strong>!</h2>
-                    <a href="#" class="btn btn-primary" id="logoutBtn">Sair</a>
-                </div>
+                <div class="error-message" id="errorMessage"></div>
+                
+                <button type="submit" class="login-btn">Entrar</button>
+            </form>
+            
+            <div class="footer">
+                <p>Problemas para acessar? <a id="client-support" href="https://github.com/quizzgame">Entre em contato</a></p>
             </div>
         </div>
     </div>
-    
-    <div class="notification" id="donation-notification">
-        <div class="notification-icon"><i class="fas fa-gift"></i></div>
-        <div class="notification-title">Ajude o Projeto!</div>
-        <div class="notification-message">Suas doações são essenciais para mantermos este projeto. Contribua para continuarmos ajudando estudantes em todo o estado de São Paulo.</div>
-        <div class="notification-button-container">
-            <button class="notification-button" onclick="goToDonation()"><i class="fas fa-heart"></i> Doar Agora</button>
-            <button class="dismiss-button" onclick="dismissNotification()">Mais tarde</button>
-        </div>
-    </div>
-    
-    <div class="notification copy-notification" id="copy-notification" style="right:-350px;opacity:0">
-        <div class="notification-icon"><i class="fas fa-check-circle"></i></div>
-        <div class="notification-title">Sucesso!</div>
-        <div class="notification-message">Script copiado com sucesso! Cole no console do navegador para executar.</div>
-    </div>
-    
-    <footer class="footer">
-        <div class="about-section" data-aos="fade-up">
-            <h2 class="section-title">Sobre</h2>
-            <div class="about-content">
-                <p>Olá, bem-vindo ao site do CMSP Plataformas Hacks! Aqui vocês vão encontrar os melhores métodos, scripts e hacks para facilitar e automatizar suas tarefas da escola. Temos TODAS as plataformas do Sala do Futuro — então aproveitem!</p>
-                <br/>
-                <p>Nossa equipe é formada por desenvolvedores e estudantes que já não aguentam mais essas plataformas de São Paulo, que não fazem diferença nenhuma e só atrapalham a vida dos alunos. Por isso estamos aqui: para facilitar a vida de vocês, alunos. Obrigado por apoiarem nossos projetos.</p>
-                <br/>
-                <p><strong>Ass:</strong> <\DarkMode></p>
-            </div>
-        </div>
-        <br/><br/><br/><br/><br/>
-        <div class="credits-section">
-            <div class="credits-row">
-                <div class="credits-column">
-                    <h3 class="credit-category-title" data-aos="fade-up"><i class="fa-solid fa-crown"></i>┃Fundadores</h3>
-                    <div class="credits-container" id="owners-container"></div>
-                </div>
-                <div class="credits-column">
-                    <h3 class="credit-category-title" data-aos="fade-up"><i class="fa-solid fa-star"></i>┃Co-fundadores</h3>
-                    <div class="credits-container" id="coleaders-container"></div>
-                </div>
-            </div>
-            <h3 class="credit-category-title managers-title" data-aos="fade-up"><i class="fa-solid fa-laptop-code"></i>┃Managers</h3>
-            <div class="credits-container" id="managers-container"></div>
-        </div>
-    </footer>
-    
-    <div id="user-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-header">
-                <img id="modal-avatar" alt="Avatar" class="modal-avatar">
-                <h2 id="modal-name" class="modal-title"></h2>
-            </div>
-            <div id="modal-story" class="modal-story"></div>
-        </div>
-    </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  
     <script>
-        const titleText = "CMSP Plataformas Hacks";
-        const titleElement = document.getElementById("title");
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingDelay = 150;
-        let deletingDelay = 50;
-        let newTextDelay = 4000;
-        
-        function typeTitle() {
-            const currentText = titleElement.textContent;
-            if (!isDeleting && charIndex < titleText.length) {
-                titleElement.textContent = titleText.substring(0, charIndex + 1);
-                charIndex++;
-                setTimeout(typeTitle, typingDelay);
-            } else if (isDeleting && charIndex > 0) {
-                titleElement.textContent = titleText.substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(typeTitle, deletingDelay);
-            } else if (charIndex === titleText.length) {
-                isDeleting = true;
-                setTimeout(typeTitle, newTextDelay);
-            } else if (charIndex === 0) {
-                isDeleting = false;
-                setTimeout(typeTitle, typingDelay);
-            }
-        }
-        
-        function showNotification() {
-            const notification = document.getElementById("donation-notification");
-            notification.classList.add("show");
-            setTimeout(() => {
-                notification.classList.add("hide");
-                notification.classList.remove("show");
-                setTimeout(() => {
-                    notification.classList.remove("hide");
-                    notification.style.right = "-350px";
-                }, 500);
-            }, 15000);
-        }
-        
-        function goToDonation() {
-            window.location.href = "https://pixgg.com/DarkMode";
-        }
-        
-        function dismissNotification() {
-            const notification = document.getElementById("donation-notification");
-            notification.classList.add("hide");
-            notification.classList.remove("show");
-            setTimeout(() => {
-                notification.classList.remove("hide");
-                notification.style.right = "-350px";
-            }, 500);
-        }
-        
-        function copyScript(platform) {
-            let scriptToClone = "";
-            switch (platform) {
-                case 'Khan Academy':
-                    scriptToClone = "javascript:fetch(\"https://corsproxy.io/?url=https://raw.githubusercontent.com/DarkModde/Dark-Scripts/refs/heads/main/KhanResolver.js\").then(t=>t.text()).then(eval);";
-                    break;
-                case 'Alura':
-                    scriptToClone = "// ==UserScript==\n// @name         Alura-Infinity\n// @namespace    https://cursos.alura.com.br/\n// @match        https://cursos.alura.com.br/course/*/task/*\n// @icon         https://i.imgur.com/OtfkTcS.png\n// @grant        none\n// @require      https://raw.githubusercontent.com/DarkModde/Dark-Scripts/refs/heads/main/AluraInfinity.js\n// ==/UserScript==";
-                    break;
-                case 'Redação Paulista':
-                    scriptToClone = "javascript:fetch(\"https://corsproxy.io/?url=https://raw.githubusercontent.com/DarkModde/Dark-Scripts/refs/heads/main/RedaSP-IA.js\").then(t=>t.text()).then(eval);";
-                    break;
-                case 'Expansão Noturno':
-                    scriptToClone = "javascript:fetch(\"https://corsproxy.io/?url=https://raw.githubusercontent.com/DarkModde/Dark-Scripts/refs/heads/main/ExNoturnoFDS.js\").then(t=>t.text()).then(eval);";
-                    break;
-                default:
-                    scriptToClone = "javascript:fetch(\"https://corsproxy.io/?url=https://raw.githubusercontent.com/DarkModde/Dark-Scripts/refs/heads/main/WebTeste.js\").then(t=>t.text()).then(eval);";
-            }
-            const tempElement = document.createElement("textarea");
-            tempElement.value = scriptToClone;
-            document.body.appendChild(tempElement);
-            tempElement.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempElement);
-            const donationNotification = document.getElementById("donation-notification");
-            if (donationNotification.classList.contains("show")) {
-                dismissNotification();
-                setTimeout(() => {
-                    showCopyNotification(platform);
-                }, 300);
-            } else {
-                showCopyNotification(platform);
-            }
-        }
-        
-        function showCopyNotification(platform) {
-            const notification = document.getElementById("copy-notification");
-            const message = notification.querySelector(".notification-message");
-            message.textContent = `Script para ${platform} copiado com sucesso! Adicione nos favoritos do navegador para executar.`;
-            notification.style.right = "-350px";
-            notification.style.opacity = "0";
-            notification.classList.remove("hide");
-            void notification.offsetWidth;
-            setTimeout(() => {
-                notification.style.right = "20px";
-                notification.style.opacity = "1";
-                notification.classList.add("show");
-                setTimeout(() => {
-                    dismissCopyNotification();
-                }, 4000);
-            }, 100);
-        }
-        
-        function dismissCopyNotification() {
-            const notification = document.getElementById("copy-notification");
-            notification.classList.add("hide");
-            notification.classList.remove("show");
-            setTimeout(() => {
-                notification.classList.remove("hide");
-                notification.style.right = "-350px";
-                notification.style.opacity = "0";
-            }, 500);
-        }
-        
-        const owners = [
-            { id: "852703201068187668", name: "Cupidys" },
-        ];
-        const coLeaders = [
-            { id: "757613243136213213", name: "ꜱ ɴ ᴀ ᴋ ᴇ" },
-        ];
-        const managers = [
-            { id: "1080175803024814142", name: "<\\DarkMode>" },
-            { id: "547235580145303553", name: "NGX1305" },
-            { id: "1303721536158699572", name: "R the Real" },
-            { id: "1233469667860025365", name: "ΒℓєѕѕєðÐєν" }
-        ];
-        const userStories = {
-            "852703201068187668": {
-                story: "EM BREVE"
-            },
-            "757613243136213213": {
-                story: "EM BREVE"
-            },
-            "1080175803024814142": {
-                story: "EM BREVE"
-            },
-            "547235580145303553": {
-                story: "EM BREVE"
-            },
-            "1303721536158699572": {
-                story: "EM BREVE"
-            },
-            "1233469667860025365": {
-                story: "EM BREVE"
-            }
-        };
-        
-        function openUserModal(userId, userName, avatarUrl) {
-            const modal = document.getElementById('user-modal');
-            const modalName = document.getElementById('modal-name');
-            const modalStory = document.getElementById('modal-story');
-            const modalAvatar = document.getElementById('modal-avatar');
-            modalName.textContent = userName;
-            modalAvatar.src = avatarUrl;
-            const userStory = userStories[userId] ? userStories[userId].story :
-                "Informações adicionais sobre " + userName + " em breve...";
-            modalStory.textContent = userStory;
-            modal.style.display = 'block';
-            setTimeout(() => {
-                modal.classList.add('show');
-            }, 10);
-        }
-        
-        function closeUserModal() {
-            const modal = document.getElementById('user-modal');
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
-        
-        function cleanAvatarCache(maxAgeInDays = 7) {
-            const currentTime = new Date().getTime();
-            const cacheKey = 'avatar_cache_timestamp';
-            const lastCleanTime = localStorage.getItem(cacheKey);
-            if (lastCleanTime && (currentTime - parseInt(lastCleanTime) < maxAgeInDays * 24 * 60 * 60 * 1000)) {
-                return;
-            }
-            Object.keys(localStorage).forEach(key => {
-                if (key.startsWith('discord_avatar_')) {
-                    localStorage.removeItem(key);
-                }
-            });
-            localStorage.setItem(cacheKey, currentTime.toString());
-        }
-        
-        async function fetchDiscordAvatar(userId) {
-            const cachedAvatar = localStorage.getItem(`discord_avatar_${userId}`);
-            if (cachedAvatar) {
-                return cachedAvatar;
-            }
-            try {
-                const response = await fetch(
-                    `https://discord-lookup-api-sandy.vercel.app/v1/user/${userId}`
-                );
-                const data = await response.json();
-                if (data && data.avatar && data.avatar.link) {
-                    const avatarUrl = `${data.avatar.link}.png?size=2048`;
-                    localStorage.setItem(`discord_avatar_${userId}`, avatarUrl);
-                    return avatarUrl;
-                } else {
-                    return null;
-                }
-            } catch (error) {
-                return null;
-            }
-        }
-        
-        async function createCreditCard(userId, userName) {
-            const creditCard = document.createElement("div");
-            creditCard.className = "credit-card";
-            creditCard.setAttribute("data-aos", "zoom-in");
-            creditCard.setAttribute("data-user-id", userId);
-            const loadingDiv = document.createElement("div");
-            loadingDiv.className = "loading-spinner";
-            const spinner = document.createElement("div");
-            spinner.className = "spinner";
-            loadingDiv.appendChild(spinner);
-            creditCard.appendChild(loadingDiv);
-            const nameDiv = document.createElement("div");
-            nameDiv.className = "credit-name";
-            nameDiv.textContent = userName;
-            creditCard.appendChild(nameDiv);
-            const avatarUrl = await fetchDiscordAvatar(userId);
-            creditCard.removeChild(loadingDiv);
-            const img = document.createElement("img");
-            img.className = "credit-img";
-            img.alt = userName;
-            img.src = avatarUrl || "https://cdn.discordapp.com/embed/avatars/0.png";
-            creditCard.insertBefore(img, nameDiv);
-            creditCard.addEventListener('click', function () {
-                openUserModal(userId, userName, img.src);
-            });
-            return creditCard;
-        }
-        
-        async function loadCreditCards() {
-            const ownersContainer = document.getElementById("owners-container");
-            for (const user of owners) {
-                const card = await createCreditCard(user.id, user.name);
-                ownersContainer.appendChild(card);
-            }
-            const coLeadersContainer = document.getElementById("coleaders-container");
-            for (const user of coLeaders) {
-                const card = await createCreditCard(user.id, user.name);
-                coLeadersContainer.appendChild(card);
-            }
-            const managersContainer = document.getElementById("managers-container");
-            for (const user of managers) {
-                const card = await createCreditCard(user.id, user.name);
-                managersContainer.appendChild(card);
-            }
-        }
-        
-        function formatarData(dataString) {
-            const data = new Date(dataString);
-            const agora = new Date();
-            const diffMilissegundos = agora - data;
-            const diffMinutos = Math.floor(diffMilissegundos / (1000 * 60));
-            const diffHoras = Math.floor(diffMinutos / 60);
-            const diffDias = Math.floor(diffHoras / 24);
-            if (diffMinutos < 1) {
-                return "agora mesmo";
-            } else if (diffMinutos < 60) {
-                return `há ${diffMinutos} ${diffMinutos === 1 ? 'minuto' : 'minutos'}`;
-            } else if (diffHoras < 24) {
-                return `há ${diffHoras} ${diffHoras === 1 ? 'hora' : 'horas'}`;
-            } else if (diffDias < 30) {
-                return `há ${diffDias} ${diffDias === 1 ? 'dia' : 'dias'}`;
-            } else {
-                const dia = data.getDate().toString().padStart(2, '0');
-                const mes = (data.getMonth() + 1).toString().padStart(2, '0');
-                const ano = data.getFullYear();
-                return `${dia}/${mes}/${ano}`;
-            }
-        }
-        
-        function formatarValor(valor) {
-            return 'R$ ' + valor.toFixed(2).replace('.', ',');
-        }
-        
-        let currentTab = 'recent';
-        let donationsData = [];
-        
-        function switchTab(tab) {
-            currentTab = tab;
-            const tabs = document.querySelectorAll('.donations-tab');
-            tabs.forEach(t => t.classList.remove('active'));
-            document.querySelector(`.donations-tab[data-tab="${tab}"]`).classList.add('active');
-            renderDonations();
-        }
-        
-        function renderDonations() {
-            const doacoesList = document.getElementById('donations-list');
-            if (donationsData.length === 0) {
-                doacoesList.innerHTML = '<div class="donations-empty">Nenhuma doação encontrada.</div>';
-                return;
-            }
-            doacoesList.innerHTML = '';
-            if (currentTab === 'recent') {
-                renderRecentDonations(doacoesList);
-            } else {
-                renderRankingDonations(doacoesList);
-            }
-        }
-        
-        function renderRecentDonations(container) {
-            const recentes = donationsData.slice(0, 5);
-            recentes.forEach(doacao => {
-                const doacaoItem = document.createElement('div');
-                doacaoItem.className = 'donation-item';
-                doacaoItem.innerHTML = `
-                    <div class="donation-header">
-                        <div class="donation-name">${doacao.donatorNickname}</div>
-                        <div class="donation-amount">${formatarValor(doacao.totalAmount)}</div>
-                    </div>
-                    <div class="donation-message">${doacao.donatorMessage || 'Sem mensagem'}</div>
-                    <div class="donation-date">${formatarData(doacao.dateCreated)}</div>
-                `;
-                container.appendChild(doacaoItem);
-            });
-        }
-        
-        function renderRankingDonations(container) {
-            const mesAtual = new Date().getMonth();
-            const anoAtual = new Date().getFullYear();
-            const doacoesMes = donationsData
-                .filter(doacao => {
-                    const data = new Date(doacao.dateCreated);
-                    return data.getMonth() === mesAtual &&
-                        data.getFullYear() === anoAtual;
-                })
-                .sort((a, b) => b.totalAmount - a.totalAmount)
-                .slice(0, 5);
-            if (doacoesMes.length === 0) {
-                container.innerHTML = '<div class="donations-empty">Nenhuma doação este mês.</div>';
-                return;
-            }
-            doacoesMes.forEach((doacao, index) => {
-                const doacaoItem = document.createElement('div');
-                doacaoItem.className = `donation-item rank-${index + 1}`;
-                doacaoItem.innerHTML = `
-                    <div class="donation-rank">
-                        <div class="rank-number">${index + 1}</div>
-                        <div class="donation-name">${doacao.donatorNickname}</div>
-                        <div class="donation-amount">${formatarValor(doacao.totalAmount)}</div>
-                    </div>
-                    <div class="donation-message">${doacao.donatorMessage || 'Sem mensagem'}</div>
-                    <div class="donation-date">${formatarData(doacao.dateCreated)}</div>
-                `;
-                container.appendChild(doacaoItem);
-            });
-        }
-        
-        async function carregarDoacoes() {
-            const doacoesList = document.getElementById('donations-list');
-            doacoesList.innerHTML = '<div class="donation-loading"><div class="spinner"></div><span>Carregando doações...</span></div>';
-            try {
-                const response = await fetch('https://dark-api-eta.vercel.app/api/donations');
-                donationsData = await response.json();
-                renderDonations();
-            } catch (error) {
-                doacoesList.innerHTML = '<div class="donations-empty">Erro ao carregar doações. Tente novamente mais tarde.</div>';
-            }
-        }
-        
-        // Funções para OAuth2
-        function showOAuth2Page() {
-            document.getElementById('oauth2-container').style.display = 'block';
-            document.getElementById('authorization-page').style.display = 'block';
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('hello-page').style.display = 'none';
+        document.addEventListener('DOMContentLoaded', function() {
+            const authorizationBox = document.getElementById('authorizationBox');
+            const loginBox = document.getElementById('loginBox');
+            const authorizeBtn = document.getElementById('authorizeBtn');
+            const cancelBtn = document.getElementById('cancelBtn'); 
+            const loginForm = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const ufSelect = document.getElementById('uf');            
             
-            // Esconder o conteúdo principal
-            document.querySelector('.container').style.display = 'none';
-        }
-        
-        function showLoginPage() {
-            document.getElementById('authorization-page').style.display = 'none';
-            document.getElementById('login-page').style.display = 'block';
-            document.getElementById('hello-page').style.display = 'none';
-        }
-        
-        function showHelloPage(name) {
-            document.getElementById('authorization-page').style.display = 'none';
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('hello-page').style.display = 'block';
-            document.getElementById('user-name').textContent = name;
-        }
-        
-        function hideOAuth2Page() {
-            document.getElementById('oauth2-container').style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
-        }
-        
-        function simulateAuthResponse(ra, digit, uf, password) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    // Simular sucesso ou falha
-                    if (ra === '123456789' && digit === '1' && uf === 'SP' && password === 'senha') {
-                        // Token JWT simulado
-                        const header = btoa(JSON.stringify({alg: "HS256", typ: "JWT"}));
-                        const payload = btoa(JSON.stringify({Nome: "John Doe"}));
-                        const signature = "assinatura_falsa";
-                        const token = `${header}.${payload}.${signature}`;
-                        resolve({ token });
-                    } else {
-                        resolve({ token: 'bnVsbA==' }); // 'null' em base64
-                    }
-                }, 1000);
+            authorizeBtn.addEventListener('click', function() {
+                authorizationBox.classList.add('hidden');
+                loginBox.classList.remove('hidden');
             });
-        }
-        
-        function initializeSite() {
-            setTimeout(carregarDoacoes, 1500);
-            setInterval(carregarDoacoes, 120000);
-            setTimeout(typeTitle, 1000);
-            setTimeout(showNotification, 1000);
-            loadCreditCards();
-            cleanAvatarCache();
-            AOS.init({
-                duration: 800,
-                easing: "ease",
-                once: false,
-                mirror: false,
+
+            cancelBtn.addEventListener('click', function() {
+                location.href = './';
             });
             
-            // Eventos para OAuth2
-            document.getElementById('authorizeBtn').addEventListener('click', function() {
-                showLoginPage();
-            });
-            
-            document.getElementById('cancelBtn').addEventListener('click', function() {
-                hideOAuth2Page();
-            });
-            
-            document.getElementById('logoutBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                hideOAuth2Page();
-            });
-            
-            document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 const ra = document.getElementById('ra').value;
                 const digit = document.getElementById('digit').value;
                 const uf = document.getElementById('uf').value;
                 const password = document.getElementById('password').value;
-                const errorMessage = document.getElementById('errorMessage');
                 
-                // Validar
+                errorMessage.textContent = '';
+                
                 if (ra.length !== 9) {
-                    errorMessage.textContent = 'O RA deve ter exatamente 9 caracteres.';
+                    showError('O RA deve ter exatamente 9 caracteres.');
                     return;
                 }
                 
                 if (!/^\d+$/.test(ra)) {
-                    errorMessage.textContent = 'O RA deve conter apenas números.';
+                    showError('O RA deve conter apenas números.');
                     return;
                 }
                 
                 if (digit.length !== 1) {
-                    errorMessage.textContent = 'O dígito deve ter exatamente 1 caractere.';
+                    showError('O dígito deve ter exatamente 1 caractere.');
                     return;
                 }
                 
                 if (!uf) {
-                    errorMessage.textContent = 'Por favor, selecione sua UF.';
+                    showError('Por favor, selecione sua UF.');
                     return;
                 }
                 
-                // Desabilitar o botão e mostrar mensagem de carregando
-                const loginBtn = this.querySelector('button[type="submit"]');
+                quizzGameLogin(ra, digit, uf, password);
+            });
+            
+            function showError(message) {
+                errorMessage.textContent = message;
+            }
+            
+            async function quizzGameLogin(ra, digit, uf, password) {   
+                const loginBtn = loginForm.querySelector('button');
                 loginBtn.disabled = true;
                 loginBtn.textContent = 'Autenticando...';
-                errorMessage.textContent = '';
                 
                 try {
-                    // Simular a chamada à API
-                    const data = await simulateAuthResponse(ra, digit, uf, password);
+                    const quizzGameLoginResponse = await fetch('/api/auth', {
+                        'method': 'POST',
+                        'headers': {'content-type': 'application/json'},
+                        'body': JSON.stringify(
+                            {
+                                'platform': 'QuizzGame',
+                                ra,
+                                digit,
+                                uf,
+                                password
+                            }
+                        )
+                    });
                     
-                    if (data.token && !data.token.includes(btoa('null'))) {
-                        // Sucesso: armazenar o token e mostrar a página de saudação
-                        localStorage.setItem('sdf_token', data.token);
+                    const quizzGameLoginJson = await quizzGameLoginResponse.json();
+
+                    const success = !quizzGameLoginJson['token'].includes(btoa('null'));
                         
-                        // Extrair o nome do token
-                        const payload = JSON.parse(atob(data.token.split('.')[1]));
-                        const name = payload.Nome;
-                        
-                        showHelloPage(name);
+                    if (success) {
+                        errorMessage.textContent = '';
+                        const redirParam = 'https://quizzgame.vercel.app/hello';
+
+                        if (redirParam) {
+                            try {
+                                const targetRedir = new URL(decodeURIComponent(redirParam));
+                                
+                                targetRedir.searchParams.append('qg_token', quizzGameLoginJson.token);
+                            
+                                window.location.href = targetRedir.toString();
+                            } catch (e) {
+                                console.error('Erro ao redirecionar:', e);
+                            }
+                        } else {
+                            location.href = 'https://quizzgame.vercel.app/';
+                        }
                     } else {
-                        // Falha: não mostrar mensagem de erro, apenas reabilitar o botão
+                        showError('Credenciais inválidas. Por favor, tente novamente.');
                         loginBtn.disabled = false;
                         loginBtn.textContent = 'Entrar';
                     }
                 } catch (error) {
-                    console.error('Erro:', error);
-                    // Em caso de erro, também não mostrar mensagem, apenas reabilitar o botão
+                    console.error('Erro na autenticação:', error);
+                    showError('Erro ao conectar com o servidor. Tente novamente mais tarde.');
                     loginBtn.disabled = false;
                     loginBtn.textContent = 'Entrar';
                 }
-            });
-            
-            const closeBtn = document.querySelector('.close-modal');
-            closeBtn.addEventListener('click', closeUserModal);
-            window.addEventListener('click', function (event) {
-                const modal = document.getElementById('user-modal');
-                if (event.target === modal) {
-                    closeUserModal();
-                }
-            });
-            document.addEventListener('keydown', function (event) {
-                if (event.key === 'Escape') {
-                    closeUserModal();
-                }
-            });
-            document.querySelectorAll('.donations-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    switchTab(tab.dataset.tab);
-                });
-            });
-        }
-        
-        setTimeout(initializeSite, 100);
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
+            }
         });
     </script>
 </body>
