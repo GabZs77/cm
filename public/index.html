@@ -223,27 +223,38 @@
     </div>
   </div>
 
-  <!-- ⚙️ Script -->
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js"></script>
+
 <script>
+  // Configuração Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyD8cKJ5YglJzQTSiFX463s3G0LAm6wXQqA",
+    authDomain: "email-2df3a.firebaseapp.com",
+    projectId: "email-2df3a",
+    storageBucket: "email-2df3a.appspot.com",
+    messagingSenderId: "862814533131",
+    appId: "1:862814533131:web:0cf9894d8a1b8813f2790e"
+  };
+
+  // Inicializa Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.getAuth();
+
+  // Login
   document.getElementById('loginForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const senha = document.getElementById('senha').value;
 
-    const res = await fetch('http://localhost:3000/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, senha })
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      // Armazena apenas em memória (variáveis globais) para não salvar login listado
-      sessionStorage.setItem('usuarioEmail', data.email);
-      sessionStorage.setItem('token', data.token);
+    try {
+      await firebase.signInWithEmailAndPassword(auth, email, senha);
+      // Guarda em sessionStorage para apagar ao fechar navegador
+      sessionStorage.setItem('usuarioEmail', email);
       window.location.href = 'painel.html';
-    } else {
-      alert(data.error || 'Erro ao fazer login');
+    } catch (error) {
+      alert("Erro no login: " + error.message);
     }
   });
 
@@ -252,8 +263,10 @@
   }
 
   function logout() {
-    sessionStorage.clear();
-    window.location.href = 'index.html';
+    firebase.signOut(auth).then(() => {
+      sessionStorage.clear();
+      window.location.href = 'index.html';
+    });
   }
 
   function selectPV(area) {
