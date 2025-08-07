@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel Escolar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #1a0033, #000000);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #e0b3ff;
+      text-shadow: 0 0 10px #ba55d3;
+    }
+
+    .info {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(186, 85, 211, 0.4);
+      max-width: 500px;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .info p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(45deg, #8e2de2, #4a00e0);
+      border: none;
+      border-radius: 0.5rem;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #c964ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bem-vindo ao Painel Escolar</h1>
+  <div class="info" id="userInfo">
+    <p><strong>Nome:</strong> <span id="userName">Carregando...</span></p>
+    <p><strong>Pontuação:</strong> <span id="userPoints">0</span> pontos</p>
+    <p><strong>Mensagens:</strong></p>
+    <ul id="userMessages">
+      <li>Nenhuma mensagem encontrada.</li>
+    </ul>
+  </div>
+  <button onclick="logout()">Sair</button>
+
+  <script>
+    const user = localStorage.getItem("currentUser");
+    const users = JSON.parse(localStorage.getItem("users") || "{}");
+
+    if (!user || !users[user]) {
+      // Se não estiver logado, volta para a página de login
+      alert("Você precisa estar logado!");
+      window.location.href = "index.html";
+    } else {
+      document.getElementById("userName").innerText = user;
+      document.getElementById("userPoints").innerText = users[user].points || 0;
+
+      const messages = users[user].messages || [];
+      const list = document.getElementById("userMessages");
+      list.innerHTML = "";
+
+      if (messages.length === 0) {
+        list.innerHTML = "<li>Nenhuma mensagem encontrada.</li>";
+      } else {
+        messages.forEach(msg => {
+          const li = document.createElement("li");
+          li.innerText = msg;
+          list.appendChild(li);
+        });
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
