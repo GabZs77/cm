@@ -1,231 +1,164 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuizzGame</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sala do Futuro - Painel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-red: #E30613;
+      --light-red: #FF4D5A;
+      --dark-red: #C00511;
+      --white: #FFFFFF;
+      --light-gray: #F5F5F5;
+      --medium-gray: #E0E0E0;
+      --dark-gray: #333333;
+      --text-gray: #666666;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: var(--light-gray);
+    }
+
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(135deg, var(--primary-red), var(--light-red));
+      color: var(--white);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar h2 {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .sidebar button {
+      background: transparent;
+      border: none;
+      color: var(--white);
+      font-size: 16px;
+      text-align: left;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .sidebar button:hover {
+      text-decoration: underline;
+    }
+
+    .main {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .greeting {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: var(--dark-gray);
+    }
+
+    .content {
+      background-color: var(--white);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      min-height: 300px;
+    }
+
+    .fade {
+      animation: fade 0.4s ease;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="authorization-box" id="authorizationBox">
-            <div class="logo-container">
-                <div class="logo-animation">
-                    <img src="https://i.imgur.com/KtYrhkP.png" alt="QuizzGame Logo" class="logo-img">
-                </div>
-                <h1>QuizzGame</h1>
-            </div>
-            
-            <div class="app-info">
-                <div id="client-abbreviation" class="app-icon">QG</div>
-                <div class="app-details">
-                    <h2 id="client-name">QuizzGame</h2>
-                    <p>solicita permissão para:</p>
-                </div>
-            </div>
-            
-            <ul class="permissions-list">
-                <li>
-                    <svg viewBox="0 0 24 24" width="24" height="24">
-                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                    </svg>
-                    <span>Acessar suas informações</span>
-                </li>
-            </ul>
-            
-            <div class="buttons">
-                <button class="cancel-btn" id="cancelBtn">Cancelar</button>
-                <button class="authorize-btn" id="authorizeBtn">Autorizar</button>
-            </div>
-            
-            <div class="footer">
-                <p>Não reconhece este aplicativo? <a id="client-site" href="https://quizzgame.vercel.app/">Saiba mais</a></p>
-            </div>
-        </div>
-        
-        <div class="login-box hidden" id="loginBox">
-            <div class="logo-container">
-                <div class="logo-animation">
-                    <img src="https://i.imgur.com/KtYrhkP.png" alt="QuizzGame Logo" class="logo-img">
-                </div>
-                <h1>QuizzGame</h1>
-            </div>
-            
-            <h2>Faça login para continuar</h2>
-            
-            <form id="loginForm">
-                <div class="form-row">
-                    <div class="form-group ra">
-                        <label for="ra">RA</label>
-                        <input type="text" id="ra" name="ra" maxlength="9" placeholder="123456789" required>
-                    </div>
-                    
-                    <div class="form-group digit">
-                        <label for="digit">Dígito</label>
-                        <input type="text" id="digit" name="digit" maxlength="1" placeholder="x" required>
-                    </div>
-                    
-                    <div class="form-group uf">
-                        <label for="uf">UF</label>
-                        <select id="uf" name="uf" required>
-                            <option value="AC">AC</option>
-                            <option value="AL">AL</option>
-                            <option value="AP">AP</option>
-                            <option value="AM">AM</option>
-                            <option value="BA">BA</option>
-                            <option value="CE">CE</option>
-                            <option value="DF">DF</option>
-                            <option value="ES">ES</option>
-                            <option value="GO">GO</option>
-                            <option value="MA">MA</option>
-                            <option value="MT">MT</option>
-                            <option value="MS">MS</option>
-                            <option value="MG">MG</option>
-                            <option value="PA">PA</option>
-                            <option value="PB">PB</option>
-                            <option value="PR">PR</option>
-                            <option value="PE">PE</option>
-                            <option value="PI">PI</option>
-                            <option value="RJ">RJ</option>
-                            <option value="RN">RN</option>
-                            <option value="RS">RS</option>
-                            <option value="RO">RO</option>
-                            <option value="RR">RR</option>
-                            <option value="SC">SC</option>
-                            <option value="SP" selected>SP</option>
-                            <option value="SE">SE</option>
-                            <option value="TO">TO</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group" style="padding: 0 24px;">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" name="password" placeholder="Senha" required>
-                </div>
+  <div class="sidebar">
+    <h2>Sala do Futuro</h2>
+    <button onclick="loadTab('jogos')">🎮 Jogos</button>
+    <button onclick="loadTab('ranking')">🏆 Ranking</button>
+    <button onclick="loadTab('perfil')">🙋 Meu Perfil</button>
+    <button onclick="loadTab('tarefas')">📚 Tarefas</button>
+    <button onclick="loadTab('chat')">💬 Chat</button>
+    <button onclick="logout()">🚪 Sair</button>
+  </div>
 
-                <div class="error-message" id="errorMessage"></div>
-                
-                <button type="submit" class="login-btn">Entrar</button>
-            </form>
-            
-            <div class="footer">
-                <p>Problemas para acessar? <a id="client-support" href="https://github.com/quizzgame">Entre em contato</a></p>
-            </div>
-        </div>
+  <div class="main">
+    <div class="greeting">Olá, <strong><%= name %></strong>!</div>
+    <div class="content fade" id="content">
+      <p>Selecione uma aba ao lado para começar.</p>
     </div>
-  
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const authorizationBox = document.getElementById('authorizationBox');
-            const loginBox = document.getElementById('loginBox');
-            const authorizeBtn = document.getElementById('authorizeBtn');
-            const cancelBtn = document.getElementById('cancelBtn'); 
-            const loginForm = document.getElementById('loginForm');
-            const errorMessage = document.getElementById('errorMessage');
-            const ufSelect = document.getElementById('uf');            
-            
-            authorizeBtn.addEventListener('click', function() {
-                authorizationBox.classList.add('hidden');
-                loginBox.classList.remove('hidden');
-            });
+  </div>
 
-            cancelBtn.addEventListener('click', function() {
-                location.href = './';
-            });
-            
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const ra = document.getElementById('ra').value;
-                const digit = document.getElementById('digit').value;
-                const uf = document.getElementById('uf').value;
-                const password = document.getElementById('password').value;
-                
-                errorMessage.textContent = '';
-                
-                if (ra.length !== 9) {
-                    showError('O RA deve ter exatamente 9 caracteres.');
-                    return;
-                }
-                
-                if (!/^\d+$/.test(ra)) {
-                    showError('O RA deve conter apenas números.');
-                    return;
-                }
-                
-                if (digit.length !== 1) {
-                    showError('O dígito deve ter exatamente 1 caractere.');
-                    return;
-                }
-                
-                if (!uf) {
-                    showError('Por favor, selecione sua UF.');
-                    return;
-                }
-                
-                quizzGameLogin(ra, digit, uf, password);
-            });
-            
-            function showError(message) {
-                errorMessage.textContent = message;
-            }
-            
-            async function quizzGameLogin(ra, digit, uf, password) {   
-                const loginBtn = loginForm.querySelector('button');
-                loginBtn.disabled = true;
-                loginBtn.textContent = 'Autenticando...';
-                
-                try {
-                    const quizzGameLoginResponse = await fetch('/api/auth', {
-                        'method': 'POST',
-                        'headers': {'content-type': 'application/json'},
-                        'body': JSON.stringify(
-                            {
-                                'platform': 'QuizzGame',
-                                ra,
-                                digit,
-                                uf,
-                                password
-                            }
-                        )
-                    });
-                    
-                    const quizzGameLoginJson = await quizzGameLoginResponse.json();
+  <script>
+    function loadTab(tab) {
+      const content = document.getElementById("content");
+      content.classList.remove("fade");
+      void content.offsetWidth; // reiniciar animação
+      content.classList.add("fade");
 
-                    const success = !quizzGameLoginJson['token'].includes(btoa('null'));
-                        
-                    if (success) {
-                        errorMessage.textContent = '';
-                        const redirParam = 'https://quizzgame.vercel.app/hello';
+      switch (tab) {
+        case 'jogos':
+          content.innerHTML = `
+            <h3>🎮 Jogos Disponíveis</h3>
+            <ul>
+              <li>🧠 Quiz de Conhecimentos Gerais</li>
+              <li>🧩 Jogo da Memória</li>
+              <li>🚀 Corrida de Matemática</li>
+            </ul>`;
+          break;
+        case 'ranking':
+          content.innerHTML = `
+            <h3>🏆 Ranking Semanal</h3>
+            <ol>
+              <li>João - 450 pontos</li>
+              <li>Maria - 430 pontos</li>
+              <li>Pedro - 410 pontos</li>
+            </ol>`;
+          break;
+        case 'perfil':
+          content.innerHTML = `
+            <h3>🙋 Meu Perfil</h3>
+            <p>Nome: <%= name %></p>
+            <p>Pontuação: 350 pontos</p>
+            <p>Nível: Iniciante</p>`;
+          break;
+        case 'tarefas':
+          content.innerHTML = `
+            <h3>📚 Tarefas</h3>
+            <ul>
+              <li>📝 Redação sobre sustentabilidade</li>
+              <li>📘 Estudo de funções matemáticas</li>
+            </ul>`;
+          break;
+        case 'chat':
+          content.innerHTML = `
+            <h3>💬 Chat da Turma</h3>
+            <p>Função em breve! 😉</p>`;
+          break;
+      }
+    }
 
-                        if (redirParam) {
-                            try {
-                                const targetRedir = new URL(decodeURIComponent(redirParam));
-                                
-                                targetRedir.searchParams.append('qg_token', quizzGameLoginJson.token);
-                            
-                                window.location.href = targetRedir.toString();
-                            } catch (e) {
-                                console.error('Erro ao redirecionar:', e);
-                            }
-                        } else {
-                            location.href = 'https://quizzgame.vercel.app/';
-                        }
-                    } else {
-                        showError('Credenciais inválidas. Por favor, tente novamente.');
-                        loginBtn.disabled = false;
-                        loginBtn.textContent = 'Entrar';
-                    }
-                } catch (error) {
-                    console.error('Erro na autenticação:', error);
-                    showError('Erro ao conectar com o servidor. Tente novamente mais tarde.');
-                    loginBtn.disabled = false;
-                    loginBtn.textContent = 'Entrar';
-                }
-            }
-        });
-    </script>
+    function logout() {
+      window.location.href = "/";
+    }
+  </script>
 </body>
 </html>
