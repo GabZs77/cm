@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sala do Futuro - Painel</title>
+  <title>Sala do Futuro - Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --primary-red: #E30613;
-      --light-red: #FF4D5A;
       --dark-red: #C00511;
+      --light-red: #FF4D5A;
       --white: #FFFFFF;
       --light-gray: #F5F5F5;
       --medium-gray: #E0E0E0;
@@ -25,139 +25,212 @@
     }
 
     body {
-      display: flex;
-      min-height: 100vh;
       background-color: var(--light-gray);
-    }
-
-    .sidebar {
-      width: 240px;
-      background: linear-gradient(135deg, var(--primary-red), var(--light-red));
-      color: var(--white);
-      padding: 30px 20px;
+      color: var(--dark-gray);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      justify-content: center;
+      align-items: center;
     }
 
-    .sidebar h2 {
-      font-size: 24px;
+    .login-box {
+      background-color: var(--white);
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 460px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .logo-container {
+      text-align: center;
       margin-bottom: 30px;
     }
 
-    .sidebar button {
-      background: transparent;
-      border: none;
+    .logo-container img {
+      width: 240px;
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--medium-gray);
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .form-row .form-group.digit {
+      flex: 0.5;
+    }
+
+    .btn-login {
+      margin-top: 20px;
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary-red), var(--light-red));
       color: var(--white);
+      border: none;
+      padding: 12px;
       font-size: 16px;
-      text-align: left;
-      padding: 10px 0;
+      font-weight: 500;
+      border-radius: 4px;
       cursor: pointer;
       transition: 0.3s;
     }
 
-    .sidebar button:hover {
-      text-decoration: underline;
+    .btn-login:hover {
+      background: linear-gradient(135deg, var(--dark-red), var(--primary-red));
+      transform: translateY(-1px);
     }
 
-    .main {
-      flex: 1;
-      padding: 40px;
-    }
-
-    .greeting {
-      font-size: 22px;
-      margin-bottom: 20px;
-      color: var(--dark-gray);
-    }
-
-    .content {
-      background-color: var(--white);
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      min-height: 300px;
-    }
-
-    .fade {
-      animation: fade 0.4s ease;
-    }
-
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .error-message {
+      color: var(--primary-red);
+      font-size: 13px;
+      text-align: center;
+      margin-top: 10px;
+      min-height: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Sala do Futuro</h2>
-    <button onclick="loadTab('jogos')">🎮 Jogos</button>
-    <button onclick="loadTab('ranking')">🏆 Ranking</button>
-    <button onclick="loadTab('perfil')">🙋 Meu Perfil</button>
-    <button onclick="loadTab('tarefas')">📚 Tarefas</button>
-    <button onclick="loadTab('chat')">💬 Chat</button>
-    <button onclick="logout()">🚪 Sair</button>
-  </div>
-
-  <div class="main">
-    <div class="greeting">Olá, <strong><%= name %></strong>!</div>
-    <div class="content fade" id="content">
-      <p>Selecione uma aba ao lado para começar.</p>
+  <div class="login-box">
+    <div class="logo-container">
+      <img src="https://i.imgur.com/KtYrhkP.png" alt="Sala do Futuro">
     </div>
+
+    <h2>Login do Aluno</h2>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="ra">RA</label>
+        <input type="text" id="ra" name="ra" placeholder="123456789" maxlength="9" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group digit">
+          <label for="digit">Dígito</label>
+          <input type="text" id="digit" name="digit" maxlength="1" required>
+        </div>
+
+        <div class="form-group">
+          <label for="uf">UF</label>
+          <select id="uf" name="uf" required>
+            <option value="">Selecione</option>
+            <option value="SP" selected>SP</option>
+            <option value="RJ">RJ</option>
+            <option value="MG">MG</option>
+            <!-- Adicione mais estados conforme necessário -->
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="Sua senha" required>
+      </div>
+
+      <div class="error-message" id="errorMessage"></div>
+
+      <button type="submit" class="btn-login">Entrar</button>
+    </form>
   </div>
 
   <script>
-    function loadTab(tab) {
-      const content = document.getElementById("content");
-      content.classList.remove("fade");
-      void content.offsetWidth; // reiniciar animação
-      content.classList.add("fade");
+    const loginForm = document.getElementById("loginForm");
+    const errorMessage = document.getElementById("errorMessage");
 
-      switch (tab) {
-        case 'jogos':
-          content.innerHTML = `
-            <h3>🎮 Jogos Disponíveis</h3>
-            <ul>
-              <li>🧠 Quiz de Conhecimentos Gerais</li>
-              <li>🧩 Jogo da Memória</li>
-              <li>🚀 Corrida de Matemática</li>
-            </ul>`;
-          break;
-        case 'ranking':
-          content.innerHTML = `
-            <h3>🏆 Ranking Semanal</h3>
-            <ol>
-              <li>João - 450 pontos</li>
-              <li>Maria - 430 pontos</li>
-              <li>Pedro - 410 pontos</li>
-            </ol>`;
-          break;
-        case 'perfil':
-          content.innerHTML = `
-            <h3>🙋 Meu Perfil</h3>
-            <p>Nome: <%= name %></p>
-            <p>Pontuação: 350 pontos</p>
-            <p>Nível: Iniciante</p>`;
-          break;
-        case 'tarefas':
-          content.innerHTML = `
-            <h3>📚 Tarefas</h3>
-            <ul>
-              <li>📝 Redação sobre sustentabilidade</li>
-              <li>📘 Estudo de funções matemáticas</li>
-            </ul>`;
-          break;
-        case 'chat':
-          content.innerHTML = `
-            <h3>💬 Chat da Turma</h3>
-            <p>Função em breve! 😉</p>`;
-          break;
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const ra = document.getElementById("ra").value.trim();
+      const digit = document.getElementById("digit").value.trim();
+      const uf = document.getElementById("uf").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (ra.length !== 9 || !/^\d+$/.test(ra)) {
+        showError("O RA deve conter exatamente 9 números.");
+        return;
       }
-    }
 
-    function logout() {
-      window.location.href = "/";
+      if (digit.length !== 1) {
+        showError("O dígito deve conter 1 caractere.");
+        return;
+      }
+
+      if (!uf) {
+        showError("Selecione uma UF.");
+        return;
+      }
+
+      try {
+        const btn = loginForm.querySelector("button");
+        btn.disabled = true;
+        btn.textContent = "Autenticando...";
+
+        const res = await fetch("/api/auth", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            platform: "Alura",
+            ra,
+            digit,
+            uf,
+            password
+          })
+        });
+
+        const data = await res.json();
+
+        if (!data.token || data.token.includes(btoa("null"))) {
+          showError("Credenciais inválidas. Tente novamente.");
+          btn.disabled = false;
+          btn.textContent = "Entrar";
+          return;
+        }
+
+        // Redirecionar para a página com o nome do aluno
+        const target = new URL("/hello", window.location.origin);
+        target.searchParams.set("sdf_token", data.token);
+        window.location.href = target.toString();
+      } catch (err) {
+        showError("Erro ao conectar com o servidor.");
+      }
+    });
+
+    function showError(msg) {
+      errorMessage.textContent = msg;
     }
   </script>
 </body>
