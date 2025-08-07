@@ -4,64 +4,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portal Escolar</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }body {
-  background: linear-gradient(135deg, #2d0053, #3b006b);
-  color: white;
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top left, #4b0082, #000000);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif');
+  background-size: cover;
+  z-index: 0;
+  opacity: 0.2;
 }
 
 #loginPage {
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(75, 0, 130, 0.7);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 25px rgba(186, 85, 211, 0.8);
   width: 90%;
-  max-width: 400px;
-  gap: 1rem;
+  max-width: 420px;
+  gap: 1.2rem;
+  backdrop-filter: blur(8px);
 }
 
 #loginPage h2 {
   text-align: center;
-  margin-bottom: 1rem;
-  color: #c88cff;
+  color: #e0b3ff;
+  font-size: 1.8rem;
+  text-shadow: 0 0 10px #ba55d3;
 }
 
 input {
-  padding: 0.8rem;
+  padding: 0.9rem;
   border: none;
   border-radius: 0.5rem;
   outline: none;
   font-size: 1rem;
+  background-color: #1c0033;
+  color: #fff;
+  box-shadow: inset 0 0 5px #7a00cc;
+}
+
+input::placeholder {
+  color: #999;
 }
 
 button {
-  padding: 0.8rem;
-  background-color: #8e2de2;
+  padding: 0.9rem;
+  background: linear-gradient(45deg, #8e2de2, #4a00e0);
   border: none;
   border-radius: 0.5rem;
   color: white;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
-  background-color: #a65cff;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #c964ff;
+}
+
+@media (max-width: 500px) {
+  #loginPage {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
 }
 
   </style>
 </head>
 <body>
+  <div class="stars"></div>
   <div id="loginPage">
     <h2>Entrar no Portal Escolar</h2>
     <input type="text" id="fullName" placeholder="Nome completo (Ex: Gabriel Henrique de Oliveira)" />
@@ -85,7 +116,6 @@ button:hover {
       let users = JSON.parse(localStorage.getItem("users") || "{}");
 
       if (!users[username]) {
-        // Novo usuário
         users[username] = { password: pass, points: 0, messages: [] };
         localStorage.setItem("users", JSON.stringify(users));
       } else if (users[username].password !== pass) {
@@ -95,7 +125,7 @@ button:hover {
 
       currentUser = username;
       alert(`Bem-vindo, ${currentUser}!`);
-      // Aqui você pode chamar uma função como loadDashboard() para mostrar o painel principal
+      // Aqui você pode redirecionar para o painel principal futuramente
     }
   </script></body>
 </html>
