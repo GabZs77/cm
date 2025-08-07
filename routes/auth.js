@@ -27,3 +27,14 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+router.get('/verify', (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'Token ausente' });
+
+  try {
+    const decoded = jwt.verify(token, SECRET);
+    res.json({ valid: true, userId: decoded.id });
+  } catch (err) {
+    res.status(401).json({ error: 'Token inválido' });
+  }
+});
