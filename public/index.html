@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>QuizzGame</title>
   <style>
-    /* Seu estilo futurista Roxo Galáxia */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -37,8 +36,7 @@
       color: #caa9ff;
       text-shadow: 0 0 5px #9f00ff;
     }
-    input,
-    button {
+    input, button {
       display: block;
       width: 100%;
       margin: 10px 0;
@@ -62,19 +60,13 @@
       transform: scale(1.05);
     }
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="login-container" id="loginContainer">
+  <div class="login-container">
     <form id="loginForm">
       <h2>Login QuizzGame</h2>
       <input type="email" id="email" placeholder="Seu email" required />
@@ -83,12 +75,12 @@
     </form>
   </div>
 
-  <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-    import {
-      getAuth,
-      signInWithEmailAndPassword
+    import { 
+      getAuth, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword 
     } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -103,19 +95,31 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-loginForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const senha = document.getElementById('senha').value;
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
 
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-    sessionStorage.setItem('usuarioEmail', userCredential.user.email);
-    window.location.href = 'painel.html';
-  } catch (error) {
-    alert("Erro no login: " + error.message);
-  }
-});
- </script>
+      try {
+        // Tenta login
+        const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+        sessionStorage.setItem('usuarioEmail', userCredential.user.email);
+        window.location.href = 'painel.html';
+      } catch (error) {
+        // Se não existir conta, cria
+        if (error.code === "auth/user-not-found") {
+          try {
+            const newUser = await createUserWithEmailAndPassword(auth, email, senha);
+            sessionStorage.setItem('usuarioEmail', newUser.user.email);
+            window.location.href = 'painel.html';
+          } catch (err) {
+            alert("Erro ao criar conta: " + err.message);
+          }
+        } else {
+          alert("Erro no login: " + error.message);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
