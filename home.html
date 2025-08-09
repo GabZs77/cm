@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizzGame - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="firebase.js"></script>
+</head>
+<body class="home-page">
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <button class="close-sidebar" id="closeSidebar">&times;</button>
+        <div class="sidebar-header">
+            <div class="avatar">
+                <img src="https://via.placeholder.com/80" alt="Avatar" id="userAvatar">
+                <span id="userName">Usuário</span>
+                <div class="user-coins">
+                    <i class="fas fa-coins"></i>
+                    <span id="sidebarCoins">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <ul>
+                <li><a href="#" class="tab-btn" data-tab="dashboard"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="#" class="tab-btn" data-tab="projeto-vida"><i class="fas fa-rocket"></i> Projeto de Vida</a></li>
+                <li><a href="#" class="tab-btn" data-tab="teste-enem"><i class="fas fa-graduation-cap"></i> Teste Enem</a></li>
+                <li><a href="#" class="tab-btn" data-tab="quizz"><i class="fas fa-question-circle"></i> Quizz</a></li>
+                <li><a href="#" class="tab-btn" data-tab="aula"><i class="fas fa-book"></i> Aula</a></li>
+                <li><a href="#" class="tab-btn" data-tab="jogo"><i class="fas fa-gamepad"></i> Jogo</a></li>
+                <li><a href="#" class="tab-btn" data-tab="loja"><i class="fas fa-shopping-cart"></i> Loja</a></li>
+                <li><a href="#" class="tab-btn" data-tab="avatar"><i class="fas fa-user-astronaut"></i> Avatar</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="main-header">
+            <button class="open-sidebar" id="openSidebar"><i class="fas fa-bars"></i></button>
+            
+            <div class="header-title">
+                <h1>Bem-vindo ao <span>QuizzGame</span></h1>
+            </div>
+            
+            <div class="header-actions">
+                <div class="header-coins">
+                    <i class="fas fa-coins"></i>
+                    <span id="headerCoins">0</span>
+                </div>
+                <button class="btn-about" id="aboutBtn"><i class="fas fa-info-circle"></i> Sobre</button>
+                <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+        </header>
+        
+        <!-- Tab Content -->
+        <div class="tab-content" id="tabContent">
+            <!-- Dashboard -->
+            <div class="tab-pane" id="dashboard">
+                <div class="welcome-message">
+                    <h2>Explore o Universo do Conhecimento</h2>
+                    <p>Selecione uma categoria no menu lateral para começar sua jornada!</p>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <i class="fas fa-coins"></i>
+                        <span id="coins">0</span>
+                        <p>Moedas</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-trophy"></i>
+                        <span id="level">1</span>
+                        <p>Nível</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <span id="xp">0</span>
+                        <p>XP</p>
+                    </div>
+                </div>
+                
+                <div class="recent-activities">
+                    <h3><i class="fas fa-history"></i> Atividades Recentes</h3>
+                    <div class="activities-list" id="activitiesList">
+                        <p>Nenhuma atividade recente</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto de Vida -->
+            <div class="tab-pane" id="projeto-vida" style="display: none;">
+                <h2><i class="fas fa-rocket"></i> Projeto de Vida</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-code"></i></div>
+                        <h3>Programador</h3>
+                        <p>O site focará somente nesse projeto de vida e nessa área</p>
+                        <button class="btn-select">Selecionar</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-gavel"></i></div>
+                        <h3>Advocacia</h3>
+                        <p>O site focará nessa área de advocacia, propondo algumas gincanas para treinar sua sabedoria</p>
+                        <button class="btn-select">Selecionar</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-user-md"></i></div>
+                        <h3>Medicina</h3>
+                        <p>Desafios e quizzes focados na área médica</p>
+                        <button class="btn-select">Selecionar</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-cogs"></i></div>
+                        <h3>Engenharia</h3>
+                        <p>Problemas e soluções de engenharia para treinar seu raciocínio</p>
+                        <button class="btn-select">Selecionar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Teste Enem -->
+            <div class="tab-pane" id="teste-enem" style="display: none;">
+                <h2><i class="fas fa-graduation-cap"></i> Teste Enem</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                        <h3>ENEM 2022</h3>
+                        <p>Prova completa do ENEM 2022 com todas as questões</p>
+                        <button class="btn-select">Iniciar Prova</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                        <h3>ENEM 2021</h3>
+                        <p>Prova completa do ENEM 2021 com todas as questões</p>
+                        <button class="btn-select">Iniciar Prova</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-square-root-alt"></i></div>
+                        <h3>Matemática ENEM</h3>
+                        <p>Questões de matemática de vários anos do ENEM</p>
+                        <button class="btn-select">Iniciar</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-pen-fancy"></i></div>
+                        <h3>Redação ENEM</h3>
+                        <p>Treine sua redação com temas de anos anteriores</p>
+                        <button class="btn-select">Iniciar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quizz -->
+            <div class="tab-pane" id="quizz" style="display: none;">
+                <h2><i class="fas fa-question-circle"></i> Quizz</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-rocket"></i></div>
+                        <h3>Projeto de Vida</h3>
+                        <p>Esse Quizz irá fazer perguntas da área do seu projeto de vida para treinar seu conhecimento</p>
+                        <button class="btn-select">Iniciar Quizz</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-school"></i></div>
+                        <h3>Perguntas Normais</h3>
+                        <p>Vamos fazer de algumas aulas da escola para treinar seu conhecimento</p>
+                        <button class="btn-select">Iniciar Quizz</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-globe-americas"></i></div>
+                        <h3>Cultura Geral</h3>
+                        <p>Teste seu conhecimento sobre diversos assuntos</p>
+                        <button class="btn-select">Iniciar Quizz</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-stopwatch"></i></div>
+                        <h3>Desafio Rápido</h3>
+                        <p>10 perguntas em 2 minutos - mostre sua velocidade!</p>
+                        <button class="btn-select">Iniciar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Aula -->
+            <div class="tab-pane" id="aula" style="display: none;">
+                <h2><i class="fas fa-book"></i> Aula</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-square-root-alt"></i></div>
+                        <h3>Matemática</h3>
+                        <p>Iremos fazer algumas perguntas/questões de matemática para treinar seu conhecimento</p>
+                        <button class="btn-select">Iniciar Aula</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-language"></i></div>
+                        <h3>Inglês</h3>
+                        <p>Igual Duolingo, com perguntas de inglês, mas interativo e divertido</p>
+                        <button class="btn-select">Iniciar Aula</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-atom"></i></div>
+                        <h3>Física</h3>
+                        <p>Questões de física, mas divertido e interativo</p>
+                        <button class="btn-select">Iniciar Aula</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fas fa-landmark"></i></div>
+                        <h3>História</h3>
+                        <p>Aprenda história de forma gamificada e interessante</p>
+                        <button class="btn-select">Iniciar Aula</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Jogo -->
+            <div class="tab-pane" id="jogo" style="display: none;">
+                <h2><i class="fas fa-gamepad"></i> Jogo</h2>
+                <div class="game-container">
+                    <canvas id="gameCanvas" width="600" height="400"></canvas>
+                    <div class="game-controls">
+                        <button id="startGame" class="btn-game">Iniciar Jogo</button>
+                        <div class="game-stats">
+                            <p>Pontuação: <span id="gameScore">0</span></p>
+                            <p>Fase: <span id="gameLevel">1</span></p>
+                            <p>Moedas: <span id="gameCoins">0</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Loja -->
+            <div class="tab-pane" id="loja" style="display: none;">
+                <h2><i class="fas fa-shopping-cart"></i> Loja</h2>
+                <div class="shop-container">
+                    <div class="shop-balance">
+                        <i class="fas fa-coins"></i>
+                        <p>Suas moedas: <span id="shopCoins">0</span></p>
+                    </div>
+                    
+                    <div class="shop-items">
+                        <div class="shop-item">
+                            <img src="https://via.placeholder.com/100/8a2be2/ffffff?text=Chapéu" alt="Item 1">
+                            <h3>Chapéu Espacial</h3>
+                            <p><i class="fas fa-coins"></i> 50 moedas</p>
+                            <button class="btn-buy">Comprar</button>
+                        </div>
+                        <div class="shop-item">
+                            <img src="https://via.placeholder.com/100/8a2be2/ffffff?text=Óculos" alt="Item 2">
+                            <h3>Óculos Futurista</h3>
+                            <p><i class="fas fa-coins"></i> 75 moedas</p>
+                            <button class="btn-buy">Comprar</button>
+                        </div>
+                        <div class="shop-item">
+                            <img src="https://via.placeholder.com/100/8a2be2/ffffff?text=Raio" alt="Item 3">
+                            <h3>Raio Laser</h3>
+                            <p><i class="fas fa-coins"></i> 120 moedas</p>
+                            <button class="btn-buy">Comprar</button>
+                        </div>
+                        <div class="shop-item">
+                            <img src="https://via.placeholder.com/100/8a2be2/ffffff?text=Traje" alt="Item 4">
+                            <h3>Traje Galáctico</h3>
+                            <p><i class="fas fa-coins"></i> 200 moedas</p>
+                            <button class="btn-buy">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Avatar -->
+            <div class="tab-pane" id="avatar" style="display: none;">
+                <h2><i class="fas fa-user-astronaut"></i> Avatar</h2>
+                <div class="avatar-container">
+                    <div class="avatar-preview">
+                        <div class="avatar-image" id="avatarPreview">
+                            <img src="https://via.placeholder.com/200/4B0082/ffffff?text=Avatar" alt="Avatar Base">
+                            <!-- Itens comprados serão sobrepostos aqui -->
+                        </div>
+                    </div>
+                    
+                    <div class="avatar-items">
+                        <h3><i class="fas fa-box-open"></i> Seus Itens</h3>
+                        <div class="user-items" id="userItems">
+                            <!-- Itens comprados pelo usuário aparecerão aqui -->
+                            <p>Nenhum item comprado ainda. Visite a loja!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Sobre -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Sobre o QuizzGame</h2>
+            <p>QuizzGame é uma plataforma interativa de aprendizado gamificado, projetada para tornar o estudo divertido e envolvente.</p>
+            <p>Explore diferentes áreas do conhecimento, ganhe moedas, personalize seu avatar e desafie-se com nossos quizzes e jogos educativos.</p>
+            <p>Versão 1.0 - Desenvolvido com ❤️ para mentes curiosas!</p>
+            <p>Esse site foi feito por: GABRIEL HENRIQUE do 1⁰D e PARANÁ (GUILHERMY) do 1⁰D da escola SEBASTIÃO VILLAÇA.</p>
+        </div>
+    </div>
+    
+    <!-- Modal de Recompensas -->
+    <div class="modal" id="rewardModal">
+        <div class="modal-content reward-content">
+            <span class="close-modal">&times;</span>
+            <div class="reward-icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h2>Recompensa Ganha!</h2>
+            <div class="reward-details">
+                <p>Você ganhou <span id="rewardCoins">0</span> <i class="fas fa-coins"></i> moedas!</p>
+                <p id="rewardMessage">Continue jogando para ganhar mais!</p>
+            </div>
+            <button class="btn-close-reward">Fechar</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
