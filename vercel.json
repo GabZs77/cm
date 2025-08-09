@@ -1,0 +1,18 @@
+{
+  "routes": [
+    {
+      "src": "/home",
+      "dest": "/home.html",
+      "headers": {
+        "Cache-Control": "no-cache"
+      }
+    },
+    {
+      "src": "/",
+      "dest": "/index.html",
+      "headers": {
+        "Cache-Control": "no-cache"
+      }
+    }
+  ]
+}
