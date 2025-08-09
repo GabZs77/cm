@@ -1,0 +1,618 @@
+// Variáveis globais
+let currentUser = null;
+let userData = {
+    coins: 0,
+    level: 1,
+    xp: 0,
+    items: [],
+    activities: []
+};
+
+// Funções gerais
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.querySelector('.login-page')) {
+        initLoginPage();
+    } else if (document.querySelector('.home-page')) {
+        initHomePage();
+    }
+});
+
+// Página de Login
+function initLoginPage() {
+    const loginForm = document.getElementById('loginForm');
+    const signUpLink = document.getElementById('signUp');
+    const forgotPassword = document.getElementById('forgotPassword');
+    
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        auth.signInWithEmailAndPassword(email, password)
+            .then(() => {
+                window.location.href = 'home.html';
+            })
+            .catch((error) => {
+                alert('Erro ao fazer login: ' + error.message);
+            });
+    });
+    
+    forgotPassword.addEventListener('click', (e) => {
+        e.preventDefault();
+        const email = prompt('Digite seu email para redefinir a senha:');
+        
+        if (email) {
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    alert('Email de redefinição enviado! Verifique sua caixa de entrada.');
+                })
+                .catch((error) => {
+                    alert('Erro ao enviar email: ' + error.message);
+                });
+        }
+    });
+    
+    signUpLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const email = prompt('Digite seu email para criar uma conta:');
+        const password = prompt('Digite uma senha:');
+        
+        if (email && password) {
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    alert('Conta criada com sucesso! Faça login.');
+                })
+                .catch((error) => {
+                    alert('Erro ao criar conta: ' + error.message);
+                });
+        }
+    });
+}
+
+// Página Home
+function initHomePage() {
+    // Sidebar
+    const openSidebar = document.getElementById('openSidebar');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('.main-content');
+    
+    openSidebar.addEventListener('click', () => {
+        sidebar.style.left = '0';
+        mainContent.classList.add('sidebar-open');
+    });
+    
+    closeSidebar.addEventListener('click', () => {
+        sidebar.style.left = '-250px';
+        mainContent.classList.remove('sidebar-open');
+    });
+    
+    // Navegação entre abas
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const tabId = button.getAttribute('data-tab');
+            
+            // Esconde todos os painéis
+            tabPanes.forEach(pane => {
+                pane.style.display = 'none';
+            });
+            
+            // Mostra o painel selecionado
+            document.getElementById(tabId).style.display = 'block';
+            
+            // Fecha o sidebar em dispositivos móveis
+            if (window.innerWidth < 768) {
+                sidebar.style.left = '-250px';
+                mainContent.classList.remove('sidebar-open');
+            }
+            
+            // Inicializa o jogo se for a aba de jogo
+            if (tabId === 'jogo') {
+                initGame();
+            }
+        });
+    });
+    
+    // Mostra o dashboard por padrão
+    document.getElementById('dashboard').style.display = 'block';
+    
+    // Botão Sair
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', () => {
+        auth.signOut().then(() => {
+            window.location.href = 'index.html';
+        });
+    });
+    
+    // Botão Sobre
+    const aboutBtn = document.getElementById('aboutBtn');
+    const aboutModal = document.getElementById('aboutModal');
+    const closeModal = document.querySelectorAll('.close-modal');
+    
+    aboutBtn.addEventListener('click', () => {
+        aboutModal.style.display = 'flex';
+    });
+    
+    closeModal.forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        });
+    });
+    
+    // Fechar modal ao clicar fora
+    window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            e.target.style.display = 'none';
+        }
+    });
+    
+    // Carrega informações do usuário
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            currentUser = user;
+            document.getElementById('userName').textContent = user.email;
+            
+            // Carrega dados do usuário do Firestore
+            db.collection('users').doc(user.uid).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        userData = doc.data();
+                        updateUserDisplay();
+                    } else {
+                        // Cria um novo documento para o usuário
+                        userData = {
+                            coins: 0,
+                            level: 1,
+                            xp: 0,
+                            items: [],
+                            activities: []
+                        };
+                        db.collection('users').doc(user.uid).set(userData);
+                        updateUserDisplay();
+                    }
+                });
+        } else {
+            window.location.href = 'index.html';
+        }
+    });
+    
+    // Inicializa os botões de seleção
+    document.querySelectorAll('.btn-select').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const cardTitle = this.parentElement.querySelector('h3').textContent;
+            addActivity(`Iniciou: ${cardTitle}`, 0);
+            alert('Funcionalidade em desenvolvimento!');
+        });
+    });
+    
+    // Inicializa os botões de compra
+    document.querySelectorAll('.btn-buy').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const item = this.parentElement;
+            const price = parseInt(item.querySelector('p').textContent);
+            
+            if (userData.coins >= price) {
+                if (confirm(`Deseja comprar este item por ${price} moedas?`)) {
+                    const itemName = item.querySelector('h3').textContent;
+                    const itemImage = item.querySelector('img').src;
+                    
+                    // Atualiza no Firestore
+                    db.collection('users').doc(currentUser.uid).update({
+                        coins: firebase.firestore.FieldValue.increment(-price),
+                        items: firebase.firestore.FieldValue.arrayUnion({
+                            name: itemName,
+                            image: itemImage
+                        }),
+                        activities: firebase.firestore.FieldValue.arrayUnion({
+                            action: `Comprou: ${itemName}`,
+                            coins: -price,
+                            date: new Date()
+                        })
+                    }).then(() => {
+                        // Atualiza localmente
+                        userData.coins -= price;
+                        userData.items.push({
+                            name: itemName,
+                            image: itemImage
+                        });
+                        addActivity(`Comprou: ${itemName}`, -price);
+                        
+                        // Atualiza a exibição
+                        updateUserDisplay();
+                        alert('Item comprado com sucesso!');
+                    });
+                }
+            } else {
+                alert('Moedas insuficientes! Jogue mais para ganhar moedas.');
+            }
+        });
+    });
+}
+
+// Atualiza a exibição dos dados do usuário
+function updateUserDisplay() {
+    // Moedas
+    document.getElementById('coins').textContent = userData.coins;
+    document.getElementById('shopCoins').textContent = userData.coins;
+    document.getElementById('headerCoins').textContent = userData.coins;
+    document.getElementById('sidebarCoins').textContent = userData.coins;
+    
+    // Nível e XP
+    document.getElementById('level').textContent = userData.level;
+    document.getElementById('xp').textContent = userData.xp;
+    
+    // Itens do usuário
+    const userItemsContainer = document.getElementById('userItems');
+    if (userData.items.length > 0) {
+        userItemsContainer.innerHTML = userData.items.map(item => `
+            <div class="user-item">
+                <img src="${item.image}" alt="${item.name}">
+                <p>${item.name}</p>
+            </div>
+        `).join('');
+    } else {
+        userItemsContainer.innerHTML = '<p>Nenhum item comprado ainda. Visite a loja!</p>';
+    }
+    
+    // Atividades recentes
+    const activitiesList = document.getElementById('activitiesList');
+    if (userData.activities && userData.activities.length > 0) {
+        // Ordena por data (mais recente primeiro)
+        const sortedActivities = [...userData.activities].sort((a, b) => b.date - a.date);
+        
+        activitiesList.innerHTML = sortedActivities.slice(0, 5).map(activity => `
+            <div class="activity-item">
+                <div class="activity-details">
+                    <i class="fas fa-history activity-icon"></i>
+                    ${activity.action}
+                </div>
+                ${activity.coins !== 0 ? 
+                    `<div class="activity-coins">${activity.coins > 0 ? '+' : ''}${activity.coins} <i class="fas fa-coins"></i></div>` : 
+                    ''}
+            </div>
+        `).join('');
+    } else {
+        activitiesList.innerHTML = '<p>Nenhuma atividade recente</p>';
+    }
+}
+
+// Adiciona uma atividade ao histórico
+function addActivity(action, coins) {
+    const activity = {
+        action,
+        coins,
+        date: new Date()
+    };
+    
+    // Atualiza localmente
+    userData.activities.push(activity);
+    
+    // Atualiza no Firestore
+    if (currentUser) {
+        db.collection('users').doc(currentUser.uid).update({
+            activities: firebase.firestore.FieldValue.arrayUnion(activity)
+        });
+    }
+    
+    // Atualiza a exibição
+    updateUserDisplay();
+}
+
+// Mostra modal de recompensa
+function showReward(coins, message) {
+    const rewardModal = document.getElementById('rewardModal');
+    const rewardCoins = document.getElementById('rewardCoins');
+    const rewardMessage = document.getElementById('rewardMessage');
+    
+    rewardCoins.textContent = coins;
+    rewardMessage.textContent = message || 'Continue jogando para ganhar mais!';
+    
+    rewardModal.style.display = 'flex';
+    
+    // Configura o botão de fechar
+    document.querySelector('.btn-close-reward').addEventListener('click', () => {
+        rewardModal.style.display = 'none';
+    });
+}
+
+// Jogo Flappy Bird
+function initGame() {
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const startBtn = document.getElementById('startGame');
+    const scoreDisplay = document.getElementById('gameScore');
+    const levelDisplay = document.getElementById('gameLevel');
+    const coinsDisplay = document.getElementById('gameCoins');
+    
+    // Variáveis do jogo
+    let gameRunning = false;
+    let score = 0;
+    let level = 1;
+    let coins = 0;
+    let bird = {
+        x: 50,
+        y: canvas.height / 2,
+        radius: 15,
+        velocity: 0,
+        gravity: 0.5,
+        jump: -10
+    };
+    let pipes = [];
+    let pipeWidth = 50;
+    let pipeGap = 150;
+    let pipeFrequency = 120;
+    let frameCount = 0;
+    let animationId;
+    
+    // Cores
+    const colors = {
+        bird: '#FFD700',
+        pipe: '#8a2be2',
+        background: '#000',
+        sky: '#1a1a2e',
+        text: '#FFF'
+    };
+    
+    // Inicia o jogo
+    function startGame() {
+        if (gameRunning) return;
+        
+        gameRunning = true;
+        score = 0;
+        level = 1;
+        coins = 0;
+        bird.y = canvas.height / 2;
+        bird.velocity = 0;
+        pipes = [];
+        frameCount = 0;
+        
+        scoreDisplay.textContent = score;
+        levelDisplay.textContent = level;
+        coinsDisplay.textContent = coins;
+        
+        startBtn.textContent = 'Jogando...';
+        startBtn.disabled = true;
+        
+        gameLoop();
+    }
+    
+    // Loop principal do jogo
+    function gameLoop() {
+        ctx.fillStyle = colors.background;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = colors.sky;
+        ctx.fillRect(0, 0, canvas.width, canvas.height / 2);
+        
+        updateBird();
+        drawBird();
+        updatePipes();
+        drawPipes();
+        
+        if (checkCollisions()) {
+            endGame();
+            return;
+        }
+        
+        frameCount++;
+        if (frameCount % 5 === 0) {
+            score++;
+            scoreDisplay.textContent = score;
+            
+            if (score > 0 && score % 100 === 0) {
+                level++;
+                levelDisplay.textContent = level;
+                coins += 10;
+                coinsDisplay.textContent = coins;
+                
+                // Atualiza em tempo real
+                if (currentUser) {
+                    db.collection('users').doc(currentUser.uid).update({
+                        coins: firebase.firestore.FieldValue.increment(10)
+                    }).then(() => {
+                        userData.coins += 10;
+                        updateUserDisplay();
+                    });
+                }
+            }
+        }
+        
+        animationId = requestAnimationFrame(gameLoop);
+    }
+    
+    // Atualiza a posição do pássaro
+    function updateBird() {
+        bird.velocity += bird.gravity;
+        bird.y += bird.velocity;
+        
+        if (bird.y < bird.radius) {
+            bird.y = bird.radius;
+            bird.velocity = 0;
+        }
+        
+        if (bird.y > canvas.height - bird.radius) {
+            bird.y = canvas.height - bird.radius;
+            bird.velocity = 0;
+        }
+    }
+    
+    // Desenha o pássaro
+    function drawBird() {
+        ctx.fillStyle = colors.bird;
+        ctx.beginPath();
+        ctx.arc(bird.x, bird.y, bird.radius, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.fillStyle = '#000';
+        ctx.beginPath();
+        ctx.arc(bird.x + 5, bird.y - 5, 3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        ctx.fillStyle = '#FFA500';
+        ctx.beginPath();
+        ctx.moveTo(bird.x + bird.radius, bird.y);
+        ctx.lineTo(bird.x + bird.radius + 10, bird.y - 5);
+        ctx.lineTo(bird.x + bird.radius + 10, bird.y + 5);
+        ctx.closePath();
+        ctx.fill();
+    }
+    
+    // Atualiza os canos
+    function updatePipes() {
+        if (frameCount % pipeFrequency === 0) {
+            const gapY = Math.random() * (canvas.height - pipeGap - 100) + 50;
+            pipes.push({
+                x: canvas.width,
+                topHeight: gapY,
+                bottomY: gapY + pipeGap,
+                passed: false
+            });
+        }
+        
+        for (let i = pipes.length - 1; i >= 0; i--) {
+            pipes[i].x -= 2 + level * 0.5;
+            
+            if (pipes[i].x < -pipeWidth) {
+                pipes.splice(i, 1);
+            }
+            
+            if (!pipes[i].passed && pipes[i].x < bird.x - pipeWidth / 2) {
+                pipes[i].passed = true;
+                score += 5;
+                scoreDisplay.textContent = score;
+                coins += 1;
+                coinsDisplay.textContent = coins;
+                
+                // Atualiza em tempo real
+                if (currentUser) {
+                    db.collection('users').doc(currentUser.uid).update({
+                        coins: firebase.firestore.FieldValue.increment(1)
+                    }).then(() => {
+                        userData.coins += 1;
+                        updateUserDisplay();
+                    });
+                }
+            }
+        }
+    }
+    
+    // Desenha os canos
+    function drawPipes() {
+        ctx.fillStyle = colors.pipe;
+        
+        for (let i = 0; i < pipes.length; i++) {
+            ctx.fillRect(pipes[i].x, 0, pipeWidth, pipes[i].topHeight);
+            ctx.fillRect(pipes[i].x, pipes[i].bottomY, pipeWidth, canvas.height - pipes[i].bottomY);
+            
+            ctx.beginPath();
+            ctx.arc(pipes[i].x + pipeWidth / 2, pipes[i].topHeight, pipeWidth / 2, 0, Math.PI);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(pipes[i].x + pipeWidth / 2, pipes[i].bottomY, pipeWidth / 2, Math.PI, 0);
+            ctx.fill();
+        }
+    }
+    
+    // Verifica colisões
+    function checkCollisions() {
+        if (bird.y - bird.radius <= 0 || bird.y + bird.radius >= canvas.height) {
+            return true;
+        }
+        
+        for (let i = 0; i < pipes.length; i++) {
+            if (
+                bird.x + bird.radius > pipes[i].x &&
+                bird.x - bird.radius < pipes[i].x + pipeWidth &&
+                (bird.y - bird.radius < pipes[i].topHeight ||
+                 bird.y + bird.radius > pipes[i].bottomY)
+            ) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    // Finaliza o jogo
+    function endGame() {
+        gameRunning = false;
+        cancelAnimationFrame(animationId);
+        
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = colors.text;
+        ctx.font = '30px Orbitron';
+        ctx.textAlign = 'center';
+        ctx.fillText('Fim de Jogo!', canvas.width / 2, canvas.height / 2 - 30);
+        
+        ctx.font = '20px Orbitron';
+        ctx.fillText(`Pontuação: ${score}`, canvas.width / 2, canvas.height / 2 + 10);
+        ctx.fillText(`Moedas ganhas: ${coins}`, canvas.width / 2, canvas.height / 2 + 40);
+        
+        // Atualiza as moedas do usuário no banco de dados
+        if (currentUser && coins > 0) {
+            db.collection('users').doc(currentUser.uid).update({
+                coins: firebase.firestore.FieldValue.increment(coins),
+                activities: firebase.firestore.FieldValue.arrayUnion({
+                    action: 'Jogo: Pontuação ' + score,
+                    coins: coins,
+                    date: new Date()
+                })
+            }).then(() => {
+                userData.coins += coins;
+                addActivity(`Jogo: Pontuação ${score}`, coins);
+                showReward(coins, `Você marcou ${score} pontos!`);
+            });
+        }
+        
+        startBtn.textContent = 'Jogar Novamente';
+        startBtn.disabled = false;
+    }
+    
+    // Evento de pulo
+    canvas.addEventListener('click', () => {
+        if (gameRunning) {
+            bird.velocity = bird.jump;
+        }
+    });
+    
+    // Evento de tecla espaço
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && gameRunning) {
+            bird.velocity = bird.jump;
+        }
+    });
+    
+    // Botão de iniciar
+    startBtn.addEventListener('click', startGame);
+    
+    // Desenha a tela inicial
+    function drawStartScreen() {
+        ctx.fillStyle = colors.background;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = colors.text;
+        ctx.font = '30px Orbitron';
+        ctx.textAlign = 'center';
+        ctx.fillText('QuizzGame', canvas.width / 2, canvas.height / 2 - 30);
+        
+        ctx.font = '20px Orbitron';
+        ctx.fillText('Clique para começar', canvas.width / 2, canvas.height / 2 + 20);
+        
+        ctx.fillStyle = colors.bird;
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, canvas.height / 2 - 80, 20, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    
+    drawStartScreen();
+}
