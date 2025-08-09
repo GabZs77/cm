@@ -236,22 +236,6 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     font-weight: bold;
     color: #fff;
-    margin-bottom: 0.5rem;
-}
-
-.user-coins {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(138, 43, 226, 0.3);
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-}
-
-.user-coins i {
-    margin-right: 5px;
-    color: #FFD700;
 }
 
 .sidebar-menu ul {
@@ -263,8 +247,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .sidebar-menu a {
-    display: flex;
-    align-items: center;
+    display: block;
     padding: 10px 15px;
     color: #b19cd9;
     text-decoration: none;
@@ -329,26 +312,6 @@ h1, h2, h3, h4, h5, h6 {
     color: #8a2be2;
 }
 
-.header-actions {
-    display: flex;
-    align-items: center;
-}
-
-.header-coins {
-    display: flex;
-    align-items: center;
-    background: rgba(138, 43, 226, 0.3);
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin-right: 10px;
-    font-size: 0.9rem;
-}
-
-.header-coins i {
-    margin-right: 5px;
-    color: #FFD700;
-}
-
 .header-actions button {
     background: rgba(138, 43, 226, 0.3);
     border: 1px solid #8a2be2;
@@ -377,14 +340,6 @@ h1, h2, h3, h4, h5, h6 {
     min-height: calc(100vh - 120px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     border: 1px solid #6441A5;
-}
-
-.tab-pane {
-    display: none;
-}
-
-.tab-pane.active {
-    display: block;
 }
 
 .dashboard {
@@ -444,62 +399,6 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
-.recent-activities {
-    margin-top: 3rem;
-    text-align: left;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.recent-activities h3 {
-    color: #8a2be2;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.recent-activities h3 i {
-    margin-right: 10px;
-}
-
-.activities-list {
-    background: rgba(41, 21, 71, 0.6);
-    border-radius: 10px;
-    padding: 1rem;
-    border: 1px solid #6441A5;
-}
-
-.activities-list p {
-    color: #b19cd9;
-    text-align: center;
-}
-
-.activity-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem;
-    border-bottom: 1px solid #6441A5;
-}
-
-.activity-item:last-child {
-    border-bottom: none;
-}
-
-.activity-item .activity-icon {
-    color: #8a2be2;
-    margin-right: 10px;
-}
-
-.activity-item .activity-details {
-    flex: 1;
-}
-
-.activity-item .activity-coins {
-    color: #FFD700;
-    font-weight: bold;
-}
-
 /* Cards de Conteúdo */
 .cards-container {
     display: grid;
@@ -516,7 +415,6 @@ h1, h2, h3, h4, h5, h6 {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    text-align: center;
 }
 
 .card::before {
@@ -549,12 +447,6 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
     border-color: #8a2be2;
-}
-
-.card-icon {
-    font-size: 2.5rem;
-    color: #8a2be2;
-    margin-bottom: 1rem;
 }
 
 .card h3 {
@@ -651,15 +543,8 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 10px;
     padding: 1rem;
     margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     font-size: 1.1rem;
-}
-
-.shop-balance i {
-    color: #FFD700;
-    margin-right: 10px;
 }
 
 .shop-balance p {
@@ -703,16 +588,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .shop-item p {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFD700;
+    color: #b19cd9;
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
-}
-
-.shop-item p i {
-    margin-right: 5px;
 }
 
 .btn-buy {
@@ -745,12 +623,6 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     gap: 2rem;
     margin-top: 1.5rem;
-}
-
-@media (max-width: 768px) {
-    .avatar-container {
-        flex-direction: column;
-    }
 }
 
 .avatar-preview {
@@ -787,13 +659,6 @@ h1, h2, h3, h4, h5, h6 {
     color: #8a2be2;
     margin-bottom: 1rem;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.avatar-items h3 i {
-    margin-right: 10px;
 }
 
 .user-items {
@@ -892,62 +757,6 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.5;
 }
 
-/* Modal de Recompensas */
-.reward-content {
-    text-align: center;
-}
-
-.reward-icon {
-    font-size: 4rem;
-    color: #FFD700;
-    margin-bottom: 1rem;
-    animation: bounce 0.5s ease infinite alternate;
-}
-
-@keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-10px); }
-}
-
-.reward-details {
-    margin-bottom: 1.5rem;
-}
-
-.reward-details p {
-    font-size: 1.2rem;
-    color: #fff;
-    margin-bottom: 0.5rem;
-}
-
-.reward-details span {
-    color: #FFD700;
-    font-weight: bold;
-    font-size: 1.5rem;
-}
-
-.reward-details i {
-    margin-left: 5px;
-}
-
-.btn-close-reward {
-    background: linear-gradient(135deg, #8a2be2 0%, #4B0082 100%);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 200px;
-}
-
-.btn-close-reward:hover {
-    background: linear-gradient(135deg, #4B0082 0%, #8a2be2 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(138, 43, 226, 0.4);
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
     .cards-container {
@@ -959,18 +768,8 @@ h1, h2, h3, h4, h5, h6 {
         align-items: center;
     }
     
-    .header-title h1 {
-        font-size: 1.2rem;
-    }
-    
-    .header-actions {
+    .avatar-container {
         flex-direction: column;
-        align-items: flex-end;
-    }
-    
-    .header-coins {
-        margin-bottom: 5px;
-        margin-right: 0;
     }
 }
 
@@ -980,17 +779,16 @@ h1, h2, h3, h4, h5, h6 {
         margin: 1rem;
     }
     
+    .header-title h1 {
+        font-size: 1.2rem;
+    }
+    
+    .header-actions button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    
     .cards-container {
         grid-template-columns: 1fr;
-    }
-    
-    .game-container {
-        width: 100%;
-        overflow-x: auto;
-    }
-    
-    #gameCanvas {
-        width: 100%;
-        height: auto;
     }
 }
