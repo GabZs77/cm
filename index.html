@@ -4,21 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuizzGame - Sistema Educacional Interativo</title>
-    
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #1a0033 0%, #330066 25%, #4d0099 50%, #6600cc 75%, #8000ff 100%);
@@ -26,7 +23,7 @@
             overflow-x: hidden;
             position: relative;
         }
-
+        
         /* Animação de fundo galático */
         body::before {
             content: '';
@@ -35,20 +32,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20% 30%, white, transparent),
-                radial-gradient(2px 2px at 60% 70%, white, transparent),
-                radial-gradient(1px 1px at 50% 50%, white, transparent);
+            background-image: radial-gradient(2px 2px at 20% 30%, white, transparent),
+                            radial-gradient(2px 2px at 60% 70%, white, transparent),
+                            radial-gradient(1px 1px at 50% 50%, white, transparent);
             background-size: 200px 200px;
             animation: stars 20s linear infinite;
             z-index: -1;
         }
-
+        
         @keyframes stars {
             from { transform: translateY(0); }
             to { transform: translateY(-200px); }
         }
-
+        
         /* Página de Login */
         .login-container {
             display: flex;
@@ -57,7 +53,7 @@
             min-height: 100vh;
             padding: 20px;
         }
-
+        
         .login-box {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -69,12 +65,12 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             animation: float 3s ease-in-out infinite;
         }
-
+        
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-
+        
         .login-box h2 {
             color: white;
             text-align: center;
@@ -82,18 +78,18 @@
             font-size: 2em;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
-
+        
         .form-group {
             margin-bottom: 20px;
         }
-
+        
         .form-group label {
             display: block;
             color: white;
             margin-bottom: 8px;
             font-weight: bold;
         }
-
+        
         .form-group input {
             width: 100%;
             padding: 12px;
@@ -104,17 +100,17 @@
             font-size: 16px;
             transition: all 0.3s ease;
         }
-
+        
         .form-group input::placeholder {
             color: rgba(255, 255, 255, 0.7);
         }
-
+        
         .form-group input:focus {
             outline: none;
             background: rgba(255, 255, 255, 0.3);
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
-
+        
         .login-btn {
             width: 100%;
             padding: 12px;
@@ -128,40 +124,40 @@
             transition: all 0.3s ease;
             margin-top: 10px;
         }
-
+        
         .login-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 20px rgba(255, 0, 255, 0.5);
         }
-
+        
         .login-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
-
+        
         .register-link {
             text-align: center;
             margin-top: 20px;
             color: white;
         }
-
+        
         .register-link a {
             color: #ff00ff;
             text-decoration: none;
             font-weight: bold;
         }
-
+        
         .register-link a:hover {
             text-decoration: underline;
         }
-
+        
         /* Página Principal */
         .main-container {
             display: none;
             min-height: 100vh;
             position: relative;
         }
-
+        
         /* Cabeçalho */
         .header {
             background: rgba(0, 0, 0, 0.3);
@@ -177,7 +173,7 @@
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
-
+        
         .menu-toggle {
             background: linear-gradient(45deg, #ff00ff, #8000ff);
             color: white;
@@ -188,17 +184,17 @@
             font-size: 16px;
             transition: all 0.3s ease;
         }
-
+        
         .menu-toggle:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(255, 0, 255, 0.5);
         }
-
+        
         .header-buttons {
             display: flex;
             gap: 15px;
         }
-
+        
         .header-btn {
             background: rgba(255, 255, 255, 0.2);
             color: white;
@@ -209,12 +205,12 @@
             transition: all 0.3s ease;
             font-size: 14px;
         }
-
+        
         .header-btn:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
-
+        
         /* Barra Lateral */
         .sidebar {
             position: fixed;
@@ -229,11 +225,11 @@
             padding-top: 80px;
             border-right: 1px solid rgba(255, 255, 255, 0.2);
         }
-
+        
         .sidebar.open {
             left: 0;
         }
-
+        
         .sidebar-item {
             display: block;
             width: 100%;
@@ -249,7 +245,7 @@
             position: relative;
             overflow: hidden;
         }
-
+        
         .sidebar-item::before {
             content: '';
             position: absolute;
@@ -261,22 +257,22 @@
             transition: width 0.3s ease;
             z-index: -1;
         }
-
+        
         .sidebar-item:hover::before {
             width: 100%;
         }
-
+        
         .sidebar-item:hover {
             padding-left: 40px;
         }
-
+        
         /* Conteúdo Principal */
         .content {
             margin-top: 80px;
             padding: 40px;
             min-height: calc(100vh - 80px);
         }
-
+        
         .welcome-text {
             text-align: center;
             color: white;
@@ -285,26 +281,26 @@
             text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
             animation: glow 2s ease-in-out infinite alternate;
         }
-
+        
         @keyframes glow {
             from { text-shadow: 0 0 30px rgba(255, 255, 255, 0.5); }
             to { text-shadow: 0 0 50px rgba(255, 255, 255, 0.8), 0 0 70px rgba(255, 0, 255, 0.5); }
         }
-
+        
         .page-content {
             display: none;
             animation: fadeIn 0.5s ease;
         }
-
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
         .page-content.active {
             display: block;
         }
-
+        
         /* Cards de conteúdo */
         .content-grid {
             display: grid;
@@ -312,7 +308,7 @@
             gap: 30px;
             margin-top: 30px;
         }
-
+        
         .content-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -322,24 +318,24 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
-
+        
         .content-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(255, 0, 255, 0.3);
             background: rgba(255, 255, 255, 0.15);
         }
-
+        
         .content-card h3 {
             color: white;
             margin-bottom: 15px;
             font-size: 1.5em;
         }
-
+        
         .content-card p {
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.6;
         }
-
+        
         /* Modal */
         .modal {
             display: none;
@@ -353,7 +349,7 @@
             justify-content: center;
             align-items: center;
         }
-
+        
         .modal-content {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -365,19 +361,19 @@
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
+        
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-
+        
         .modal-header h2 {
             color: white;
             font-size: 2em;
         }
-
+        
         .close-modal {
             background: none;
             border: none;
@@ -386,11 +382,11 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
-
+        
         .close-modal:hover {
             transform: rotate(90deg);
         }
-
+        
         /* Jogo Flappy Bird */
         #gameCanvas {
             border: 2px solid rgba(255, 255, 255, 0.3);
@@ -399,12 +395,12 @@
             margin: 20px auto;
             background: rgba(0, 0, 0, 0.5);
         }
-
+        
         .game-controls {
             text-align: center;
             margin-top: 20px;
         }
-
+        
         .game-btn {
             background: linear-gradient(45deg, #ff00ff, #8000ff);
             color: white;
@@ -416,12 +412,12 @@
             transition: all 0.3s ease;
             margin: 0 10px;
         }
-
+        
         .game-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 5px 20px rgba(255, 0, 255, 0.5);
         }
-
+        
         /* Loja e Avatar */
         .shop-grid {
             display: grid;
@@ -429,7 +425,7 @@
             gap: 20px;
             margin-top: 20px;
         }
-
+        
         .shop-item {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
@@ -439,28 +435,28 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
+        
         .shop-item:hover {
             transform: scale(1.05);
             background: rgba(255, 255, 255, 0.15);
         }
-
+        
         .shop-item i {
             font-size: 3em;
             color: #ff00ff;
             margin-bottom: 10px;
         }
-
+        
         .shop-item p {
             color: white;
             margin: 10px 0;
         }
-
+        
         .shop-item .price {
             color: #ffd700;
             font-weight: bold;
         }
-
+        
         .avatar-preview {
             width: 200px;
             height: 200px;
@@ -472,12 +468,12 @@
             justify-content: center;
             border: 3px solid rgba(255, 255, 255, 0.3);
         }
-
+        
         .avatar-preview i {
             font-size: 5em;
             color: #ff00ff;
         }
-
+        
         /* Moedas */
         .coins-display {
             position: fixed;
@@ -493,11 +489,11 @@
             gap: 10px;
             z-index: 999;
         }
-
+        
         .coins-display i {
             font-size: 1.5em;
         }
-
+        
         /* Questões */
         .question-container {
             background: rgba(255, 255, 255, 0.1);
@@ -505,18 +501,18 @@
             padding: 30px;
             margin: 20px 0;
         }
-
+        
         .question {
             color: white;
             font-size: 1.3em;
             margin-bottom: 20px;
         }
-
+        
         .answer-options {
             display: grid;
             gap: 15px;
         }
-
+        
         .answer-btn {
             background: rgba(255, 255, 255, 0.1);
             color: white;
@@ -527,22 +523,22 @@
             transition: all 0.3s ease;
             text-align: left;
         }
-
+        
         .answer-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateX(10px);
         }
-
+        
         .answer-btn.correct {
             background: rgba(0, 255, 0, 0.3);
             border-color: #00ff00;
         }
-
+        
         .answer-btn.incorrect {
             background: rgba(255, 0, 0, 0.3);
             border-color: #ff0000;
         }
-
+        
         /* Notificação */
         .notification {
             position: fixed;
@@ -557,11 +553,11 @@
             z-index: 3000;
             transition: transform 0.3s ease;
         }
-
+        
         .notification.show {
             transform: translateX(-50%) translateY(0);
         }
-
+        
         /* Loading */
         .loading {
             display: inline-block;
@@ -572,26 +568,132 @@
             border-top-color: white;
             animation: spin 1s ease-in-out infinite;
         }
-
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
+        
         /* Formulário de Cadastro */
         .register-form {
             display: none;
         }
-
+        
         .register-form.active {
             display: block;
         }
-
+        
         .login-form.active {
             display: block;
         }
-
+        
         .login-form.hidden {
             display: none;
+        }
+        
+        /* Botão de destaque para Enem 2023 */
+        .enem-2023-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enem-2023-card::before {
+            content: 'NOVO';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, #ff00ff, #8000ff);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .enem-2023-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(255, 0, 255, 0.4);
+        }
+        
+        /* Estilos para o dropdown de projetos */
+        .project-select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .project-select option {
+            background: #1a0033;
+            color: white;
+        }
+        
+        /* Estilos para perguntas dissertativas */
+        .essay-question {
+            margin-bottom: 20px;
+        }
+        
+        .essay-question textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 10px;
+            min-height: 100px;
+        }
+        
+        .essay-feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .check-essay-btn {
+            background: linear-gradient(45deg, #00cc00, #009900);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        /* Botões de ação */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn.primary {
+            background: linear-gradient(45deg, #ff00ff, #8000ff);
+        }
+        
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -599,7 +701,7 @@
     <!-- Página de Login -->
     <div id="loginPage" class="login-container">
         <div class="login-box">
-            <h2><i class="fas fa-rocket"></i> QuizzGame</h2>
+            <h2>QuizzGame</h2>
             
             <!-- Formulário de Login -->
             <form id="loginForm" class="login-form active">
@@ -615,7 +717,7 @@
                     <i class="fas fa-sign-in-alt"></i> Entrar
                 </button>
             </form>
-
+            
             <!-- Formulário de Cadastro -->
             <form id="registerForm" class="register-form">
                 <div class="form-group">
@@ -634,14 +736,14 @@
                     <i class="fas fa-user-plus"></i> Cadastrar
                 </button>
             </form>
-
+            
             <div class="register-link">
                 <span id="toggleFormText">Não tem uma conta? </span>
                 <a href="#" id="toggleFormLink">Cadastre-se</a>
             </div>
         </div>
     </div>
-
+    
     <!-- Página Principal -->
     <div id="mainPage" class="main-container">
         <!-- Cabeçalho -->
@@ -658,13 +760,13 @@
                 </button>
             </div>
         </header>
-
+        
         <!-- Moedas -->
         <div class="coins-display">
             <i class="fas fa-coins"></i>
             <span id="coinsCount">0</span> Moedas
         </div>
-
+        
         <!-- Barra Lateral -->
         <nav id="sidebar" class="sidebar">
             <button class="sidebar-item" onclick="showPage('home')">
@@ -692,7 +794,7 @@
                 <i class="fas fa-user-circle"></i> Avatar
             </button>
         </nav>
-
+        
         <!-- Conteúdo Principal -->
         <main class="content">
             <!-- Página Inicial -->
@@ -725,35 +827,46 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Projeto de Vida -->
             <div id="projetoVidaPage" class="page-content">
                 <h2 class="welcome-text">Projeto de Vida</h2>
-                <div class="content-grid">
-                    <div class="content-card" onclick="selectProject('programador')">
-                        <h3><i class="fas fa-code"></i> Programador</h3>
-                        <p>O site focará somente nesse projeto de vida e nessa área, com desafios de programação e lógica.</p>
-                    </div>
-                    <div class="content-card" onclick="selectProject('advocacia')">
-                        <h3><i class="fas fa-balance-scale"></i> Advocacia</h3>
-                        <p>O site focará nessa área de advocacia, propondo algumas gincanas para treinar a sua sabedoria nessa área.</p>
-                    </div>
-                    <div class="content-card" onclick="selectProject('medicina')">
-                        <h3><i class="fas fa-heartbeat"></i> Medicina</h3>
-                        <p>Aprenda sobre o corpo humano e prepare-se para a faculdade de medicina.</p>
-                    </div>
-                    <div class="content-card" onclick="selectProject('engenharia')">
-                        <h3><i class="fas fa-cogs"></i> Engenharia</h3>
-                        <p>Desenvolva habilidades matemáticas e de resolução de problemas para engenharia.</p>
+                
+                <select id="projectSelect" class="project-select" onchange="selectProject(this.value)">
+                    <option value="">Selecione seu projeto de vida...</option>
+                    <option value="programador">Programador/Desenvolvedor</option>
+                    <option value="medicina">Medicina</option>
+                    <option value="direito">Direito/Advocacia</option>
+                    <option value="engenharia">Engenharia</option>
+                    <option value="professor">Professor</option>
+                    <option value="arquitetura">Arquitetura</option>
+                    <option value="design">Design Gráfico</option>
+                    <option value="enfermagem">Enfermagem</option>
+                    <option value="psicologia">Psicologia</option>
+                    <option value="administracao">Administração</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="veterinaria">Medicina Veterinária</option>
+                </select>
+                
+                <div id="projectContent" style="display: none;">
+                    <div class="content-grid">
+                        <div class="content-card" onclick="startProjectQuestions()">
+                            <h3><i class="fas fa-question-circle"></i> Questionário de Projeto de Vida</h3>
+                            <p>Responda perguntas sobre sua escolha profissional e reflexões sobre seu futuro.</p>
+                        </div>
+                        <div class="content-card" onclick="startSituationalQuestions()">
+                            <h3><i class="fas fa-brain"></i> Situações Profissionais</h3>
+                            <p>Teste como você agiria em situações reais da sua futura profissão.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            
             <!-- Teste Enem -->
             <div id="testeEnemPage" class="page-content">
                 <h2 class="welcome-text">Teste Enem</h2>
                 <div class="content-grid">
-                    <div class="content-card" onclick="startEnemTest('2023')">
+                    <div class="content-card enem-2023-card" onclick="startEnemTest('2023')">
                         <h3><i class="fas fa-file-alt"></i> Enem 2023</h3>
                         <p>Prova completa do Enem 2023 com todas as áreas do conhecimento.</p>
                     </div>
@@ -771,7 +884,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Quizz -->
             <div id="quizzPage" class="page-content">
                 <h2 class="welcome-text">Quizz</h2>
@@ -794,7 +907,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Aula -->
             <div id="aulaPage" class="page-content">
                 <h2 class="welcome-text">Aula</h2>
@@ -817,7 +930,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Jogo -->
             <div id="jogoPage" class="page-content">
                 <h2 class="welcome-text">Jogo</h2>
@@ -839,7 +952,7 @@
                     </p>
                 </div>
             </div>
-
+            
             <!-- Loja -->
             <div id="lojaPage" class="page-content">
                 <h2 class="welcome-text">Loja</h2>
@@ -876,7 +989,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <!-- Avatar -->
             <div id="avatarPage" class="page-content">
                 <h2 class="welcome-text">Avatar</h2>
@@ -892,7 +1005,7 @@
             </div>
         </main>
     </div>
-
+    
     <!-- Modal -->
     <div id="modal" class="modal">
         <div class="modal-content">
@@ -905,25 +1018,25 @@
             </div>
         </div>
     </div>
-
+    
     <!-- Notificação -->
     <div id="notification" class="notification"></div>
-
+    
     <script>
         // Configuração do Firebase com suas credenciais reais
         const firebaseConfig = {
             apiKey: "AIzaSyA4p1jeIMrQT4pI1p3fLO8OBRdveK0eQCg",
             authDomain: "quizzgame-9c5ee.firebaseapp.com",
             projectId: "quizzgame-9c5ee",
-            storageBucket: "quizzgame-9c5ee.firebasestorage.app",
+            storageBucket: "quizzgame-9c5ee.appspot.com",
             messagingSenderId: "328947922360",
             appId: "1:328947922360:web:45adf0edf995813bce4b4d"
         };
-
+        
         // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-
+        
         // Variáveis globais
         let coins = parseInt(localStorage.getItem('coins')) || 0;
         let ownedItems = JSON.parse(localStorage.getItem('ownedItems')) || [];
@@ -931,13 +1044,13 @@
         let gameRunning = false;
         let gameScore = 0;
         let currentUser = null;
-
+        
         // Atualizar display de moedas
         function updateCoinsDisplay() {
             document.getElementById('coinsCount').textContent = coins;
             localStorage.setItem('coins', coins);
         }
-
+        
         // Toggle entre login e cadastro
         document.getElementById('toggleFormLink').addEventListener('click', (e) => {
             e.preventDefault();
@@ -945,7 +1058,7 @@
             const registerForm = document.getElementById('registerForm');
             const toggleText = document.getElementById('toggleFormText');
             const toggleLink = document.getElementById('toggleFormLink');
-
+            
             if (loginForm.classList.contains('active')) {
                 loginForm.classList.remove('active');
                 loginForm.classList.add('hidden');
@@ -962,17 +1075,17 @@
                 toggleLink.textContent = 'Cadastre-se';
             }
         });
-
+        
         // Login
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const loginBtn = document.getElementById('loginBtn');
-
+            
             loginBtn.disabled = true;
             loginBtn.innerHTML = '<span class="loading"></span> Entrando...';
-
+            
             try {
                 await auth.signInWithEmailAndPassword(email, password);
                 showNotification('Login realizado com sucesso!');
@@ -982,7 +1095,7 @@
                 loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
             }
         });
-
+        
         // Cadastro
         document.getElementById('registerForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -990,15 +1103,15 @@
             const password = document.getElementById('registerPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const registerBtn = document.getElementById('registerBtn');
-
+            
             if (password !== confirmPassword) {
                 showNotification('As senhas não coincidem!');
                 return;
             }
-
+            
             registerBtn.disabled = true;
             registerBtn.innerHTML = '<span class="loading"></span> Cadastrando...';
-
+            
             try {
                 await auth.createUserWithEmailAndPassword(email, password);
                 showNotification('Cadastro realizado com sucesso!');
@@ -1008,7 +1121,7 @@
                 registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Cadastrar';
             }
         });
-
+        
         // Observador de autenticação
         auth.onAuthStateChanged((user) => {
             if (user) {
@@ -1019,6 +1132,12 @@
                 
                 // Carregar dados do usuário
                 loadUserData();
+                
+                // Atualizar dropdown de projeto de vida
+                if (currentProject) {
+                    document.getElementById('projectSelect').value = currentProject;
+                    document.getElementById('projectContent').style.display = 'block';
+                }
             } else {
                 currentUser = null;
                 document.getElementById('mainPage').style.display = 'none';
@@ -1033,37 +1152,38 @@
                 document.getElementById('registerBtn').innerHTML = '<i class="fas fa-user-plus"></i> Cadastrar';
             }
         });
-
+        
         // Carregar dados do usuário
         async function loadUserData() {
             if (!currentUser) return;
-
+            
             try {
                 // Aqui você pode carregar dados adicionais do Firestore se necessário
                 // Por enquanto, continuamos usando localStorage
                 const savedCoins = localStorage.getItem(`coins_${currentUser.uid}`);
                 const savedItems = localStorage.getItem(`ownedItems_${currentUser.uid}`);
                 const savedProject = localStorage.getItem(`currentProject_${currentUser.uid}`);
-
+                
                 if (savedCoins) coins = parseInt(savedCoins);
                 if (savedItems) ownedItems = JSON.parse(savedItems);
                 if (savedProject) currentProject = savedProject;
-
+                
                 updateCoinsDisplay();
+                updateAvatarDisplay();
             } catch (error) {
                 console.error('Erro ao carregar dados do usuário:', error);
             }
         }
-
+        
         // Salvar dados do usuário
         function saveUserData() {
             if (!currentUser) return;
-
+            
             localStorage.setItem(`coins_${currentUser.uid}`, coins);
             localStorage.setItem(`ownedItems_${currentUser.uid}`, JSON.stringify(ownedItems));
             localStorage.setItem(`currentProject_${currentUser.uid}`, currentProject);
         }
-
+        
         // Logout
         function logout() {
             auth.signOut().then(() => {
@@ -1072,35 +1192,35 @@
                 showNotification('Erro ao sair: ' + error.message);
             });
         }
-
+        
         // Toggle Sidebar
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('open');
         }
-
+        
         // Mostrar página
         function showPage(pageName) {
             // Esconder todas as páginas
             document.querySelectorAll('.page-content').forEach(page => {
                 page.classList.remove('active');
             });
-
+            
             // Mostrar página selecionada
             const page = document.getElementById(pageName + 'Page');
             if (page) {
                 page.classList.add('active');
             }
-
+            
             // Fechar sidebar
             document.getElementById('sidebar').classList.remove('open');
-
+            
             // Atualizar avatar se for a página de avatar
             if (pageName === 'avatar') {
                 updateAvatarDisplay();
             }
         }
-
+        
         // Sobre
         function showAbout() {
             showModal('Sobre', `
@@ -1124,40 +1244,52 @@
                 </div>
             `);
         }
-
+        
         // Selecionar projeto de vida
         function selectProject(project) {
+            if (!project) return;
+            
             currentProject = project;
             saveUserData();
-            showNotification(`Projeto selecionado: ${project.charAt(0).toUpperCase() + project.slice(1)}`);
+            document.getElementById('projectContent').style.display = 'block';
+            showNotification(`Projeto selecionado: ${getProjectName(project)}`);
         }
-
+        
+        // Obter nome do projeto
+        function getProjectName(project) {
+            const projects = {
+                'programador': 'Programador/Desenvolvedor',
+                'medicina': 'Medicina',
+                'direito': 'Direito/Advocacia',
+                'engenharia': 'Engenharia',
+                'professor': 'Professor',
+                'arquitetura': 'Arquitetura',
+                'design': 'Design Gráfico',
+                'enfermagem': 'Enfermagem',
+                'psicologia': 'Psicologia',
+                'administracao': 'Administração',
+                'marketing': 'Marketing',
+                'veterinaria': 'Medicina Veterinária'
+            };
+            
+            return projects[project] || project;
+        }
+        
         // Iniciar teste Enem
         function startEnemTest(year) {
-            const questions = generateEnemQuestions(year);
-            showTestModal(`Prova Enem ${year}`, questions);
+            if (year === '2023') {
+                // Redirecionar para a página completa do Enem 2023
+                window.location.href = 'enem2023.html';
+            } else {
+                // Para outros anos, mostrar o modal com questões
+                const questions = generateEnemQuestions(year);
+                showTestModal(`Prova Enem ${year}`, questions);
+            }
         }
-
+        
         // Gerar questões Enem (exemplo)
         function generateEnemQuestions(year) {
             const questionBank = {
-                '2023': [
-                    {
-                        question: "Qual é a capital do Brasil?",
-                        options: ["Rio de Janeiro", "São Paulo", "Brasília", "Salvador"],
-                        correct: 2
-                    },
-                    {
-                        question: "Quem descobriu o Brasil?",
-                        options: ["Cristóvão Colombo", "Pedro Álvares Cabral", "Vasco da Gama", "Fernão de Magalhães"],
-                        correct: 1
-                    },
-                    {
-                        question: "Qual é o maior bioma do Brasil?",
-                        options: ["Mata Atlântica", "Cerrado", "Amazônia", "Caatinga"],
-                        correct: 2
-                    }
-                ],
                 '2022': [
                     {
                         question: "Qual é o maior planeta do sistema solar?",
@@ -1205,16 +1337,21 @@
                     }
                 ]
             };
-
-            return questionBank[year] || questionBank['2023'];
+            
+            return questionBank[year] || questionBank['2022'];
         }
-
+        
         // Iniciar Quizz
         function startQuizz(type) {
-            const questions = generateQuizzQuestions(type);
-            showTestModal(`Quizz - ${type.charAt(0).toUpperCase() + type.slice(1)}`, questions);
+            if (type === 'projetoVida' && currentProject) {
+                const questions = generateProjectQuestions(currentProject);
+                showTestModal(`Quizz - ${getProjectName(currentProject)}`, questions);
+            } else {
+                const questions = generateQuizzQuestions(type);
+                showTestModal(`Quizz - ${type.charAt(0).toUpperCase() + type.slice(1)}`, questions);
+            }
         }
-
+        
         // Gerar questões Quizz
         function generateQuizzQuestions(type) {
             const questionBank = {
@@ -1267,16 +1404,16 @@
                     }
                 ]
             };
-
+            
             return questionBank[type] || questionBank['geral'];
         }
-
+        
         // Iniciar Aula
         function startLesson(subject) {
             const questions = generateLessonQuestions(subject);
             showTestModal(`Aula de ${subject.charAt(0).toUpperCase() + subject.slice(1)}`, questions);
         }
-
+        
         // Gerar questões de aula
         function generateLessonQuestions(subject) {
             const questionBank = {
@@ -1349,15 +1486,15 @@
                     }
                 ]
             };
-
+            
             return questionBank[subject] || [];
         }
-
+        
         // Mostrar modal de teste
         function showTestModal(title, questions) {
             let currentQuestion = 0;
             let score = 0;
-
+            
             function displayQuestion() {
                 if (currentQuestion >= questions.length) {
                     showModal('Resultado Final', `
@@ -1374,32 +1511,110 @@
                             </button>
                         </div>
                     `);
+                    
                     coins += score * 10;
                     updateCoinsDisplay();
                     saveUserData();
                     return;
                 }
-
+                
                 const q = questions[currentQuestion];
-                const optionsHtml = q.options.map((option, index) => 
-                    `<button class="answer-btn" onclick="checkAnswer(${index}, ${q.correct})">${option}</button>`
-                ).join('');
-
-                document.getElementById('modalTitle').textContent = `${title} - Questão ${currentQuestion + 1}/${questions.length}`;
-                document.getElementById('modalBody').innerHTML = `
-                    <div class="question-container">
-                        <div class="question">${q.question}</div>
-                        <div class="answer-options">
-                            ${optionsHtml}
+                
+                // Verificar se é uma pergunta dissertativa
+                if (q.type === 'essay') {
+                    document.getElementById('modalTitle').textContent = `${title} - Questão ${currentQuestion + 1}/${questions.length}`;
+                    document.getElementById('modalBody').innerHTML = `
+                        <div class="question-container">
+                            <div class="question">${q.question}</div>
+                            <div class="essay-question">
+                                <textarea id="essayAnswer" placeholder="${q.placeholder || 'Digite sua resposta aqui...'}"></textarea>
+                                <button class="check-essay-btn" onclick="checkEssayAnswer()">
+                                    <i class="fas fa-check"></i> Verificar Resposta
+                                </button>
+                                <div id="essayFeedback" class="essay-feedback"></div>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="action-btn secondary" onclick="skipEssayQuestion()">
+                                    <i class="fas fa-forward"></i> Pular
+                                </button>
+                                <button class="action-btn primary" onclick="nextEssayQuestion(${currentQuestion}, ${questions.length})" id="nextEssayBtn" disabled>
+                                    <i class="fas fa-arrow-right"></i> Próxima
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                    
+                    window.checkEssayAnswer = function() {
+                        const answer = document.getElementById('essayAnswer').value.trim();
+                        const feedback = document.getElementById('essayFeedback');
+                        
+                        if (answer.length < 10) {
+                            feedback.style.display = 'block';
+                            feedback.style.background = 'rgba(255, 0, 0, 0.3)';
+                            feedback.style.color = 'white';
+                            feedback.innerHTML = 'Sua resposta está muito curta. Tente elaborar mais!';
+                            return;
+                        }
+                        
+                        // Verificar palavras-chave (simulação simples)
+                        let keywordsFound = 0;
+                        q.keywords.forEach(keyword => {
+                            if (answer.toLowerCase().includes(keyword.toLowerCase())) {
+                                keywordsFound++;
+                            }
+                        });
+                        
+                        const percentage = Math.floor((keywordsFound / q.keywords.length) * 100);
+                        
+                        if (percentage >= 50) {
+                            feedback.style.display = 'block';
+                            feedback.style.background = 'rgba(0, 255, 0, 0.3)';
+                            feedback.style.color = 'white';
+                            feedback.innerHTML = `Ótima resposta! Você mencionou ${keywordsFound} de ${q.keywords.length} pontos importantes.`;
+                            score++;
+                            
+                            // Habilitar botão de próxima
+                            document.getElementById('nextEssayBtn').disabled = false;
+                        } else {
+                            feedback.style.display = 'block';
+                            feedback.style.background = 'rgba(255, 165, 0, 0.3)';
+                            feedback.style.color = 'white';
+                            feedback.innerHTML = `Sua resposta está ok, mas poderia mencionar mais sobre: ${q.keywords.filter(k => !answer.toLowerCase().includes(k.toLowerCase())).join(', ')}`;
+                        }
+                    };
+                    
+                    window.skipEssayQuestion = function() {
+                        currentQuestion++;
+                        displayQuestion();
+                    };
+                    
+                    window.nextEssayQuestion = function() {
+                        currentQuestion++;
+                        displayQuestion();
+                    };
+                    
+                } else {
+                    // Pergunta de múltipla escolha
+                    const optionsHtml = q.options.map((option, index) => 
+                        `<button class="answer-btn" onclick="checkAnswer(${index}, ${q.correct})">${option}</button>`
+                    ).join('');
+                    
+                    document.getElementById('modalTitle').textContent = `${title} - Questão ${currentQuestion + 1}/${questions.length}`;
+                    document.getElementById('modalBody').innerHTML = `
+                        <div class="question-container">
+                            <div class="question">${q.question}</div>
+                            <div class="answer-options">
+                                ${optionsHtml}
+                            </div>
+                        </div>
+                    `;
+                }
             }
-
+            
             window.checkAnswer = function(selected, correct) {
                 const buttons = document.querySelectorAll('.answer-btn');
                 buttons.forEach(btn => btn.disabled = true);
-
+                
                 if (selected === correct) {
                     buttons[selected].classList.add('correct');
                     score++;
@@ -1407,24 +1622,284 @@
                     buttons[selected].classList.add('incorrect');
                     buttons[correct].classList.add('correct');
                 }
-
+                
                 setTimeout(() => {
                     currentQuestion++;
                     displayQuestion();
                 }, 1500);
             };
-
+            
             showModal(title, '');
             displayQuestion();
         }
-
+        
+        // Iniciar questionário de projeto de vida
+        function startProjectQuestions() {
+            if (!currentProject) {
+                showNotification('Selecione um projeto de vida primeiro!');
+                return;
+            }
+            
+            const questions = generateProjectLifeQuestions(currentProject);
+            showTestModal(`Questionário de Projeto de Vida - ${getProjectName(currentProject)}`, questions);
+        }
+        
+        // Gerar questões de projeto de vida
+        function generateProjectLifeQuestions(project) {
+            const commonQuestions = [
+                {
+                    type: 'essay',
+                    question: "Por que você escolheu essa carreira? O que te motiva a seguir esse caminho profissional?",
+                    placeholder: "Descreva suas motivações, interesses e o que te atrai nessa profissão...",
+                    keywords: getProjectKeywords(project, 'motivation')
+                },
+                {
+                    type: 'essay',
+                    question: "Qual o papel e a importância dessa profissão na sociedade?",
+                    placeholder: "Explique como essa profissão contribui para a sociedade e por que é importante...",
+                    keywords: getProjectKeywords(project, 'importance')
+                },
+                {
+                    type: 'essay',
+                    question: "Quais são os principais desafios que você espera enfrentar nessa carreira?",
+                    placeholder: "Descreva os desafios profissionais, pessoais e sociais que você antecipa...",
+                    keywords: getProjectKeywords(project, 'challenges')
+                },
+                {
+                    question: "Qual desses valores é mais importante para um profissional dessa área?",
+                    options: getProjectOptions(project, 'values'),
+                    correct: 0
+                },
+                {
+                    question: "Qual dessas habilidades é essencial para ter sucesso nessa carreira?",
+                    options: getProjectOptions(project, 'skills'),
+                    correct: 0
+                }
+            ];
+            
+            // Adiciona perguntas específicas para cada projeto
+            const specificQuestions = getSpecificProjectQuestions(project);
+            
+            return [...commonQuestions, ...specificQuestions];
+        }
+        
+        // Obter palavras-chave para perguntas dissertativas
+        function getProjectKeywords(project, type) {
+            const keywords = {
+                'programador': {
+                    'motivation': ['tecnologia', 'inovação', 'resolver problemas', 'criar', 'lógica', 'desenvolvimento'],
+                    'importance': ['digital', 'tecnologia', 'soluções', 'aplicativos', 'sistemas', 'automação'],
+                    'challenges': ['atualização', 'tecnologias novas', 'prazos', 'complexidade', 'aprendizado contínuo']
+                },
+                'medicina': {
+                    'motivation': ['ajudar', 'saúde', 'vidas', 'cuidar', 'curar', 'bem-estar'],
+                    'importance': ['saúde', 'doenças', 'tratamento', 'prevenção', 'qualidade de vida', 'hospitais'],
+                    'challenges': ['longas horas', 'pressão', 'decisões difíceis', 'emocional', 'estudos contínuos']
+                },
+                'direito': {
+                    'motivation': ['justiça', 'leis', 'direitos', 'defender', 'ética', 'sociedade'],
+                    'importance': ['justiça', 'ordem', 'direitos', 'leis', 'conflitos', 'sociedade'],
+                    'challenges': ['concorrência', 'pressão', 'casos complexos', 'atualização', 'ética']
+                },
+                // Adicione mais projetos conforme necessário
+                'default': {
+                    'motivation': ['realização', 'crescimento', 'aprendizado', 'contribuição', 'futuro'],
+                    'importance': ['sociedade', 'contribuição', 'necessidade', 'valor', 'impacto'],
+                    'challenges': ['concorrência', 'aprendizado', 'adaptação', 'pressão', 'equilíbrio']
+                }
+            };
+            
+            return keywords[project]?.[type] || keywords['default'][type];
+        }
+        
+        // Obter opções para perguntas de múltipla escolha
+        function getProjectOptions(project, type) {
+            const options = {
+                'programador': {
+                    'values': ['Resolução de problemas', 'Criatividade', 'Trabalho em equipe', 'Persistência'],
+                    'skills': ['Lógica de programação', 'Pensamento crítico', 'Aprendizado contínuo', 'Comunicação']
+                },
+                'medicina': {
+                    'values': ['Compaixão', 'Responsabilidade', 'Ética', 'Dedicação'],
+                    'skills': ['Conhecimento científico', 'Habilidades manuais', 'Tomada de decisão', 'Empatia']
+                },
+                'direito': {
+                    'values': ['Ética', 'Justiça', 'Persuasão', 'Integridade'],
+                    'skills': ['Argumentação', 'Interpretação', 'Pesquisa', 'Oratória']
+                },
+                // Adicione mais projetos conforme necessário
+                'default': {
+                    'values': ['Ética', 'Responsabilidade', 'Dedicação', 'Respeito'],
+                    'skills': ['Comunicação', 'Trabalho em equipe', 'Adaptabilidade', 'Resiliência']
+                }
+            };
+            
+            return options[project]?.[type] || options['default'][type];
+        }
+        
+        // Obter perguntas específicas para cada projeto
+        function getSpecificProjectQuestions(project) {
+            const specificQuestions = {
+                'programador': [
+                    {
+                        question: "Qual dessas linguagens de programação é mais usada para desenvolvimento web front-end?",
+                        options: ["Java", "Python", "JavaScript", "C++"],
+                        correct: 2
+                    },
+                    {
+                        question: "O que significa a sigla API em programação?",
+                        options: ["Application Programming Interface", "Advanced Programming Interface", "Automated Programming Interface", "Application Process Integration"],
+                        correct: 0
+                    }
+                ],
+                'medicina': [
+                    {
+                        question: "Qual órgão do corpo humano é responsável por bombear o sangue?",
+                        options: ["Pulmão", "Cérebro", "Coração", "Fígado"],
+                        correct: 2
+                    },
+                    {
+                        question: "Qual desses é um sintoma comum da diabetes?",
+                        options: ["Sede excessiva", "Pele amarelada", "Queda de cabelo", "Dor nas articulações"],
+                        correct: 0
+                    }
+                ],
+                'direito': [
+                    {
+                        question: "Qual artigo da Constituição trata do princípio da igualdade?",
+                        options: ["Artigo 1º", "Artigo 3º", "Artigo 5º", "Artigo 10º"],
+                        correct: 2
+                    },
+                    {
+                        question: "Qual desses não é um ramo do Direito?",
+                        options: ["Direito Civil", "Direito Penal", "Direito Espacial", "Direito Musical"],
+                        correct: 3
+                    }
+                ],
+                // Adicione mais projetos conforme necessário
+                'default': [
+                    {
+                        question: "Qual dessas habilidades é importante para qualquer profissão?",
+                        options: ["Comunicação", "Natação", "Pintura", "Dança"],
+                        correct: 0
+                    }
+                ]
+            };
+            
+            return specificQuestions[project] || specificQuestions['default'];
+        }
+        
+        // Iniciar perguntas situacionais
+        function startSituationalQuestions() {
+            if (!currentProject) {
+                showNotification('Selecione um projeto de vida primeiro!');
+                return;
+            }
+            
+            const questions = generateSituationalQuestions(currentProject);
+            showTestModal(`Situações Profissionais - ${getProjectName(currentProject)}`, questions);
+        }
+        
+        // Gerar perguntas situacionais
+        function generateSituationalQuestions(project) {
+            const questions = {
+                'programador': [
+                    {
+                        question: "Você está trabalhando em um projeto com prazo apertado e descobre um bug crítico. O que faz?",
+                        options: [
+                            "Ignora o bug para cumprir o prazo",
+                            "Corrige o bug mesmo que atrase o projeto",
+                            "Avisa o cliente sobre o problema e negocia um novo prazo",
+                            "Esconde o bug e espera que ninguém note"
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "Um colega pede ajuda com um código que não está funcionando. Como você responde?",
+                        options: [
+                            "Diz que está ocupado e não pode ajudar",
+                            "Explica rapidamente sem ver o código",
+                            "Analisa o código junto e ajuda a encontrar o problema",
+                            "Faz o trabalho por ele"
+                        ],
+                        correct: 2
+                    }
+                ],
+                'medicina': [
+                    {
+                        question: "Um paciente está com dor, mas seus exames não mostram nada. Como procede?",
+                        options: [
+                            "Diz que não há nada errado e envia para casa",
+                            "Receita um analgésico forte sem investigar",
+                            "Investiga outras possíveis causas da dor",
+                            "Encaminha para um psicólogo imediatamente"
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "Um familiar do paciente pede informações sobre o caso. O que faz?",
+                        options: [
+                            "Dá todas as informações sem questionar",
+                            "Recusa-se a dar qualquer informação",
+                            "Verifica se tem autorização do paciente para compartilhar",
+                            "Diz que não sabe de nada"
+                        ],
+                        correct: 2
+                    }
+                ],
+                'direito': [
+                    {
+                        question: "Um cliente confessa ter cometido um crime, mas quer que você o defenda como inocente. Como age?",
+                        options: [
+                            "Recusa-se a defender o cliente",
+                            "Defende como inocente sem questionar",
+                            "Explica os riscos de mentir no tribunal",
+                            "Aconselha a confessar no tribunal"
+                        ],
+                        correct: 2
+                    },
+                    {
+                        question: "Você descobre que seu cliente está mentindo em depoimento. O que faz?",
+                        options: [
+                            "Continua a defesa normalmente",
+                            "Retira-se do caso imediatamente",
+                            "Confronta o cliente em particular",
+                            "Denuncia ao juiz sem avisar o cliente"
+                        ],
+                        correct: 2
+                    }
+                ],
+                // Adicione mais projetos conforme necessário
+                'default': [
+                    {
+                        question: "Você cometeu um erro no trabalho. Como procede?",
+                        options: [
+                            "Esconde o erro e torce para ninguém descobrir",
+                            "Assume o erro e busca corrigi-lo",
+                            "Culpa outra pessoa",
+                            "Ignora e segue em frente"
+                        ],
+                        correct: 1
+                    }
+                ]
+            };
+            
+            return questions[project] || questions['default'];
+        }
+        
         // Jogo Flappy Bird
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        let bird = { x: 50, y: 300, velocity: 0 };
+        
+        let bird = {
+            x: 50,
+            y: 300,
+            velocity: 0
+        };
+        
         let pipes = [];
         let animationId;
-
+        
         function startGame() {
             if (gameRunning) return;
             
@@ -1436,30 +1911,30 @@
             
             gameLoop();
         }
-
+        
         function pauseGame() {
             gameRunning = false;
             cancelAnimationFrame(animationId);
         }
-
+        
         function gameLoop() {
             if (!gameRunning) return;
-
+            
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Atualizar pássaro
-            bird.velocity += 0.5;
+            
+            // Atualizar pássaro (mais lento)
+            bird.velocity += 0.3; // Reduzida a gravidade
             bird.y += bird.velocity;
-
+            
             // Desenhar pássaro
             ctx.fillStyle = '#ff00ff';
             ctx.beginPath();
             ctx.arc(bird.x, bird.y, 20, 0, Math.PI * 2);
             ctx.fill();
-
-            // Gerar canos
-            if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 200) {
-                const gap = 150;
+            
+            // Gerar canos (mais espaçados)
+            if (pipes.length === 0 || pipes[pipes.length - 1].x < canvas.width - 250) { // Aumentado o espaço entre canos
+                const gap = 200; // Aumentado o espaço entre canos superior e inferior
                 const minHeight = 50;
                 const maxHeight = canvas.height - gap - minHeight;
                 const height = Math.random() * (maxHeight - minHeight) + minHeight;
@@ -1471,17 +1946,18 @@
                     passed: false
                 });
             }
-
-            // Atualizar e desenhar canos
+            
+            // Atualizar e desenhar canos (mais lento)
             ctx.fillStyle = '#8000ff';
             pipes = pipes.filter(pipe => {
-                pipe.x -= 3;
-
+                pipe.x -= 2; // Reduzida a velocidade dos canos
+                
                 // Desenhar cano superior
                 ctx.fillRect(pipe.x, 0, 50, pipe.topHeight);
+                
                 // Desenhar cano inferior
                 ctx.fillRect(pipe.x, pipe.bottomY, 50, canvas.height - pipe.bottomY);
-
+                
                 // Verificar colisão
                 if (bird.x + 20 > pipe.x && bird.x - 20 < pipe.x + 50) {
                     if (bird.y - 20 < pipe.topHeight || bird.y + 20 > pipe.bottomY) {
@@ -1489,33 +1965,34 @@
                         return false;
                     }
                 }
-
+                
                 // Verificar passagem
                 if (!pipe.passed && pipe.x + 50 < bird.x) {
                     pipe.passed = true;
                     gameScore++;
                     document.getElementById('gameScore').textContent = gameScore;
                     
-                    if (gameScore % 5 === 0) {
+                    // Ganhar moedas a cada 3 pontos (mais fácil)
+                    if (gameScore % 3 === 0) {
                         coins += 10;
                         updateCoinsDisplay();
                         saveUserData();
                         showNotification('+10 moedas!');
                     }
                 }
-
+                
                 return pipe.x > -50;
             });
-
+            
             // Verificar limites
             if (bird.y < 0 || bird.y > canvas.height) {
                 gameOver();
                 return;
             }
-
+            
             animationId = requestAnimationFrame(gameLoop);
         }
-
+        
         function gameOver() {
             gameRunning = false;
             cancelAnimationFrame(animationId);
@@ -1527,7 +2004,7 @@
                         Pontuação: ${gameScore}
                     </p>
                     <p style="color: #ffd700;">
-                        Ganhou ${Math.floor(gameScore / 5) * 10} moedas!
+                        Ganhou ${Math.floor(gameScore / 3) * 10} moedas!
                     </p>
                     <button class="game-btn" onclick="closeModal(); startGame();" style="margin-top: 20px;">
                         <i class="fas fa-redo"></i> Jogar Novamente
@@ -1535,25 +2012,25 @@
                 </div>
             `);
             
-            coins += Math.floor(gameScore / 5) * 10;
+            coins += Math.floor(gameScore / 3) * 10;
             updateCoinsDisplay();
             saveUserData();
         }
-
+        
         // Controle do jogo
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' && gameRunning) {
                 e.preventDefault();
-                bird.velocity = -8;
+                bird.velocity = -6; // Reduzido o impulso do pulo
             }
         });
-
+        
         canvas.addEventListener('click', () => {
             if (gameRunning) {
-                bird.velocity = -8;
+                bird.velocity = -6; // Reduzido o impulso do pulo
             }
         });
-
+        
         // Comprar item
         function buyItem(item, price) {
             if (coins >= price) {
@@ -1571,17 +2048,17 @@
                 showNotification('Moedas insuficientes!');
             }
         }
-
+        
         // Atualizar display do avatar
         function updateAvatarDisplay() {
             const ownedItemsContainer = document.getElementById('ownedItems');
             ownedItemsContainer.innerHTML = '';
-
+            
             if (ownedItems.length === 0) {
                 ownedItemsContainer.innerHTML = '<p style="color: white; grid-column: 1/-1;">Nenhum item comprado ainda.</p>';
                 return;
             }
-
+            
             ownedItems.forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'shop-item';
@@ -1593,7 +2070,7 @@
                 ownedItemsContainer.appendChild(itemDiv);
             });
         }
-
+        
         function getItemIcon(item) {
             const icons = {
                 'chapéu': 'hat-wizard',
@@ -1603,21 +2080,22 @@
                 'mochila': 'backpack',
                 'relógio': 'clock'
             };
+            
             return icons[item] || 'gift';
         }
-
+        
         // Modal functions
         function showModal(title, content) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalBody').innerHTML = content;
             document.getElementById('modal').style.display = 'flex';
         }
-
+        
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
         }
-
-        // Notification
+        
+        // Notification function
         function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -1627,7 +2105,7 @@
                 notification.classList.remove('show');
             }, 3000);
         }
-
+        
         // Fechar modal ao clicar fora
         window.onclick = function(event) {
             const modal = document.getElementById('modal');
@@ -1635,7 +2113,7 @@
                 closeModal();
             }
         }
-
+        
         // Inicialização
         updateCoinsDisplay();
     </script>
