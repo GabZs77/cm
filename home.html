@@ -329,5 +329,15 @@
     </div>
     
     <script src="script.js"></script>
+    
+    <script>
+    // Verifica se o usuário está autenticado ao carregar a página
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+            // Se não estiver autenticado, redireciona para login
+            window.location.href = 'index.html';
+        }
+    });
+</script>
 </body>
 </html>
